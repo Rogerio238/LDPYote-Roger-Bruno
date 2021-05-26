@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -78,12 +79,14 @@ public class FXMLDocumentController implements Initializable {
     private AnchorPane anchorPane;
     @FXML
     private GridPane pecasInicioVermelhas;
+    ObservableList<Node> childrens;
     private void handleButtonAction(ActionEvent event) {
         
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        childrens = gridTabuleiro.getChildren();
         pecasAzuis = new Peca[12];
       pecasVermelhas = new Peca[12];
         peca1 = new Peca(Color.BLUE);
@@ -149,10 +152,25 @@ public class FXMLDocumentController implements Initializable {
         pecasVermelhas[9] = peca10V;
         pecasVermelhas[10] = peca11V;
         pecasVermelhas[11] = peca11V;
+        pecasInicioVermelhas.add(peca1V.getForma(),0,0);
+        pecasInicioVermelhas.add(peca2V.getForma(),0,1);
+        pecasInicioVermelhas.add(peca3V.getForma(),0,2);
+        pecasInicioVermelhas.add(peca4V.getForma(),0,3);
+        pecasInicioVermelhas.add(peca5V.getForma(),0,4);
+        pecasInicioVermelhas.add(peca6V.getForma(),0,5);
+        pecasInicioVermelhas.add(peca7V.getForma(),1,0);
+        pecasInicioVermelhas.add(peca8V.getForma(),1,1);
+        pecasInicioVermelhas.add(peca9V.getForma(),1,2);
+        pecasInicioVermelhas.add(peca10V.getForma(),1,3);
+        pecasInicioVermelhas.add(peca11V.getForma(),1,4);
+        pecasInicioVermelhas.add(peca12V.getForma(),1,5);
+        
         textNomeJogador1.setText(peca1.getId());
         gridTabuleiro.setGridLinesVisible(true);
         gridTabuleiro.add(pecasVermelhas[0].getForma(),0,0);
              pecasClicaveis();
+             pecasClicaveisVermelhas();
+             
     }    
     
     private void pecasClicaveis(){
@@ -162,11 +180,17 @@ public class FXMLDocumentController implements Initializable {
                 
             @Override
             public void handle(MouseEvent event) {
-                for(Node p1 : gridTabuleiro.getChildren()){
+                for(Node p1 : childrens){
                     for(int i = 0; i< pecasVermelhas.length; i++){
                  if(p1 != pecasVermelhas[i].getForma()){
-             gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
-             
+              int indiceDaVermelhaColuna = GridPane.getColumnIndex(pecasVermelhas[i].getForma());
+              int indiceDaVermelhaLinha = GridPane.getRowIndex(pecasVermelhas[i].getForma());
+          if(gridTabuleiro.getRowIndex(p1) == indiceDaVermelhaLinha && gridTabuleiro.getColumnIndex(p1) == indiceDaVermelhaColuna){
+              gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText() + 1),Integer.parseInt(coordenadaLetra.getText() + 1));
+              pecasVermelhas[i].getForma().setVisible(false);
+          }else{
+              gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
+          }
                      
                  }
                     }
@@ -176,7 +200,26 @@ public class FXMLDocumentController implements Initializable {
         });
     }
     }
-
+private void pecasClicaveisVermelhas(){
+        for(Peca p : pecasVermelhas){
+        p.getForma().setOnMouseClicked(new EventHandler<MouseEvent>() {
+           
+                
+            @Override
+            public void handle(MouseEvent event) {
+                for(Node p1 : gridTabuleiro.getChildren()){
+                    for(int i = 0; i< pecasVermelhas.length; i++){
+                 
+             gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
+         
+               
+                    }
+             }
+            }
+            
+        });
+    }
+    }
     private void clicouPecaAzul1(MouseEvent event) {
         try{
             
