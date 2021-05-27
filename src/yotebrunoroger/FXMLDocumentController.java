@@ -61,6 +61,7 @@ public class FXMLDocumentController implements Initializable {
     private Button confirmaNome;
     @FXML
     private GridPane gridTabuleiro;
+    private boolean entrou=false;
     Player p1;
     Peca peca1,peca2,peca3,peca4,peca5,peca6,peca7,peca8,peca9,peca10,peca11,peca12;
     Peca peca1V,peca2V,peca3V,peca4V,peca5V,peca6V,peca7V,peca8V,peca9V,peca10V,peca11V,peca12V;
@@ -72,7 +73,7 @@ public class FXMLDocumentController implements Initializable {
     private TextField coordenadaNmr;
     @FXML
     private TextField coordenadaLetra;
-    
+    private  int[][] arraytabuleiro;
     private Peca[] pecasAzuis;
     private Peca[] pecasVermelhas;
     @FXML
@@ -80,6 +81,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private GridPane pecasInicioVermelhas;
     ObservableList<Node> childrens;
+    @FXML
+    private Ellipse pecateste;
     private void handleButtonAction(ActionEvent event) {
         
     }
@@ -89,6 +92,7 @@ public class FXMLDocumentController implements Initializable {
         childrens = gridTabuleiro.getChildren();
         pecasAzuis = new Peca[12];
       pecasVermelhas = new Peca[12];
+       arraytabuleiro= new int [4][5];
         peca1 = new Peca(Color.BLUE);
         peca2 = new Peca(Color.BLUE);
         peca3 = new Peca(Color.BLUE);
@@ -129,7 +133,7 @@ public class FXMLDocumentController implements Initializable {
         pecasInicioAzul.add(peca11.getForma(),1,4);
         pecasInicioAzul.add(peca12.getForma(),1,5);
         peca1V = new Peca(Color.RED);
-        peca2V = new Peca(Color.RED);
+       peca2V = new Peca(Color.RED);
         peca3V = new Peca(Color.RED);
         peca4V = new Peca(Color.RED);
         peca5V = new Peca(Color.RED);
@@ -167,39 +171,52 @@ public class FXMLDocumentController implements Initializable {
         
         textNomeJogador1.setText(peca1.getId());
         gridTabuleiro.setGridLinesVisible(true);
-        gridTabuleiro.add(pecasVermelhas[0].getForma(),0,0);
+    
              pecasClicaveis();
              pecasClicaveisVermelhas();
-             
+         
     }    
     
     private void pecasClicaveis(){
-        for(Peca p : pecasAzuis){
-        p.getForma().setOnMouseClicked(new EventHandler<MouseEvent>() {
+        
+  
+        for(Peca p : pecasAzuis){     
            
-                
+        p.getForma().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) {
-                for(Node p1 : childrens){
-                    for(int i = 0; i< pecasVermelhas.length; i++){
-                 if(p1 != pecasVermelhas[i].getForma()){
-              int indiceDaVermelhaColuna = GridPane.getColumnIndex(pecasVermelhas[i].getForma());
-              int indiceDaVermelhaLinha = GridPane.getRowIndex(pecasVermelhas[i].getForma());
-          if(gridTabuleiro.getRowIndex(p1) == indiceDaVermelhaLinha && gridTabuleiro.getColumnIndex(p1) == indiceDaVermelhaColuna){
-              gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText() + 1),Integer.parseInt(coordenadaLetra.getText() + 1));
-              pecasVermelhas[i].getForma().setVisible(false);
-          }else{
-              gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
-          }
-                     
-                 }
-                    }
-             }
-            }
+           
+            public void handle(MouseEvent event) { 
+                if(p.getEstadentro()==false){
+                
+     //Código Para colocar uma peça azul dentro do tabuleiro
+               if(arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]==2||arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]==2){
+         
+                 
+         }
+               else{
+                   
+                     arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]=1;
+                 gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
+                 p.setX(Integer.parseInt(coordenadaNmr.getText()));
+                  p.setY(Integer.parseInt(coordenadaLetra.getText()));
+                 p.setEstadentro(true);
             
-        });
-    }
-    }
+               
+        }
+ 
+       } else{
+                   arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]=1;
+                     arraytabuleiro[p.getX()][p.getY()]=0;
+                 gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
+                 p.setEstadentro(true);
+              
+        }
+           
+            
+        }
+     });
+    }}
+    
 private void pecasClicaveisVermelhas(){
         for(Peca p : pecasVermelhas){
         p.getForma().setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -207,14 +224,33 @@ private void pecasClicaveisVermelhas(){
                 
             @Override
             public void handle(MouseEvent event) {
-                for(Node p1 : gridTabuleiro.getChildren()){
-                    for(int i = 0; i< pecasVermelhas.length; i++){
+             
+                        if(p.getEstadentro()==false){
+                
+     //Código Para colocar uma peça azul dentro do tabuleiro
+               if(arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]==2||arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]==2){
+                  
                  
-             gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
-         
+         }
+               else{
+                   
+                     arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]=1;
+                 gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
+                 p.setX(Integer.parseInt(coordenadaNmr.getText()));
+                  p.setY(Integer.parseInt(coordenadaLetra.getText()));
+                 p.setEstadentro(true);
+           
                
-                    }
-             }
+        }
+ 
+       } else{
+                   arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]=1;
+                     arraytabuleiro[p.getX()][p.getY()]=0;
+                 gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
+                 p.setEstadentro(true);
+               
+        }
+           
             }
             
         });
@@ -222,10 +258,6 @@ private void pecasClicaveisVermelhas(){
     }
     private void clicouPecaAzul1(MouseEvent event) {
         try{
-            
-        
-        
-    
         bolaAzul1.setStroke(Color.GREEN);
         clicou = true;
         gridTabuleiro.add(bolaAzul1, Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
