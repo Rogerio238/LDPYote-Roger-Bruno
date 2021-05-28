@@ -200,16 +200,29 @@ public class FXMLDocumentController implements Initializable {
                  p.setX(Integer.parseInt(coordenadaNmr.getText()));
                   p.setY(Integer.parseInt(coordenadaLetra.getText()));
                  p.setEstadentro(true);
-                
+               
                  //OBTER A LINHA E COLUNA DA PEÇA NO PRÓPRIO GRIDPANE(GRIDTABULEIRO)
                    System.out.println("Coluna" + GridPane.getColumnIndex(p.getForma()) + "Linha " + GridPane.getRowIndex(p.getForma()));
         }
  
        } else{
-                   arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]=1;
+                    if(arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]==2||arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]==2){
+                     arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText()) - 1]=1;
+                     arraytabuleiro[p.getX()][p.getY()]=0;
+                     for(Peca pV : pecasVermelhas){
+                         if(pV.getX() == GridPane.getRowIndex(pV.getForma()) && pV.getY() == GridPane.getColumnIndex(pV.getForma())){
+                             pecasInicioAzul.add(pV.getForma(), 0, 0);
+                         }
+                     }
+                 gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()) ,Integer.parseInt(coordenadaLetra.getText())- 1);
+                 p.setEstadentro(true);
+                 
+         }else{
+                   /*arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]=1;
                      arraytabuleiro[p.getX()][p.getY()]=0;
                  gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
-                 p.setEstadentro(true);
+                 p.setEstadentro(true);*/
+                    }
               
         }
            
@@ -230,11 +243,9 @@ private void pecasClicaveisVermelhas(){
                 
      //Código Para colocar uma peça azul dentro do tabuleiro
                if(arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]==2||arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]==2){
-                  
-                 
+                    
          }
                else{
-                   
                      arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]=2;
                  gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
                  p.setX(Integer.parseInt(coordenadaNmr.getText()));
@@ -245,7 +256,7 @@ private void pecasClicaveisVermelhas(){
         }
  
        } else{
-                   arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]=1;
+                   arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]=2;
                      arraytabuleiro[p.getX()][p.getY()]=0;
                  gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
                  p.setEstadentro(true);
