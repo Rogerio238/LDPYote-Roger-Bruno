@@ -206,6 +206,9 @@ public class FXMLDocumentController implements Initializable {
         }
  
        } else{
+                    if(Integer.parseInt(coordenadaNmr.getText()) - p.getY() > 1 || Integer.parseInt(coordenadaLetra.getText()) - p.getX() > 1){
+                        System.out.println("Não pode colocar uma peça nessa casa!");
+                    }else{
                     if(arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]==2||arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]==2){
                      arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText()) - 1]=1;
                      arraytabuleiro[p.getX()][p.getY()]=0;
@@ -218,13 +221,14 @@ public class FXMLDocumentController implements Initializable {
                  p.setEstadentro(true);
                  
          }else{
-                   /*arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]=1;
+                   arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]=1;
                      arraytabuleiro[p.getX()][p.getY()]=0;
                  gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
-                 p.setEstadentro(true);*/
+                 p.setEstadentro(true);
                     }
               
         }
+                }
            
             
         }

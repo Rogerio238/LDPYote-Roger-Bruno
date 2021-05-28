@@ -74,5 +74,16 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
+      <Text layoutX="243.0" layoutY="820.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text layoutX="336.0" layoutY="819.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
+      <Text layoutX="425.0" layoutY="819.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
+      <Text layoutX="508.0" layoutY="819.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
+      <Text layoutX="580.0" layoutY="819.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" />
+      <Text layoutX="677.0" layoutY="820.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" />
+      <Text layoutX="156.0" layoutY="752.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" />
+      <Text layoutX="152.0" layoutY="650.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
+      <Text layoutX="152.0" layoutY="567.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
+      <Text layoutX="148.0" layoutY="472.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
+      <Text layoutX="144.0" layoutY="389.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
    </children>
 </AnchorPane>
