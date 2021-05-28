@@ -86,7 +86,7 @@ public class FXMLDocumentController implements Initializable {
     private void handleButtonAction(ActionEvent event) {
         
     }
-    
+    private int pecasVermelhasColetadas = 0;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         childrens = gridTabuleiro.getChildren();
@@ -200,8 +200,9 @@ public class FXMLDocumentController implements Initializable {
                  p.setX(Integer.parseInt(coordenadaNmr.getText()));
                   p.setY(Integer.parseInt(coordenadaLetra.getText()));
                  p.setEstadentro(true);
-            
-               
+                
+                 //OBTER A LINHA E COLUNA DA PEÇA NO PRÓPRIO GRIDPANE(GRIDTABULEIRO)
+                   System.out.println("Coluna" + GridPane.getColumnIndex(p.getForma()) + "Linha " + GridPane.getRowIndex(p.getForma()));
         }
  
        } else{
@@ -234,7 +235,7 @@ private void pecasClicaveisVermelhas(){
          }
                else{
                    
-                     arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]=1;
+                     arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]=2;
                  gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
                  p.setX(Integer.parseInt(coordenadaNmr.getText()));
                   p.setY(Integer.parseInt(coordenadaLetra.getText()));
