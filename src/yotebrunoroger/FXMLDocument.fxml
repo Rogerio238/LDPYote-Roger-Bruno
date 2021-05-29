@@ -11,79 +11,79 @@
 
 <AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="1081.0" prefWidth="1483.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yotebrunoroger.FXMLDocumentController">
    <children>
-      <GridPane id="#gridpane" fx:id="gridTabuleiro" layoutX="204.0" layoutY="340.0" prefHeight="443.0" prefWidth="524.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-      </GridPane>
-      <HBox layoutX="1030.0" layoutY="254.0" prefHeight="100.0" prefWidth="345.0">
+      <AnchorPane id="gridpane" fx:id="escondeAnchor" layoutX="21.0" layoutY="145.0" prefHeight="864.0" prefWidth="1380.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jogador - " wrappingWidth="98.6708984375" />
-            <Text fx:id="textNomeJogador1" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+            <GridPane id="#gridpane" fx:id="gridTabuleiro" gridLinesVisible="true" layoutX="227.0" layoutY="199.0" prefHeight="443.0" prefWidth="524.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+            <HBox prefHeight="100.0" prefWidth="345.0" />
+            <TextField fx:id="coordenadaNmr" layoutX="281.0" layoutY="814.0" />
+            <Text layoutX="374.0" layoutY="779.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número" />
+            <TextField fx:id="coordenadaLetra" layoutX="524.0" layoutY="805.0" />
+            <Text layoutX="535.0" layoutY="780.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Letra" />
+            <GridPane fx:id="pecasInicioVermelhas" gridLinesVisible="true" layoutX="801.0" layoutY="535.0" onMouseClicked="#clicouTabuleiro" prefHeight="107.0" prefWidth="453.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="345.0" GridPane.columnIndex="2" />
+               </children>
+            </GridPane>
+            <Text layoutX="235.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+            <Text layoutX="235.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
+            <Text layoutX="168.0" layoutY="680.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
+            <Text layoutX="193.0" layoutY="611.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
+            <Text layoutX="670.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" />
+            <Text layoutX="599.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" />
+            <Text layoutX="520.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" />
+            <Text layoutX="457.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
+            <Text layoutX="397.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
+            <Text layoutX="341.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
+            <Text layoutX="284.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+            <Text fx:id="textNomeJogador2" layoutX="1060.0" layoutY="451.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+            <Text layoutX="922.0" layoutY="448.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jogador - " wrappingWidth="98.6708984375" />
+            <Text fx:id="textNomeJogador1" layoutX="1060.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+            <Text layoutX="935.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jogador - " wrappingWidth="98.6708984375" />
+            <GridPane fx:id="pecasInicioAzul" gridLinesVisible="true" layoutX="794.0" layoutY="199.0" onMouseClicked="#clicouTabuleiro" prefHeight="107.0" prefWidth="453.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
          </children>
-      </HBox>
-      <HBox layoutX="1024.0" layoutY="555.0" prefHeight="100.0" prefWidth="345.0">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jogador - " wrappingWidth="98.6708984375" />
-            <Text fx:id="textNomeJogador2" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-         </children>
-      </HBox>
-      <TextField fx:id="meteNomeJogador" layoutX="247.0" layoutY="97.0" />
-      <Button fx:id="confirmaNome" layoutX="248.0" layoutY="142.0" mnemonicParsing="false" onMouseClicked="#confirmaNomeJogador" text="Confirmar" />
-      <GridPane fx:id="pecasInicioAzul" layoutX="848.0" layoutY="304.0" onMouseClicked="#clicouTabuleiro" prefHeight="107.0" prefWidth="453.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-      </GridPane>
-      <TextField fx:id="coordenadaNmr" layoutX="262.0" layoutY="873.0" />
-      <Text layoutX="343.0" layoutY="860.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número" />
-      <TextField fx:id="coordenadaLetra" layoutX="470.0" layoutY="873.0" />
-      <Text layoutX="547.0" layoutY="860.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Letra" />
-      <GridPane fx:id="pecasInicioVermelhas" layoutX="835.0" layoutY="623.0" onMouseClicked="#clicouTabuleiro" prefHeight="107.0" prefWidth="453.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-      </GridPane>
-      <Text layoutX="243.0" layoutY="820.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-      <Text layoutX="336.0" layoutY="819.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
-      <Text layoutX="425.0" layoutY="819.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
-      <Text layoutX="508.0" layoutY="819.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-      <Text layoutX="580.0" layoutY="819.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" />
-      <Text layoutX="677.0" layoutY="820.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" />
-      <Text layoutX="156.0" layoutY="752.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" />
-      <Text layoutX="152.0" layoutY="650.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-      <Text layoutX="152.0" layoutY="567.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
-      <Text layoutX="148.0" layoutY="472.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
-      <Text layoutX="144.0" layoutY="389.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      </AnchorPane>
+      <Button fx:id="confirmaNome" layoutX="683.0" layoutY="84.0" mnemonicParsing="false" onMouseClicked="#confirmaNomeJogador" text="Confirmar" />
+      <TextField fx:id="meteNomeJogador" layoutX="459.0" layoutY="84.0" />
    </children>
 </AnchorPane>

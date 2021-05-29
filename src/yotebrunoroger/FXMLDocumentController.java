@@ -82,17 +82,23 @@ public class FXMLDocumentController implements Initializable {
     private GridPane pecasInicioVermelhas;
     ObservableList<Node> childrens;
     @FXML
-    private Ellipse pecateste;
+    private AnchorPane escondeAnchor;
     private void handleButtonAction(ActionEvent event) {
         
     }
     private int pecasVermelhasColetadas = 0;
+    
+    private void escondeElementos(){
+        escondeAnchor.setVisible(false);
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        escondeAnchor.setStyle("-fx-background-color: #F0F8FF");
+       escondeElementos();
         childrens = gridTabuleiro.getChildren();
         pecasAzuis = new Peca[12];
-      pecasVermelhas = new Peca[12];
-       arraytabuleiro= new int [4][5];
+        pecasVermelhas = new Peca[12];
+        arraytabuleiro= new int [4][5];
         peca1 = new Peca(Color.BLUE);
         peca2 = new Peca(Color.BLUE);
         peca3 = new Peca(Color.BLUE);
@@ -121,19 +127,19 @@ public class FXMLDocumentController implements Initializable {
         
         
         pecasInicioAzul.add(peca1.getForma(),0,0);
-        pecasInicioAzul.add(peca2.getForma(),0,1);
-        pecasInicioAzul.add(peca3.getForma(),0,2);
-        pecasInicioAzul.add(peca4.getForma(),0,3);
-        pecasInicioAzul.add(peca5.getForma(),0,4);
-        pecasInicioAzul.add(peca6.getForma(),0,5);
-        pecasInicioAzul.add(peca7.getForma(),1,0);
-        pecasInicioAzul.add(peca8.getForma(),1,1);
-        pecasInicioAzul.add(peca9.getForma(),1,2);
-        pecasInicioAzul.add(peca10.getForma(),1,3);
-        pecasInicioAzul.add(peca11.getForma(),1,4);
-        pecasInicioAzul.add(peca12.getForma(),1,5);
+         pecasInicioAzul.add(peca2.getForma(),0,1);
+        pecasInicioAzul.add(peca3.getForma(),1,1);
+        pecasInicioAzul.add(peca4.getForma(),1,0);
+       pecasInicioAzul.add(peca5.getForma(),2,1);
+        pecasInicioAzul.add(peca6.getForma(),2,0);
+        pecasInicioAzul.add(peca7.getForma(),3,1);
+        pecasInicioAzul.add(peca8.getForma(),3,0);
+        pecasInicioAzul.add(peca9.getForma(),4,1);
+        pecasInicioAzul.add(peca10.getForma(),4,0);
+        pecasInicioAzul.add(peca11.getForma(),5,1);
+        pecasInicioAzul.add(peca12.getForma(),5,0);
         peca1V = new Peca(Color.RED);
-       peca2V = new Peca(Color.RED);
+        peca2V = new Peca(Color.RED);
         peca3V = new Peca(Color.RED);
         peca4V = new Peca(Color.RED);
         peca5V = new Peca(Color.RED);
@@ -144,7 +150,7 @@ public class FXMLDocumentController implements Initializable {
         peca10V = new Peca(Color.RED);
         peca11V= new Peca(Color.RED);
         peca12V = new Peca(Color.RED);
-         pecasVermelhas[0] = peca1V;
+        pecasVermelhas[0] = peca1V;
         pecasVermelhas[1] = peca2V;
         pecasVermelhas[2] = peca3V;
         pecasVermelhas[3] = peca4V;
@@ -158,17 +164,17 @@ public class FXMLDocumentController implements Initializable {
         pecasVermelhas[11] = peca11V;
         pecasInicioVermelhas.add(peca1V.getForma(),0,0);
         pecasInicioVermelhas.add(peca2V.getForma(),0,1);
-        pecasInicioVermelhas.add(peca3V.getForma(),0,2);
-        pecasInicioVermelhas.add(peca4V.getForma(),0,3);
-        pecasInicioVermelhas.add(peca5V.getForma(),0,4);
-        pecasInicioVermelhas.add(peca6V.getForma(),0,5);
-        pecasInicioVermelhas.add(peca7V.getForma(),1,0);
-        pecasInicioVermelhas.add(peca8V.getForma(),1,1);
-        pecasInicioVermelhas.add(peca9V.getForma(),1,2);
-        pecasInicioVermelhas.add(peca10V.getForma(),1,3);
-        pecasInicioVermelhas.add(peca11V.getForma(),1,4);
-        pecasInicioVermelhas.add(peca12V.getForma(),1,5);
-        
+        pecasInicioVermelhas.add(peca3V.getForma(),1,1);
+        pecasInicioVermelhas.add(peca4V.getForma(),1,0);
+        pecasInicioVermelhas.add(peca5V.getForma(),2,1);
+        pecasInicioVermelhas.add(peca6V.getForma(),2,0);
+        pecasInicioVermelhas.add(peca7V.getForma(),3,1);
+        pecasInicioVermelhas.add(peca8V.getForma(),3,0);
+        pecasInicioVermelhas.add(peca9V.getForma(),4,1);
+        pecasInicioVermelhas.add(peca10V.getForma(),4,0);
+        pecasInicioVermelhas.add(peca11V.getForma(),5,1);
+        pecasInicioVermelhas.add(peca12V.getForma(),5,0);
+       
         textNomeJogador1.setText(peca1.getId());
         gridTabuleiro.setGridLinesVisible(true);
     
@@ -179,13 +185,14 @@ public class FXMLDocumentController implements Initializable {
     
     private void pecasClicaveis(){
         
-  
+  try{
         for(Peca p : pecasAzuis){     
            
         p.getForma().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
            
             public void handle(MouseEvent event) { 
+                p.getForma().setStroke(Color.RED);
                 if(p.getEstadentro()==false){
                 
      //Código Para colocar uma peça azul dentro do tabuleiro
@@ -206,7 +213,7 @@ public class FXMLDocumentController implements Initializable {
         }
  
        } else{
-                    if(Integer.parseInt(coordenadaNmr.getText()) - p.getY() > 1 || Integer.parseInt(coordenadaLetra.getText()) - p.getX() > 1){
+                    if(Integer.parseInt(coordenadaNmr.getText()) - p.getX() > 1 || Integer.parseInt(coordenadaLetra.getText()) - p.getY() > 1){
                         System.out.println("Não pode colocar uma peça nessa casa!");
                     }else{
                     if(arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]==2||arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]==2){
@@ -233,7 +240,12 @@ public class FXMLDocumentController implements Initializable {
             
         }
      });
+         p.getForma().setStroke(Color.BLUE);
     }}
+  catch(Exception e){
+      
+  }
+  }
     
 private void pecasClicaveisVermelhas(){
         for(Peca p : pecasVermelhas){
@@ -285,16 +297,13 @@ private void pecasClicaveisVermelhas(){
     @FXML
     private void confirmaNomeJogador(MouseEvent event) {
         
-        //p1 = new Player(meteNomeJogador.getText().toString());
+        p1 = new Player(meteNomeJogador.getText().toString(), pecasAzuis);
        
         textNomeJogador1.setText(meteNomeJogador.getText().toString());
         meteNomeJogador.setVisible(false);
         confirmaNome.setVisible(false);
-        pecasInicioAzul.add(bolaAzul1,0,0);
-        pecasInicioAzul.add(bolaAzul2,0,1);
-        pecasInicioAzul.add(bolaAzul10,1,1);
-        pecasInicioAzul.add(bolaAzul9,1,0);
         
+         escondeAnchor.setVisible(true);
     }
 
     @FXML

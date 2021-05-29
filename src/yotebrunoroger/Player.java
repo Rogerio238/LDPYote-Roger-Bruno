@@ -21,7 +21,7 @@ public class Player {
         return nome;
     }
 
- public Peca[] pecasdoJogador(){
+ public Peca[] getpecasdoJogador(){
      return pecasdoJogador;
  }
 
