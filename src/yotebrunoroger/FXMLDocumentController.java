@@ -83,6 +83,9 @@ public class FXMLDocumentController implements Initializable {
     ObservableList<Node> childrens;
     @FXML
     private AnchorPane escondeAnchor;
+    private boolean jogador1Jogou = false;
+    private boolean jogador2Jogou = false;
+    
     private void handleButtonAction(ActionEvent event) {
         
     }
@@ -94,7 +97,7 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         escondeAnchor.setStyle("-fx-background-color: #F0F8FF");
-       escondeElementos();
+        escondeElementos();
         childrens = gridTabuleiro.getChildren();
         pecasAzuis = new Peca[12];
         pecasVermelhas = new Peca[12];
@@ -127,10 +130,10 @@ public class FXMLDocumentController implements Initializable {
         
         
         pecasInicioAzul.add(peca1.getForma(),0,0);
-         pecasInicioAzul.add(peca2.getForma(),0,1);
+        pecasInicioAzul.add(peca2.getForma(),0,1);
         pecasInicioAzul.add(peca3.getForma(),1,1);
         pecasInicioAzul.add(peca4.getForma(),1,0);
-       pecasInicioAzul.add(peca5.getForma(),2,1);
+        pecasInicioAzul.add(peca5.getForma(),2,1);
         pecasInicioAzul.add(peca6.getForma(),2,0);
         pecasInicioAzul.add(peca7.getForma(),3,1);
         pecasInicioAzul.add(peca8.getForma(),3,0);
@@ -177,14 +180,18 @@ public class FXMLDocumentController implements Initializable {
        
         textNomeJogador1.setText(peca1.getId());
         gridTabuleiro.setGridLinesVisible(true);
-    
+    if(jogador1Jogou == false){
+        pecasInicioAzul.setDisable(false);
+    }else{
+         pecasInicioAzul.setDisable(true);
+    }
              pecasClicaveis();
              pecasClicaveisVermelhas();
          
     }    
     
     private void pecasClicaveis(){
-        
+        if(jogador1Jogou == false){
   try{
         for(Peca p : pecasAzuis){     
            
@@ -211,7 +218,7 @@ public class FXMLDocumentController implements Initializable {
                  //OBTER A LINHA E COLUNA DA PEÇA NO PRÓPRIO GRIDPANE(GRIDTABULEIRO)
                    System.out.println("Coluna" + GridPane.getColumnIndex(p.getForma()) + "Linha " + GridPane.getRowIndex(p.getForma()));
         }
- 
+                    jogador1Jogou = true;
        } else{
                     if(Integer.parseInt(coordenadaNmr.getText()) - p.getX() > 1 || Integer.parseInt(coordenadaLetra.getText()) - p.getY() > 1){
                         System.out.println("Não pode colocar uma peça nessa casa!");
@@ -235,6 +242,7 @@ public class FXMLDocumentController implements Initializable {
                     }
               
         }
+                     jogador1Jogou = true;
                 }
            
             
@@ -245,6 +253,7 @@ public class FXMLDocumentController implements Initializable {
   catch(Exception e){
       
   }
+        }
   }
     
 private void pecasClicaveisVermelhas(){
