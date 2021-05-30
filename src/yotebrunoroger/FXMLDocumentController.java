@@ -10,6 +10,7 @@ import java.awt.Paint;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
@@ -85,7 +86,11 @@ public class FXMLDocumentController implements Initializable {
     private AnchorPane escondeAnchor;
     private boolean jogador1Jogou = false;
     private boolean jogador2Jogou = false;
-    
+    private ServerSocket ss;
+    private Socket s;
+    DataInputStream dis;
+    DataOutputStream dos;
+    private  InetAddress inet;
     private void handleButtonAction(ActionEvent event) {
         
     }
@@ -95,7 +100,23 @@ public class FXMLDocumentController implements Initializable {
         escondeAnchor.setVisible(false);
     }
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)  {
+        try{
+// Cria o servidor para receber coneções.
+ ss = new ServerSocket(6666);
+     inet = ss.getInetAddress();
+// Aguarda que receba uma coneção
+ s = ss.accept();
+System.out.println("O jogador = "+inet.getHostName() + " entrou");
+// Ao recebr uma coneção obtem o respetivo stream (DataStream)
+dis = new DataInputStream(s.getInputStream());
+dos = new DataOutputStream(s.getOutputStream());
+dis.readUTF();
+// Fecha a coneção
+//ss.close();
+} catch(Exception e){
+System.out.println(e.getMessage());
+}
         escondeAnchor.setStyle("-fx-background-color: #F0F8FF");
         escondeElementos();
         childrens = gridTabuleiro.getChildren();
@@ -214,7 +235,11 @@ public class FXMLDocumentController implements Initializable {
                  p.setX(Integer.parseInt(coordenadaNmr.getText()));
                   p.setY(Integer.parseInt(coordenadaLetra.getText()));
                  p.setEstadentro(true);
-               
+                   try {
+                       dos.writeUTF("Jogador " + inet.getHostAddress() + " respondeu");
+                   } catch (IOException ex) {
+                       Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                   }
                  //OBTER A LINHA E COLUNA DA PEÇA NO PRÓPRIO GRIDPANE(GRIDTABULEIRO)
                    System.out.println("Coluna" + GridPane.getColumnIndex(p.getForma()) + "Linha " + GridPane.getRowIndex(p.getForma()));
         }
