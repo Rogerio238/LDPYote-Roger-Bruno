@@ -52,6 +52,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Text textNomeJogador2;
     private Ellipse bolaAzul1;
+    private int testajogador=1;
     private Ellipse bolaAzul2;
     private Ellipse bolaAzul10;
     private Ellipse bolaAzul9;
@@ -130,7 +131,8 @@ public class FXMLDocumentController implements Initializable {
         peca10 = new Peca(Color.BLUE);
         peca11= new Peca(Color.BLUE);
         peca12 = new Peca(Color.BLUE);
-        
+       p1= new Player("PLAYER 1", pecasAzuis, 0);
+        p2= new Player("PLAYER 2", pecasVermelhas, 0);
         pecasAzuis[0] = peca1;
         pecasAzuis[1] = peca2;
         pecasAzuis[2] = peca3;
@@ -197,25 +199,34 @@ public class FXMLDocumentController implements Initializable {
         textNomeJogador1.setText(peca1.getId());
         gridTabuleiro.setGridLinesVisible(true);
         
-             pecasClicaveis();
-             pecasClicaveisVermelhas();
+            pecasClicaveis();
+            pecasClicaveisVermelhas();
          
-    }    
-    
+    }  
+        @FXML
+     private void confirmaNomeJogador(MouseEvent event) {
+       p1.setNome(meteNomeJogador.getText().toString());
+      
+        textNomeJogador1.setText(meteNomeJogador.getText().toString());
+        meteNomeJogador.setVisible(false);
+        confirmaNome.setVisible(false);
+        p1.setJogou(1);
+       pecasClicaveis();
+         
+    }
     private void pecasClicaveis(){
+      
+       
         
-       if(posNome == true){
-           if(rondas == 0){
-            p1.setJogou(true);
-        }
-        if(p1.getJogou() == false){
-  try{
+          try{
+
         for(Peca p : pecasAzuis){     
            
         p.getForma().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
            
             public void handle(MouseEvent event) { 
+           if(testajogador== 1){
                 p.getForma().setStroke(Color.RED);
                 if(p.getEstadentro()==false){
                 
@@ -231,16 +242,12 @@ public class FXMLDocumentController implements Initializable {
                  p.setX(Integer.parseInt(coordenadaNmr.getText()));
                   p.setY(Integer.parseInt(coordenadaLetra.getText()));
                  p.setEstadentro(true);
-                   try {
-                       dos.writeUTF("Jogador " + inet.getHostAddress() + " respondeu");
-                   } catch (IOException ex) {
-                       Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-                   }
+                  
                  //OBTER A LINHA E COLUNA DA PEÇA NO PRÓPRIO GRIDPANE(GRIDTABULEIRO)
                    System.out.println("Coluna" + GridPane.getColumnIndex(p.getForma()) + "Linha " + GridPane.getRowIndex(p.getForma()));
-        }
-                p2.setJogou(false);
-                    p1.setJogou(true);
+        System.out.println("isto é : "+ testajogador);
+          }
+       
        } else{
                     if(Integer.parseInt(coordenadaNmr.getText()) - p.getX() > 1 || Integer.parseInt(coordenadaLetra.getText()) - p.getY() > 1){
                         System.out.println("Não pode colocar uma peça nessa casa!");
@@ -264,26 +271,29 @@ public class FXMLDocumentController implements Initializable {
                     }
               
         }
-                    p2.setJogou(false);
-                    p1.setJogou(true);
+                   
                 }
            
             
-        }
+
+           }
+            
+            testajogador=2;  }
      });
          p.getForma().setStroke(Color.BLUE);
-    }}
+    
+  rondas++;
+        }}
   catch(Exception e){
       
-  }
-  rondas++;
+  
         }
-       }
+       
   }
     
 private void pecasClicaveisVermelhas(){
-       if(posNome == true){
-        if(p2.getJogou() == false){
+     
+      
   try{
         for(Peca p : pecasVermelhas){     
            
@@ -291,6 +301,7 @@ private void pecasClicaveisVermelhas(){
             @Override
            
             public void handle(MouseEvent event) { 
+                  if(testajogador == 2){
                 p.getForma().setStroke(Color.RED);
                 if(p.getEstadentro()==false){
                 
@@ -306,16 +317,11 @@ private void pecasClicaveisVermelhas(){
                  p.setX(Integer.parseInt(coordenadaNmr.getText()));
                   p.setY(Integer.parseInt(coordenadaLetra.getText()));
                  p.setEstadentro(true);
-                   try {
-                       dos.writeUTF("Jogador " + inet.getHostAddress() + " respondeu");
-                   } catch (IOException ex) {
-                       Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-                   }
+                  
                  //OBTER A LINHA E COLUNA DA PEÇA NO PRÓPRIO GRIDPANE(GRIDTABULEIRO)
                    System.out.println("Coluna" + GridPane.getColumnIndex(p.getForma()) + "Linha " + GridPane.getRowIndex(p.getForma()));
         }
-                p2.setJogou(true);
-                    p1.setJogou(false);
+                
        } else{
                     if(Integer.parseInt(coordenadaNmr.getText()) - p.getX() > 1 || Integer.parseInt(coordenadaLetra.getText()) - p.getY() > 1){
                         System.out.println("Não pode colocar uma peça nessa casa!");
@@ -339,20 +345,19 @@ private void pecasClicaveisVermelhas(){
                     }
               
         }
-                    p2.setJogou(true);
-                    p1.setJogou(false);
+                   
                 }
            
-            
-        }
+           
+     }testajogador=1;}
      });
          p.getForma().setStroke(Color.BLUE);
     }}
   catch(Exception e){
       
-  }
+  
         }
-       }
+       
     }
     private void clicouPecaAzul1(MouseEvent event) {
         try{
@@ -365,32 +370,23 @@ private void pecasClicaveisVermelhas(){
     }
 
     @FXML
-    private void confirmaNomeJogador(MouseEvent event) {
-        
-        p1 = new Player(meteNomeJogador.getText().toString(), pecasAzuis, true);
-       
-        textNomeJogador1.setText(meteNomeJogador.getText().toString());
-        meteNomeJogador.setVisible(false);
-        confirmaNome.setVisible(false);
-        posNome = true;
-         
-    }
 
-    @FXML
+
     private void clicouTabuleiro(MouseEvent event) {
            
     }
 
     @FXML
     private void confirmaNomeJogador2(MouseEvent event) {
-        p2 = new Player(meteNomeJogador2.getText().toString(), pecasAzuis, false);
        
+         p2.setNome(meteNomeJogador2.getText().toString());
         textNomeJogador2.setText(meteNomeJogador2.getText().toString());
         meteNomeJogador2.setVisible(false);
         confirmaNomeJ2.setVisible(false);
         
          escondeAnchor.setVisible(true);
-         posNome = true;
+        p2.setJogou(2);
+
     }
 
 
