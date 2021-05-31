@@ -64,6 +64,7 @@ public class FXMLDocumentController implements Initializable {
     private GridPane gridTabuleiro;
     private boolean entrou=false;
     Player p1;
+    Player p2;
     Peca peca1,peca2,peca3,peca4,peca5,peca6,peca7,peca8,peca9,peca10,peca11,peca12;
     Peca peca1V,peca2V,peca3V,peca4V,peca5V,peca6V,peca7V,peca8V,peca9V,peca10V,peca11V,peca12V;
     @FXML
@@ -90,7 +91,16 @@ public class FXMLDocumentController implements Initializable {
     private Socket s;
     DataInputStream dis;
     DataOutputStream dos;
+    boolean posNome = false;
     private  InetAddress inet;
+    @FXML
+    private TextField meteNomeJogador2;
+    @FXML
+    private Button confirmaNomeJ2;
+    
+    private int rondas = 0;
+    @FXML
+    private Text textJogadorAtual;
     private void handleButtonAction(ActionEvent event) {
         
     }
@@ -101,22 +111,7 @@ public class FXMLDocumentController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle rb)  {
-        try{
-// Cria o servidor para receber coneções.
- ss = new ServerSocket(6666);
-     inet = ss.getInetAddress();
-// Aguarda que receba uma coneção
- s = ss.accept();
-System.out.println("O jogador = "+inet.getHostName() + " entrou");
-// Ao recebr uma coneção obtem o respetivo stream (DataStream)
-dis = new DataInputStream(s.getInputStream());
-dos = new DataOutputStream(s.getOutputStream());
-dis.readUTF();
-// Fecha a coneção
-//ss.close();
-} catch(Exception e){
-System.out.println(e.getMessage());
-}
+       
         escondeAnchor.setStyle("-fx-background-color: #F0F8FF");
         escondeElementos();
         childrens = gridTabuleiro.getChildren();
@@ -201,18 +196,19 @@ System.out.println(e.getMessage());
        
         textNomeJogador1.setText(peca1.getId());
         gridTabuleiro.setGridLinesVisible(true);
-    if(jogador1Jogou == false){
-        pecasInicioAzul.setDisable(false);
-    }else{
-         pecasInicioAzul.setDisable(true);
-    }
+        
              pecasClicaveis();
              pecasClicaveisVermelhas();
          
     }    
     
     private void pecasClicaveis(){
-        if(jogador1Jogou == false){
+        
+       if(posNome == true){
+           if(rondas == 0){
+            p1.setJogou(true);
+        }
+        if(p1.getJogou() == false){
   try{
         for(Peca p : pecasAzuis){     
            
@@ -243,7 +239,8 @@ System.out.println(e.getMessage());
                  //OBTER A LINHA E COLUNA DA PEÇA NO PRÓPRIO GRIDPANE(GRIDTABULEIRO)
                    System.out.println("Coluna" + GridPane.getColumnIndex(p.getForma()) + "Linha " + GridPane.getRowIndex(p.getForma()));
         }
-                    jogador1Jogou = true;
+                p2.setJogou(false);
+                    p1.setJogou(true);
        } else{
                     if(Integer.parseInt(coordenadaNmr.getText()) - p.getX() > 1 || Integer.parseInt(coordenadaLetra.getText()) - p.getY() > 1){
                         System.out.println("Não pode colocar uma peça nessa casa!");
@@ -267,7 +264,83 @@ System.out.println(e.getMessage());
                     }
               
         }
-                     jogador1Jogou = true;
+                    p2.setJogou(false);
+                    p1.setJogou(true);
+                }
+           
+            
+        }
+     });
+         p.getForma().setStroke(Color.BLUE);
+    }}
+  catch(Exception e){
+      
+  }
+  rondas++;
+        }
+       }
+  }
+    
+private void pecasClicaveisVermelhas(){
+       if(posNome == true){
+        if(p2.getJogou() == false){
+  try{
+        for(Peca p : pecasVermelhas){     
+           
+        p.getForma().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+           
+            public void handle(MouseEvent event) { 
+                p.getForma().setStroke(Color.RED);
+                if(p.getEstadentro()==false){
+                
+     //Código Para colocar uma peça azul dentro do tabuleiro
+               if(arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]==2||arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]==2){
+         
+                 
+         }
+               else{
+                   
+                     arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]=1;
+                 gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
+                 p.setX(Integer.parseInt(coordenadaNmr.getText()));
+                  p.setY(Integer.parseInt(coordenadaLetra.getText()));
+                 p.setEstadentro(true);
+                   try {
+                       dos.writeUTF("Jogador " + inet.getHostAddress() + " respondeu");
+                   } catch (IOException ex) {
+                       Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                   }
+                 //OBTER A LINHA E COLUNA DA PEÇA NO PRÓPRIO GRIDPANE(GRIDTABULEIRO)
+                   System.out.println("Coluna" + GridPane.getColumnIndex(p.getForma()) + "Linha " + GridPane.getRowIndex(p.getForma()));
+        }
+                p2.setJogou(true);
+                    p1.setJogou(false);
+       } else{
+                    if(Integer.parseInt(coordenadaNmr.getText()) - p.getX() > 1 || Integer.parseInt(coordenadaLetra.getText()) - p.getY() > 1){
+                        System.out.println("Não pode colocar uma peça nessa casa!");
+                    }else{
+                    if(arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]==2||arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]==2){
+                     arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText()) - 1]=1;
+                     arraytabuleiro[p.getX()][p.getY()]=0;
+                     for(Peca pV : pecasVermelhas){
+                         if(pV.getX() == GridPane.getRowIndex(pV.getForma()) && pV.getY() == GridPane.getColumnIndex(pV.getForma())){
+                             pecasInicioAzul.add(pV.getForma(), 0, 0);
+                         }
+                     }
+                 gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()) ,Integer.parseInt(coordenadaLetra.getText())- 1);
+                 p.setEstadentro(true);
+                 
+         }else{
+                   arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]=1;
+                     arraytabuleiro[p.getX()][p.getY()]=0;
+                 gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
+                 p.setEstadentro(true);
+                    }
+              
+        }
+                    p2.setJogou(true);
+                    p1.setJogou(false);
                 }
            
             
@@ -279,44 +352,7 @@ System.out.println(e.getMessage());
       
   }
         }
-  }
-    
-private void pecasClicaveisVermelhas(){
-        for(Peca p : pecasVermelhas){
-        p.getForma().setOnMouseClicked(new EventHandler<MouseEvent>() {
-           
-                
-            @Override
-            public void handle(MouseEvent event) {
-             
-                        if(p.getEstadentro()==false){
-                
-     //Código Para colocar uma peça azul dentro do tabuleiro
-               if(arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]==2||arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]==2){
-                    
-         }
-               else{
-                     arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]=2;
-                 gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
-                 p.setX(Integer.parseInt(coordenadaNmr.getText()));
-                  p.setY(Integer.parseInt(coordenadaLetra.getText()));
-                 p.setEstadentro(true);
-           
-               
-        }
- 
-       } else{
-                   arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())]=2;
-                     arraytabuleiro[p.getX()][p.getY()]=0;
-                 gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()),Integer.parseInt(coordenadaLetra.getText()));
-                 p.setEstadentro(true);
-               
-        }
-           
-            }
-            
-        });
-    }
+       }
     }
     private void clicouPecaAzul1(MouseEvent event) {
         try{
@@ -331,18 +367,30 @@ private void pecasClicaveisVermelhas(){
     @FXML
     private void confirmaNomeJogador(MouseEvent event) {
         
-        p1 = new Player(meteNomeJogador.getText().toString(), pecasAzuis);
+        p1 = new Player(meteNomeJogador.getText().toString(), pecasAzuis, true);
        
         textNomeJogador1.setText(meteNomeJogador.getText().toString());
         meteNomeJogador.setVisible(false);
         confirmaNome.setVisible(false);
-        
-         escondeAnchor.setVisible(true);
+        posNome = true;
+         
     }
 
     @FXML
     private void clicouTabuleiro(MouseEvent event) {
            
+    }
+
+    @FXML
+    private void confirmaNomeJogador2(MouseEvent event) {
+        p2 = new Player(meteNomeJogador2.getText().toString(), pecasAzuis, false);
+       
+        textNomeJogador2.setText(meteNomeJogador2.getText().toString());
+        meteNomeJogador2.setVisible(false);
+        confirmaNomeJ2.setVisible(false);
+        
+         escondeAnchor.setVisible(true);
+         posNome = true;
     }
 
 

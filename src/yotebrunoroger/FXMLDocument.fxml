@@ -81,9 +81,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
+            <Text fx:id="textJogadorAtual" layoutX="437.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="139.6708984375" />
          </children>
       </AnchorPane>
       <Button fx:id="confirmaNome" layoutX="683.0" layoutY="84.0" mnemonicParsing="false" onMouseClicked="#confirmaNomeJogador" text="Confirmar" />
       <TextField fx:id="meteNomeJogador" layoutX="459.0" layoutY="84.0" />
+      <TextField fx:id="meteNomeJogador2" layoutX="459.0" layoutY="122.0" />
+      <Button fx:id="confirmaNomeJ2" layoutX="683.0" layoutY="122.0" mnemonicParsing="false" onMouseClicked="#confirmaNomeJogador2" text="Confirmar" />
    </children>
 </AnchorPane>
