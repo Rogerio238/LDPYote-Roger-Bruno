@@ -12,16 +12,28 @@ package yotebrunoroger;
 public class Player {
     private String nome;
     private Peca[] pecasdoJogador;
-    public Player(String nome, Peca[] pecasdoJogador){
+    private boolean jogou;
+    public Player(String nome, Peca[] pecasdoJogador, boolean jogou){
         this.nome = nome;
         this.pecasdoJogador = pecasdoJogador;
+        this.jogou = jogou;
     }
+
+    public boolean getJogou() {
+        return jogou;
+    }
+
+    public void setJogou(boolean jogou) {
+        this.jogou = jogou;
+    }
+    
+    
 
     public String getNome() {
         return nome;
     }
 
- public Peca[] pecasdoJogador(){
+ public Peca[] getpecasdoJogador(){
      return pecasdoJogador;
  }
 
