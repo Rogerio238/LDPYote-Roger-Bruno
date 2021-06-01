@@ -52,17 +52,17 @@
                   <HBox prefHeight="100.0" prefWidth="345.0" GridPane.columnIndex="2" />
                </children>
             </GridPane>
-            <Text layoutX="235.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-            <Text layoutX="235.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
-            <Text layoutX="168.0" layoutY="680.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
-            <Text layoutX="193.0" layoutY="611.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-            <Text layoutX="670.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" />
-            <Text layoutX="599.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" />
-            <Text layoutX="520.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" />
-            <Text layoutX="457.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-            <Text layoutX="397.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
-            <Text layoutX="341.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
-            <Text layoutX="284.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+            <Text layoutX="177.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+            <Text layoutX="173.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
+            <Text layoutX="173.0" layoutY="426.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
+            <Text layoutX="173.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
+            <Text layoutX="173.0" layoutY="605.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" />
+            <Text layoutX="702.0" layoutY="691.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" />
+            <Text layoutX="613.0" layoutY="691.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" />
+            <Text layoutX="531.0" layoutY="691.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
+            <Text layoutX="433.0" layoutY="691.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
+            <Text layoutX="345.0" layoutY="691.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
+            <Text layoutX="259.0" layoutY="690.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
             <Text fx:id="textNomeJogador2" layoutX="1060.0" layoutY="451.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
             <Text layoutX="922.0" layoutY="448.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jogador - " wrappingWidth="98.6708984375" />
             <Text fx:id="textNomeJogador1" layoutX="1060.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
@@ -86,7 +86,5 @@
       </AnchorPane>
       <Button fx:id="confirmaNome" layoutX="683.0" layoutY="84.0" mnemonicParsing="false" onMouseClicked="#confirmaNomeJogador" text="Confirmar" />
       <TextField fx:id="meteNomeJogador" layoutX="459.0" layoutY="84.0" />
-      <TextField fx:id="meteNomeJogador2" layoutX="459.0" layoutY="122.0" />
-      <Button fx:id="confirmaNomeJ2" layoutX="683.0" layoutY="122.0" mnemonicParsing="false" onMouseClicked="#confirmaNomeJogador2" text="Confirmar" />
    </children>
 </AnchorPane>

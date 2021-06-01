@@ -5,7 +5,17 @@
  */
 package yotebrunoroger;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,15 +26,20 @@ import javafx.stage.Stage;
  * @author roger
  */
 public class YoteBrunoRoger extends Application {
-    
+     
+     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        
-        Scene scene = new Scene(root);
+          Parent root;
+         root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+         Scene scene = new Scene(root);
         
         stage.setScene(scene);
         stage.show();
+       
+           
+       
+        
     }
 
     /**
