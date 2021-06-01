@@ -12,20 +12,21 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.StringTokenizer;
 import java.util.Vector;
+import javafx.scene.shape.Ellipse;
 
 /**
  *
  * @author senho
  */
 public class TestaMultiServer {
-
+Ellipse p = new Ellipse();
     static Vector<ClientHandler> ar = new Vector<>();
     static int i = 0;
-
+ private static FXMLDocumentController jogo;
     public static void main(String[] args) throws IOException {
         System.out.println("Servidor aceita conexões.");
         ServerSocket ss = new ServerSocket(1234);
-
+ 
         Socket s;
         while (true) {
             s = ss.accept();
@@ -36,7 +37,7 @@ public class TestaMultiServer {
             String recebidoNome = dis.readUTF();
             ClientHandler mtch = new ClientHandler(s, recebidoNome, dis, dos);
             Thread t = new Thread(mtch);
-
+           
             System.out.println("Adiciona cliente " + mtch.name + " à lista ativa.");
             ar.add(mtch);
             t.start();
@@ -44,7 +45,9 @@ public class TestaMultiServer {
             i++;
         }
     }
-
+ public void setMainController(FXMLDocumentController jogo) {
+        this.jogo = jogo;
+    }
     private static class ClientHandler implements Runnable {
 
         private String name;
@@ -78,9 +81,9 @@ public class TestaMultiServer {
                             dos.writeUTF(recebido);
                         }
                     }
-
+                jogo.atualizaJogo();
                     System.out.println(recebido);
-
+                    
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

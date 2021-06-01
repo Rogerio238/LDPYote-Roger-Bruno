@@ -62,7 +62,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button confirmaNome;
     @FXML
-    private GridPane gridTabuleiro;
+    public GridPane gridTabuleiro;
     private boolean entrou = false;
     Player p1;
     Player p2;
@@ -130,7 +130,7 @@ public class FXMLDocumentController implements Initializable {
 
     }
     
-    public void atualizaJogo(){
+    public  void atualizaJogo(){
          escondeAnchor.setStyle("-fx-background-color: #F0F8FF");
         escondeElementos();
         childrens = gridTabuleiro.getChildren();
