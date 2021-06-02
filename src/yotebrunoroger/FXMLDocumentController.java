@@ -255,7 +255,7 @@ public class FXMLDocumentController implements Initializable {
         
       
         try {
-            
+            System.out.println("ok");
             dos.writeUTF(meteNomeJogador.getText().toString());
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
