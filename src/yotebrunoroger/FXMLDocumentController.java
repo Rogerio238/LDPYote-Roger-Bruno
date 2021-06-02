@@ -241,9 +241,9 @@ public class FXMLDocumentController implements Initializable {
   Platform.runLater(new Runnable() {
             @Override public void run() {
                try {
-                   String x = " ";
-              x = dis.readUTF();
-            if(x == "teste"){
+                   int x = 0;
+              x = dis.readInt();
+            if(x == 2){
                 System.out.println("olha o ii" + x);
                   escondeAnchor.setVisible(true);
             }
@@ -276,12 +276,12 @@ public class FXMLDocumentController implements Initializable {
                         if (testajogador == 1) {
                             p.getForma().setStroke(Color.RED);
                             if (p.getEstadentro() == false) {
-
+             testajogador = 2;
                                 //Código Para colocar uma peça azul dentro do tabuleiro
                                 if (arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())] == 2 || arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())] == 2) {
 
                                 } else {
-
+             testajogador = 2;
                                     arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())] = 1;
                                     gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()), Integer.parseInt(coordenadaLetra.getText()));
                                     p.setX(Integer.parseInt(coordenadaNmr.getText()));
@@ -292,11 +292,9 @@ public class FXMLDocumentController implements Initializable {
                                     System.out.println("Coluna " + GridPane.getColumnIndex(p.getForma()) + "Linha " + GridPane.getRowIndex(p.getForma()));
                                     System.out.println("isto é : " + testajogador);
                                 }
-
+             testajogador = 2;
                             } else {
-                                if (Integer.parseInt(coordenadaNmr.getText()) - p.getX() > 1 || Integer.parseInt(coordenadaLetra.getText()) - p.getY() > 1) {
-                                    System.out.println("Não pode colocar uma peça nessa casa!");
-                                } else {
+                              
                                     if (arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())] == 2 || arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())] == 2) {
                                         arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText()) - 1] = 1;
                                         arraytabuleiro[p.getX()][p.getY()] = 0;
@@ -307,17 +305,18 @@ public class FXMLDocumentController implements Initializable {
                                         }
                                         gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()), Integer.parseInt(coordenadaLetra.getText()) - 1);
                                         p.setEstadentro(true);
-
+                                      testajogador = 2;
                                     } else {
                                         arraytabuleiro[Integer.parseInt(coordenadaNmr.getText())][Integer.parseInt(coordenadaLetra.getText())] = 1;
                                         arraytabuleiro[p.getX()][p.getY()] = 0;
                                         gridTabuleiro.add(p.getForma(), Integer.parseInt(coordenadaNmr.getText()), Integer.parseInt(coordenadaLetra.getText()));
                                         p.setEstadentro(true);
+                                          testajogador = 2;
                                     }
 
-                                }
+                                
 
-                            }
+                             testajogador = 2; }
 
                         }
 
@@ -386,7 +385,7 @@ public class FXMLDocumentController implements Initializable {
 
                                 }
 
-                            }
+                          testajogador = 1;   }
 
                         }
                         testajogador = 1;

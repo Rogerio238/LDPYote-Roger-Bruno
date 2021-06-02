@@ -42,11 +42,10 @@ Ellipse p = new Ellipse();
             System.out.println("Adiciona cliente " + mtch.name + i  + " à lista ativa.");
             ar.add(mtch);
             t.start();
-
+           
             i++;
-            if(ar.size() < 2){
-                dos.writeUTF(teste);
-            }
+          
+                dos.writeInt(i);
         }
     }
  public void setMainController(FXMLDocumentController jogo) {
@@ -69,7 +68,6 @@ Ellipse p = new Ellipse();
             this.name = string;
             this.isloggedin = true;
         }
-
         @Override
         public void run() {
             String recebido;
