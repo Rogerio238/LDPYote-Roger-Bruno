@@ -26,10 +26,11 @@ import javafx.stage.Stage;
  * @author roger
  */
 public class YoteBrunoRoger extends Application {
-     
+     public static int yo = 0;
      
     @Override
     public void start(Stage stage) throws Exception {
+         
           Parent root;
          root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
          Scene scene = new Scene(root);
@@ -37,9 +38,6 @@ public class YoteBrunoRoger extends Application {
         stage.setScene(scene);
         stage.show();
        
-           
-       
-        
     }
 
     /**

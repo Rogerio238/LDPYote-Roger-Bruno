@@ -93,6 +93,12 @@ public class FXMLDocumentController implements Initializable {
     DataInputStream dis;
     DataOutputStream dos;
     boolean posNome = false;
+    
+    
+    static FXMLDocumentController instancia;
+    public static FXMLDocumentController getInstancia(){
+        return instancia;
+    }
     private InetAddress inet;
     @FXML
     private TextField meteNomeJogador2;
@@ -131,7 +137,9 @@ public class FXMLDocumentController implements Initializable {
     }
     
     public  void atualizaJogo(){
-         escondeAnchor.setStyle("-fx-background-color: #F0F8FF");
+        YoteBrunoRoger.yo = 1; 
+        System.out.println(YoteBrunoRoger.yo);
+        escondeAnchor.setStyle("-fx-background-color: #F0F8FF");
         escondeElementos();
         childrens = gridTabuleiro.getChildren();
         pecasAzuis = new Peca[12];
@@ -375,6 +383,10 @@ public class FXMLDocumentController implements Initializable {
 
     }
 
+    public void posicionaUmaPeca(int x, int y){
+        arraytabuleiro[x][y] = 1;
+        gridTabuleiro.add(pecasAzuis[0].getForma(), x, y);
+    }
     private void clicouPecaAzul1(MouseEvent event) {
         try {
             bolaAzul1.setStroke(Color.GREEN);

@@ -69,19 +69,19 @@ Ellipse p = new Ellipse();
         @Override
         public void run() {
             String recebido;
-
+FXMLDocumentController.getInstancia().posicionaUmaPeca(1, 1);
             while (true) {
                 try {
                     recebido = dis.readUTF();
                     System.out.println(recebido);
                     
-                     
                     for (ClientHandler client : TestaMultiServer.ar) {
                         if (client.name != recebido) {
                             dos.writeUTF(recebido);
                         }
                     }
-                jogo.atualizaJogo();
+                    
+                    
                     System.out.println(recebido);
                     
                 } catch (IOException e) {
