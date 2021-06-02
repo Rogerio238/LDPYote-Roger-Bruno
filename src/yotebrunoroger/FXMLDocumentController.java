@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -236,7 +237,23 @@ public class FXMLDocumentController implements Initializable {
         confirmaNome.setVisible(false);
         p1.setJogou(1);
         pecasClicaveis();
-        escondeAnchor.setVisible(true);
+        
+  Platform.runLater(new Runnable() {
+            @Override public void run() {
+               try {
+                   String x = " ";
+              x = dis.readUTF();
+            if(x == "teste"){
+                System.out.println("olha o ii" + x);
+                  escondeAnchor.setVisible(true);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            }
+        });
+        
+      
         try {
             
             dos.writeUTF(meteNomeJogador.getText().toString());

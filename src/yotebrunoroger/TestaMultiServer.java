@@ -22,6 +22,7 @@ public class TestaMultiServer {
 Ellipse p = new Ellipse();
     static Vector<ClientHandler> ar = new Vector<>();
     static int i = 0;
+     static String teste = "teste";
  private static FXMLDocumentController jogo;
     public static void main(String[] args) throws IOException {
         System.out.println("Servidor aceita conexões.");
@@ -38,11 +39,14 @@ Ellipse p = new Ellipse();
             ClientHandler mtch = new ClientHandler(s, recebidoNome, dis, dos);
             Thread t = new Thread(mtch);
            
-            System.out.println("Adiciona cliente " + mtch.name + " à lista ativa.");
+            System.out.println("Adiciona cliente " + mtch.name + i  + " à lista ativa.");
             ar.add(mtch);
             t.start();
 
             i++;
+            if(ar.size() < 2){
+                dos.writeUTF(teste);
+            }
         }
     }
  public void setMainController(FXMLDocumentController jogo) {
@@ -69,7 +73,7 @@ Ellipse p = new Ellipse();
         @Override
         public void run() {
             String recebido;
-FXMLDocumentController.getInstancia().posicionaUmaPeca(1, 1);
+
             while (true) {
                 try {
                     recebido = dis.readUTF();
