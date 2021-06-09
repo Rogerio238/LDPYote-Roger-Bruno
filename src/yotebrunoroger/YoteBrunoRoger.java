@@ -19,6 +19,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -26,18 +27,27 @@ import javafx.stage.Stage;
  * @author roger
  */
 public class YoteBrunoRoger extends Application {
-     public static int yo = 0;
-     
+
+    public static int yo = 0;
+private int count = 0;
+    private final Text text = new Text(Integer.toString(count));
+
+    private void incrementCount() {
+        count++;
+        text.setText(Integer.toString(count));
+        text.setLayoutX(100);
+        text.setLayoutY(100);
+        
+    }
     @Override
     public void start(Stage stage) throws Exception {
-         
-         Parent root;
-         root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-         Scene scene = new Scene(root);
-        
-         stage.setScene(scene);
-         stage.show();
-       
+
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
     }
 
     /**
@@ -46,7 +56,7 @@ public class YoteBrunoRoger extends Application {
     public static void main(String[] args) {
         launch(args);
         System.out.println("Hello");
-        
+
     }
-    
+
 }

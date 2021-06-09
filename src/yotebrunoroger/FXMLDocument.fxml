@@ -31,9 +31,9 @@
               </rowConstraints>
             </GridPane>
             <HBox prefHeight="100.0" prefWidth="345.0" />
-            <TextField fx:id="coordenadaNmr" layoutX="281.0" layoutY="814.0" />
+            <TextField fx:id="coordenadaNmr" layoutX="281.0" layoutY="799.0" />
             <Text layoutX="374.0" layoutY="779.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número" />
-            <TextField fx:id="coordenadaLetra" layoutX="524.0" layoutY="805.0" />
+            <TextField fx:id="coordenadaLetra" layoutX="507.0" layoutY="792.0" />
             <Text layoutX="535.0" layoutY="780.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Letra" />
             <GridPane fx:id="pecasInicioVermelhas" gridLinesVisible="true" layoutX="801.0" layoutY="535.0" onMouseClicked="#clicouTabuleiro" prefHeight="107.0" prefWidth="453.0">
                <columnConstraints>
@@ -82,9 +82,11 @@
               </rowConstraints>
             </GridPane>
             <Text fx:id="textJogadorAtual" layoutX="437.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="139.6708984375" />
+            <Button fx:id="buttonSair" layoutX="1028.0" layoutY="799.0" mnemonicParsing="false" onMouseClicked="#botaoClicouSair" text="Sair" />
          </children>
       </AnchorPane>
       <Button fx:id="confirmaNome" layoutX="683.0" layoutY="84.0" mnemonicParsing="false" onMouseClicked="#confirmaNomeJogador" text="Confirmar" />
       <TextField fx:id="meteNomeJogador" layoutX="459.0" layoutY="84.0" />
+      <Label fx:id="labelConectado" layoutX="460.0" layoutY="124.0" prefHeight="21.0" prefWidth="187.0" text="Label" />
    </children>
 </AnchorPane>

@@ -9,6 +9,8 @@ import java.awt.Paint;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -44,13 +46,17 @@ import javafx.scene.text.Text;
  *
  * @author roger
  */
-public class FXMLDocumentController implements Initializable {
+public class FXMLDocumentController implements Initializable, Runnable {
 
     private Label label;
     @FXML
     private Text textNomeJogador1;
+
+    /**
+     *
+     */
     @FXML
-    private Text textNomeJogador2;
+    public Text textNomeJogador2;
     private Ellipse bolaAzul1;
     private int testajogador = 1;
     private Ellipse bolaAzul2;
@@ -62,6 +68,10 @@ public class FXMLDocumentController implements Initializable {
     private TextField meteNomeJogador;
     @FXML
     private Button confirmaNome;
+
+    /**
+     *
+     */
     @FXML
     public GridPane gridTabuleiro;
     private boolean entrou = false;
@@ -85,8 +95,12 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private GridPane pecasInicioVermelhas;
     ObservableList<Node> childrens;
+
+    /**
+     *
+     */
     @FXML
-    private AnchorPane escondeAnchor;
+    public AnchorPane escondeAnchor;
     private boolean jogador1Jogou = false;
     private boolean jogador2Jogou = false;
     private ServerSocket ss;
@@ -94,54 +108,80 @@ public class FXMLDocumentController implements Initializable {
     DataInputStream dis;
     DataOutputStream dos;
     boolean posNome = false;
-    
+     ObjectInputStream oos ;
     
     static FXMLDocumentController instancia;
+
+    /**
+     *
+     * @return
+     */
     public static FXMLDocumentController getInstancia(){
         return instancia;
     }
     private InetAddress inet;
-    @FXML
-    private TextField meteNomeJogador2;
-    @FXML
-    private Button confirmaNomeJ2;
-
+ String nomeJogador = " saddas";
     private int rondas = 0;
     @FXML
     private Text textJogadorAtual;
+    @FXML
+    private Label labelConectado;
+    @FXML
+    private Button buttonSair;
 
     private void handleButtonAction(ActionEvent event) {
 
     }
     private int pecasVermelhasColetadas = 0;
 
-    private void escondeElementos() {
-        escondeAnchor.setVisible(false);
-    }
+   
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        InetAddress ip;
+      
+           InetAddress ip;
         try {
             ip = InetAddress.getByName("localhost");
             s = new Socket(ip, ServerPort);
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
-                  
-      
-            atualizaJogo();
+                  labelConectado.setText("Conectado");
+         
+            
+       
+       
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+    }     
+       
+    /**
+     *
+     */
+    @Override
+public void run() {
+    Platform.runLater(() ->
+        atualizaJogo());
+        
+   
+}
 
-
-    }
-    
+    /**
+     *
+     */
     public  void atualizaJogo(){
-        YoteBrunoRoger.yo = 1; 
-        System.out.println(YoteBrunoRoger.yo);
+         try {
+        nomeJogador = dis.readUTF();
+        System.out.println(nomeJogador);
+        textNomeJogador2.setText(nomeJogador);
+         System.out.println(nomeJogador);
+    } catch (IOException ex) {
+        Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+    }
+          escondeAnchor.setVisible(true);
         escondeAnchor.setStyle("-fx-background-color: #F0F8FF");
-        escondeElementos();
+      
         childrens = gridTabuleiro.getChildren();
         pecasAzuis = new Peca[12];
         pecasVermelhas = new Peca[12];
@@ -227,39 +267,32 @@ public class FXMLDocumentController implements Initializable {
 
         pecasClicaveis();
         pecasClicaveisVermelhas();
+         try {
+            System.out.println("ok");
+            dos.writeUTF(meteNomeJogador.getText().toString());
+          
+            dos.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     @FXML
     private void confirmaNomeJogador(MouseEvent event) {
         p1.setNome(meteNomeJogador.getText().toString());
 
         textNomeJogador1.setText(meteNomeJogador.getText().toString());
-        meteNomeJogador.setVisible(false);
-        confirmaNome.setVisible(false);
-        p1.setJogou(1);
-        pecasClicaveis();
-        
-  Platform.runLater(new Runnable() {
-            @Override public void run() {
-               try {
-                   int x = 0;
-              x = dis.readInt();
-            if(x == 2){
-                System.out.println("olha o ii" + x);
-                  escondeAnchor.setVisible(true);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            }
-        });
-        
-      
         try {
-            System.out.println("ok");
             dos.writeUTF(meteNomeJogador.getText().toString());
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        meteNomeJogador.setVisible(false);
+        confirmaNome.setVisible(false);
+        p1.setJogou(1);
+     
+        pecasClicaveis();
+      
+       
 
     }
 
@@ -318,6 +351,11 @@ public class FXMLDocumentController implements Initializable {
 
                              testajogador = 2; }
 
+                        }
+                        try {
+                            dos.writeUTF("Jogador 1 jogou");
+                        } catch (IOException ex) {
+                            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
                         testajogador = 2;
@@ -399,6 +437,11 @@ public class FXMLDocumentController implements Initializable {
 
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     */
     public void posicionaUmaPeca(int x, int y){
         arraytabuleiro[x][y] = 1;
         gridTabuleiro.add(pecasAzuis[0].getForma(), x, y);
@@ -421,8 +464,14 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void confirmaNomeJogador2(MouseEvent event) {
-
+    private void botaoClicouSair(MouseEvent event) {
+        try {
+            s.close();
+            Platform.exit();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
+    
 }

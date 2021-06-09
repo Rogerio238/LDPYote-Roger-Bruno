@@ -8,9 +8,14 @@ package yotebrunoroger;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
 import javafx.scene.shape.Ellipse;
 
@@ -20,53 +25,61 @@ import javafx.scene.shape.Ellipse;
  */
 public class TestaMultiServer {
 Ellipse p = new Ellipse();
-    static Vector<ClientHandler> ar = new Vector<>();
+    static List<ClientHandler> ar = new ArrayList<>();
     static int i = 0;
      static String teste = "teste";
+     static Timer timer = new Timer();
  private static FXMLDocumentController jogo;
     public static void main(String[] args) throws IOException {
         System.out.println("Servidor aceita conexões.");
         ServerSocket ss = new ServerSocket(1234);
  
         Socket s;
-        while (true) {
+        while (true && ar.size() < 2) {
             s = ss.accept();
             System.out.println("Novo client recebido : " + s);
 
             DataInputStream dis = new DataInputStream(s.getInputStream());
             DataOutputStream dos = new DataOutputStream(s.getOutputStream());
             String recebidoNome = dis.readUTF();
-            ClientHandler mtch = new ClientHandler(s, recebidoNome, dis, dos);
+            ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
+           
+            ClientHandler mtch = new ClientHandler(s, recebidoNome,i, dis, dos, jogo);
             Thread t = new Thread(mtch);
            
             System.out.println("Adiciona cliente " + mtch.name + i  + " à lista ativa.");
+           System.out.println("este é o client no servidor " + mtch);
             ar.add(mtch);
-            t.start();
            
-            i++;
+              
+         mtch.jogo.atualizaJogo();
+            t.start();
+        
+   
+            System.out.println(t);
           
-                dos.writeInt(i);
         }
     }
  public void setMainController(FXMLDocumentController jogo) {
         this.jogo = jogo;
     }
-    private static class ClientHandler implements Runnable {
+    private static class ClientHandler extends Thread implements Runnable {
 
         private String name;
         final DataInputStream dis;
         final DataOutputStream dos;
         Socket s;
-
+          int id;
         boolean isloggedin;
-
-        private ClientHandler(Socket s, String string,
-                DataInputStream dis, DataOutputStream dos) {
+ FXMLDocumentController jogo;
+        private ClientHandler(Socket s, String string,int id,
+                DataInputStream dis, DataOutputStream dos, FXMLDocumentController jogo) {
             this.s = s;
             this.dis = dis;
             this.dos = dos;
             this.name = string;
-            this.isloggedin = true;
+            this.jogo = jogo;
+this.id = id;            this.isloggedin = true;
         }
         @Override
         public void run() {
@@ -74,17 +87,19 @@ Ellipse p = new Ellipse();
 
             while (true) {
                 try {
-                    recebido = dis.readUTF();
-                    System.out.println(recebido);
+                
+                    
                     
                     for (ClientHandler client : TestaMultiServer.ar) {
-                        if (client.name != recebido) {
-                            dos.writeUTF(recebido);
-                        }
+                     
+                            if(!client.name.equals(dis.readUTF())){
+                                recebido = dis.readUTF();
+                                dos.writeUTF(recebido);
+                            }
                     }
                     
                     
-                    System.out.println(recebido);
+                 
                     
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -94,4 +109,8 @@ Ellipse p = new Ellipse();
         }
 
     }
+    
+    
+    
+    
 }
