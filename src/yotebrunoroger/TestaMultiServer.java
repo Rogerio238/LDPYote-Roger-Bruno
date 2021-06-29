@@ -41,7 +41,7 @@ System.out.println("Novo client recebido : " + s);
 DataInputStream dis = new DataInputStream(s.getInputStream());
 DataOutputStream dos = new DataOutputStream(s.getOutputStream());
 
-ClientHandler mtch = new ClientHandler(s, "client " + i, dis, dos);
+ClientHandler mtch = new ClientHandler(s, "client " + i, dis, dos,i);
 
 Thread t = new Thread(mtch);
 
@@ -59,22 +59,28 @@ i++;
                final DataOutputStream dos;
                Socket s;
                boolean isloggedin;
+               final int id;
                private ClientHandler(Socket s, String string,
-           DataInputStream dis, DataOutputStream dos) {
+           DataInputStream dis, DataOutputStream dos, int id) {
                this.s = s;
                this.dis = dis;
                this.dos = dos;
                this.name = string;
+               this.id = id;
               this.isloggedin = true;
 }
 
 @Override
 public void run() {
 String recebido;
-
+int recebeCasaX, recebeCasaY;
 while(true){
+    
 try {
            recebido = dis.readUTF();
+           recebeCasaX = dis.readInt();
+           recebeCasaY = dis.readInt();
+           System.out.println(recebido);
            //System.out.println(recebido);
            if(recebido.endsWith("logout")){
            this.isloggedin = false;
@@ -84,8 +90,14 @@ try {
 
           
                for(ClientHandler mc: TestaMultiServer.listaClientes){
-                  
+                   
+                   System.out.println("iei");
                           // mc.dos.writeUTF(recebido);
+                          if(recebido.contains("clicou")){
+                              mc.dos.writeUTF("clicou");
+                              mc.dos.writeInt(recebeCasaX);
+                              mc.dos.writeInt(recebeCasaY);
+                          }
                           
                     break;
        

@@ -89,6 +89,9 @@ public class FXMLDocumentController implements Initializable, Runnable {
     private TextField coordenadaNmr;
     @FXML
     private TextField coordenadaLetra;
+    
+    public static TextField coordenadaEsquerdaEstatico;
+    public static TextField coordenadaDireitaEstatico;
     private int[][] arraytabuleiro;
     private Peca[] pecasAzuis;
     private Peca[] pecasVermelhas;
@@ -114,6 +117,7 @@ public class FXMLDocumentController implements Initializable, Runnable {
     public static Button confirma;
     static FXMLDocumentController instancia;
 public static Label testaLabel;
+public static GridPane gridEstatico;
     /**
      *
      * @return
@@ -131,6 +135,10 @@ public static Label testaLabel;
     int porta = 4000;
     @FXML
     private Button porra;
+    public static Peca[] pecasAzuisEstatico;
+    @FXML
+    private Label labelControlaJogador;
+    public static Label labelControlaJogadorEstatica;
 
     private void handleButtonAction(ActionEvent event) {
 
@@ -145,7 +153,11 @@ public static Label testaLabel;
           atualizaJogo();
         confirma = porra;
         testaLabel = labelConectado;
-       
+       pecasAzuisEstatico = pecasAzuis;
+       gridEstatico = gridTabuleiro;
+       labelControlaJogadorEstatica = labelControlaJogador;
+       coordenadaEsquerdaEstatico = coordenadaNmr;
+       coordenadaDireitaEstatico = coordenadaLetra;
     }     
        
     /**

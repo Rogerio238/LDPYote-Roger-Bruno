@@ -27,6 +27,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import static yotebrunoroger.FXMLDocumentController.pecasAzuisEstatico;
 
 /**
  *
@@ -42,6 +43,9 @@ private static String serverIP = "127.0.0.1";
     public static Button teste;
     public static int yo = 0;
     private int count = 0;
+    private int casaX = 0;
+    private int casaY = 0;
+    private String valorCasas = " ";
     private final Text text = new Text(Integer.toString(count));
 
     private void incrementCount() {
@@ -59,7 +63,8 @@ private static String serverIP = "127.0.0.1";
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
- //connectClient();
+        connectClient();
+        Platform.runLater(() -> {FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 1 a jogar"); });
     }
 
     /**
@@ -68,13 +73,9 @@ private static String serverIP = "127.0.0.1";
     public static void main(String[] args) {
         launch(args);
         //System.out.println("Hello");
-FXMLDocumentController.confirma.setOnMousePressed(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println("ola mundo");
-                  }
+
     
-});
+
     }
     private void connectClient() throws IOException {
 
@@ -85,37 +86,57 @@ FXMLDocumentController.confirma.setOnMousePressed(new EventHandler<MouseEvent>()
   // Thread que serve para o cliente envia mensagens para o servidor
         Thread enviarMensagem = new Thread(() -> {
             while (true) {
-                     FXMLDocumentController.confirma.setOnMousePressed(new EventHandler<MouseEvent>(){
-                         @Override
-                         public void handle(MouseEvent event) {
-                             //System.out.println("lel");
-                             try {
-                                 out.writeUTF("qweqwe");
+                for(Peca p : FXMLDocumentController.pecasAzuisEstatico){
+                   p.getForma().setOnMousePressed(new EventHandler<MouseEvent>(){
+                    @Override
+                    public void handle(MouseEvent event) {
+                        System.out.println("vem do cliente");
+                        try {
+                                 out.writeUTF("clicou");
+                                  Platform.runLater(() -> {FXMLDocumentController.gridEstatico.add(p.getForma(),Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText()),Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()));
+                                  FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 2 a jogar"); });
+                                  casaX = Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText());
+                                  casaY = Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText());
+                                  System.out.println(casaX + casaY);
+                                  
+                                  out.writeInt(casaX);
+                                  out.writeInt(casaY);
                              } catch (IOException ex) {
                                  Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
                              }
-                         }
-                         
-                     });
+                    }
+                       
+                   });
+                           }
+                  
         }});
-        
+         
          Thread lerMensagem;
         lerMensagem = new Thread(() -> {
+           
             while (true) {
                     String msg;
+                    int casasX, casasY;
                 try {
                     msg = in.readUTF();
-                    if(msg.contains("boas")){
-                       FXMLDocumentController.testaLabel.setText("teste");
+                    casasX = in.readInt();
+                    casasY = in.readInt();
+                    if(msg.contains("clicou")){
+                        System.out.println("Outro clicou");
+                         
+             Platform.runLater(() -> {FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasAzuisEstatico[0].getForma(),casasX,casasY);
+                                  FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 2 a jogar"); });
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+       
         });
-        
-        enviarMensagem.start();
-        lerMensagem.start();
+         lerMensagem.start();
+       enviarMensagem.start();
+  
+       
  }
 
 }
