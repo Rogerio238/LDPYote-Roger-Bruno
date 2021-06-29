@@ -25,10 +25,11 @@ public class JogoTabuleiro  extends UnicastRemoteObject {
     private ControllerJogoGrid gridController;
       public int id;
     private boolean solicitante;
+     private boolean vez;
     public JogoTabuleiro(Stage stagePrincipal, int id, boolean solicitante) throws RemoteException{
         this.stagePrincipal = stagePrincipal;
         this.id = id;
-        this.solicitante = solicitante;
+        this.vez = solicitante;
     }
     
     
@@ -39,8 +40,7 @@ public class JogoTabuleiro  extends UnicastRemoteObject {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-
-                try{
+               
                       FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDocumentController.fxml"));
                        gridController = new ControllerJogoGrid();
 
@@ -54,14 +54,47 @@ public class JogoTabuleiro  extends UnicastRemoteObject {
                       
                         stagePrincipal.setScene(new Scene(root));
                     stagePrincipal.show();
-                } catch(RemoteException e){
-                    e.printStackTrace();
-                }
+                    
+                    
+                    
+                    Platform.runLater(() -> {
+                        System.out.println("CARREGOU NOVO INICIO DE JOGO!!!");
+
+                        //gridController.setGridAdversario(tabelaNaviosAdversario);
+                        //gridController.setGridPropria(tabelaNaviosPropria);
+
+
+                        String textoLabel;
+                        if (vez)
+                            textoLabel = "É a tua vez!";
+                        else
+                            textoLabel = "É a Vez do Adversario!";
+                        
+                        //gridController.mudaTextoLabel(textoLabel);
+                         
+                        if(id==1){
+                        gridController.nomeid.setText("Jogador 1");
+                        }else if(id==2){
+                        gridController.nomeid.setText("Jogador 2");
+                        }
+                       
+
+
+                       iniciarJogo();
+                    });
+                } 
                 
-            }
-        });
+            });
         
+        }
+    
+    
+    public void iniciarJogo(){
+    Scene cenaJogo = this.stagePrincipal.getScene();
+        GridPane gridJogo = this.gridController.getGridJogo();
+               
+    }
         
         
     }
-}
+

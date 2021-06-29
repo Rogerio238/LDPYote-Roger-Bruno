@@ -88,5 +88,6 @@
       <Button fx:id="confirmaNome" layoutX="683.0" layoutY="84.0" mnemonicParsing="false" onMouseClicked="#confirmaNomeJogador" text="Confirmar" />
       <TextField fx:id="meteNomeJogador" layoutX="459.0" layoutY="84.0" />
       <Label fx:id="labelConectado" layoutX="460.0" layoutY="124.0" prefHeight="21.0" prefWidth="187.0" text="Label" />
+      <Button fx:id="porra" layoutX="940.0" layoutY="84.0" mnemonicParsing="false" text="Button" />
    </children>
 </AnchorPane>
