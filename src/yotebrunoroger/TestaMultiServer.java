@@ -74,9 +74,11 @@ i++;
 public void run() {
 String recebido;
 int recebeCasaX, recebeCasaY;
+String recebeNome;
 while(true){
     
 try {
+    recebeNome = dis.readUTF();
            recebido = dis.readUTF();
            recebeCasaX = dis.readInt();
            recebeCasaY = dis.readInt();
@@ -90,7 +92,9 @@ try {
 
           
                for(ClientHandler mc: TestaMultiServer.listaClientes){
-                   
+                   if(recebeNome.contains("Nome")){
+                   mc.dos.writeUTF(recebeNome);
+                   }
                    System.out.println("iei");
                           // mc.dos.writeUTF(recebido);
                           if(recebido.contains("clicou")){
