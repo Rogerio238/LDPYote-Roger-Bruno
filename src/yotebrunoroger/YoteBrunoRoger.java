@@ -89,23 +89,28 @@ private static String serverIP = "127.0.0.1";
         out = new DataOutputStream(socket.getOutputStream());
         Thread enviarNome = new Thread(() -> {
               while (true) {
-            FXMLDocumentController.confirmaNomeJogadorEstatico.setOnMousePressed(new EventHandler<MouseEvent>(){
+            
+              }
+        });
+  // Thread que serve para o cliente envia mensagens para o servidor
+        Thread enviarMensagem = new Thread(() -> {
+            while (true) {
+                FXMLDocumentController.confirmaNomeJogadorEstatico.setOnMousePressed(new EventHandler<MouseEvent>(){
                 @Override
                 public void handle(MouseEvent event) {
                      try {
                 out.writeUTF("Nome" + FXMLDocumentController.meteNomeJogadorestatico.getText());
-                 Platform.runLater(() -> {FXMLDocumentController.textNomeJogador1Estatico.setText(FXMLDocumentController.meteNomeJogadorestatico.getText());});
+                 Platform.runLater(() -> {FXMLDocumentController.textNomeJogador1Estatico.setText(FXMLDocumentController.meteNomeJogadorestatico.getText());
+                 FXMLDocumentController.gridEstatico.setVisible(true);
+        FXMLDocumentController.pecasInicioAzulEstatico.setVisible(true);
+        FXMLDocumentController.pecasInicioVermelhasEstatico.setVisible(true);
+                 });
             } catch (IOException ex) {
                 Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
             }
                 }
                 
             });
-              }
-        });
-  // Thread que serve para o cliente envia mensagens para o servidor
-        Thread enviarMensagem = new Thread(() -> {
-            while (true) {
                 for(Peca p : FXMLDocumentController.pecasAzuisEstatico){
                    p.getForma().setOnMousePressed(new EventHandler<MouseEvent>(){
                     @Override
@@ -147,7 +152,11 @@ private static String serverIP = "127.0.0.1";
                         System.out.println("Outro clicou");
                          
              Platform.runLater(() -> {FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasAzuisEstatico[0].getForma(),casasX,casasY);
-                                  FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 2 a jogar");FXMLDocumentController.textNomeJogador2Estatico.setText(recebeNome); });
+                                  FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 2 a jogar"); });
+                    }
+                    else if(msg.contains("Nome")){
+                        Platform.runLater(() -> {FXMLDocumentController.textNomeJogador2Estatico.setText(recebeNome);});
+                        System.out.println(msg);
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
@@ -155,7 +164,7 @@ private static String serverIP = "127.0.0.1";
             }
        
         });
-          enviarNome.start();
+          //enviarNome.start();
          lerMensagem.start();
        enviarMensagem.start();
      

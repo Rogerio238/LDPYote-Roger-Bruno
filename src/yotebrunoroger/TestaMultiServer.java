@@ -92,6 +92,7 @@ try {
 
           
                for(ClientHandler mc: TestaMultiServer.listaClientes){
+                   System.out.println(recebeNome);
                    if(recebeNome.contains("Nome")){
                    mc.dos.writeUTF(recebeNome);
                    }
