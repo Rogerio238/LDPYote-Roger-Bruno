@@ -113,7 +113,7 @@ public class FXMLDocumentController implements Initializable, Runnable {
      ObjectInputStream oos ;
     public static Button confirma;
     static FXMLDocumentController instancia;
-
+public static Label testaLabel;
     /**
      *
      * @return
@@ -142,8 +142,10 @@ public class FXMLDocumentController implements Initializable, Runnable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
       
-        
+          atualizaJogo();
         confirma = porra;
+        testaLabel = labelConectado;
+       
     }     
        
     /**
@@ -152,23 +154,16 @@ public class FXMLDocumentController implements Initializable, Runnable {
     @Override
 public void run() {
    
-   
+  
 }
 
     /**
      *
      */
     public  void atualizaJogo(){
-         try {
-        nomeJogador = dis.readUTF();
-       // System.out.println(nomeJogador);
-        textNomeJogador2.setText(nomeJogador);
-         System.out.println(nomeJogador);
-    } catch (IOException ex) {
-        Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-    }
-          escondeAnchor.setVisible(true);
-        escondeAnchor.setStyle("-fx-background-color: #F0F8FF");
+        
+         
+     
       
         childrens = gridTabuleiro.getChildren();
         pecasAzuis = new Peca[12];
@@ -253,16 +248,8 @@ public void run() {
         textNomeJogador1.setText(peca1.getId());
         gridTabuleiro.setGridLinesVisible(true);
 
-        pecasClicaveis();
-        pecasClicaveisVermelhas();
-         try {
-            System.out.println("ok");
-            dos.writeUTF(meteNomeJogador.getText().toString());
-          
-            dos.flush();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+       
     }
    
 

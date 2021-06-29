@@ -85,10 +85,6 @@ FXMLDocumentController.confirma.setOnMousePressed(new EventHandler<MouseEvent>()
   // Thread que serve para o cliente envia mensagens para o servidor
         Thread enviarMensagem = new Thread(() -> {
             while (true) {
-                
-                      
-                
-                      
                      FXMLDocumentController.confirma.setOnMousePressed(new EventHandler<MouseEvent>(){
                          @Override
                          public void handle(MouseEvent event) {
@@ -101,31 +97,20 @@ FXMLDocumentController.confirma.setOnMousePressed(new EventHandler<MouseEvent>()
                          }
                          
                      });
-                                
-                               
-                               
-                           
-            
-              
-                       
         }});
         
          Thread lerMensagem;
         lerMensagem = new Thread(() -> {
             while (true) {
-
-              
                     String msg;
                 try {
                     msg = in.readUTF();
                     if(msg.contains("boas")){
-                       
+                       FXMLDocumentController.testaLabel.setText("teste");
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                    
-               
             }
         });
         
