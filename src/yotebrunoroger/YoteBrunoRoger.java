@@ -48,7 +48,7 @@ private static String serverIP = "127.0.0.1";
     private String valorCasas = " ";
     private final Text text = new Text(Integer.toString(count));
     private int indiceDaPeca = 0;
-    private int [][] arraySuporte = new int[4][5];
+    private int [][] arraySuporte = new int[5][4];
     private void incrementCount() {
         count++;
         text.setText(Integer.toString(count));
@@ -91,9 +91,38 @@ private static String serverIP = "127.0.0.1";
             while (true) {
                 
                 for(Peca p : FXMLDocumentController.pecasAzuisEstatico){
+                    if(p.getEstadentro() == true){
+                        FXMLDocumentController.botaoParacimaEstatico.setOnMousePressed(new EventHandler<MouseEvent>(){
+                    @Override
+                    public void handle(MouseEvent event) {
+                         if(arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] == 1){
+                             arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1] = 1;
+                            Platform.runLater(() -> {FXMLDocumentController.gridEstatico.add(p.getForma(),Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText() ),Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1);});
+                                  casaX = Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText());
+                                  casaY = Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())- 1;
+                                  //System.out.println(casaX + casaY);
+                                  indiceDaPeca = findIndex(FXMLDocumentController.pecasAzuisEstatico, p);
+                                  System.out.println(indiceDaPeca);
+                             try {
+                                 out.writeInt(indiceDaPeca);
+                                 out.writeInt(casaX);
+                                  out.writeInt(casaY);
+                             } catch (IOException ex) {
+                                 Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
+                             }
+                                  
+                         }
+                    }
+                    
+                });
+                }else{
                    p.getForma().setOnMousePressed(new EventHandler<MouseEvent>(){
                     @Override
                     public void handle(MouseEvent event) {
+                        
+                        
+                        
+                     
                         System.out.println("vem do cliente");
                         try {
                                  out.writeUTF("clicou");
@@ -110,16 +139,19 @@ private static String serverIP = "127.0.0.1";
                                   out.writeInt(indiceDaPeca);
                                   out.writeInt(casaX);
                                   out.writeInt(casaY);
+                                  p.setEstadentro(true);
                         }
                                  else{
-                                         System.out.println("não pode");
+                                      
                                          }
                              } catch (IOException ex) {
                                  Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
                              }
+                    
                     }
                        
                    });
+                    }
                    
                            }
                 

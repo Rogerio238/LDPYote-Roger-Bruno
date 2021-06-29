@@ -144,7 +144,10 @@ public static GridPane gridEstatico;
     @FXML
     private Label labelControlaJogador;
     public static Label labelControlaJogadorEstatica;
-
+    @FXML
+    private Button botaoParaCima;
+    public static Button botaoParacimaEstatico;
+    
     private void handleButtonAction(ActionEvent event) {
 
     }
@@ -169,6 +172,7 @@ public static GridPane gridEstatico;
        pecasInicioVermelhasEstatico = pecasInicioVermelhas;
        textNomeJogador1Estatico = textNomeJogador1;
        textNomeJogador2Estatico = textNomeJogador2;
+       botaoParacimaEstatico = botaoParaCima;
     }     
        
     /**
