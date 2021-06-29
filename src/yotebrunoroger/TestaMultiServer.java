@@ -64,7 +64,7 @@ i++;
                this.s = s;
                this.dis = dis;
                this.dos = dos;
-                   this.name = string;
+               this.name = string;
               this.isloggedin = true;
 }
 

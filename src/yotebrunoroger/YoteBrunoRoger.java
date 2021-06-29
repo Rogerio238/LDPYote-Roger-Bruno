@@ -68,7 +68,13 @@ private static String serverIP = "127.0.0.1";
     public static void main(String[] args) {
         launch(args);
         //System.out.println("Hello");
-
+FXMLDocumentController.confirma.setOnMousePressed(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("ola mundo");
+                  }
+    
+});
     }
     private void connectClient() throws IOException {
 
@@ -88,7 +94,7 @@ private static String serverIP = "127.0.0.1";
                          public void handle(MouseEvent event) {
                              //System.out.println("lel");
                              try {
-                                 out.writeUTF(boas);
+                                 out.writeUTF("qweqwe");
                              } catch (IOException ex) {
                                  Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
                              }
@@ -113,7 +119,7 @@ private static String serverIP = "127.0.0.1";
                 try {
                     msg = in.readUTF();
                     if(msg.contains("boas")){
-                       // System.out.println(msg + "lel");
+                       
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
