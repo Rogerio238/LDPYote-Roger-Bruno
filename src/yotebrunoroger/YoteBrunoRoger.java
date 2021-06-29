@@ -121,8 +121,41 @@ private static String serverIP = "127.0.0.1";
                        
                    });
                            }
-                  
-        }});
+                ////////////////////////////////////////////////////////////////////////////////////
+            for(Peca p : FXMLDocumentController.pecasVermelhasEstatico){
+                   p.getForma().setOnMousePressed(new EventHandler<MouseEvent>(){
+                    @Override
+                    public void handle(MouseEvent event) {
+                        System.out.println("vem do cliente");
+                        try {
+                                 out.writeUTF("clicavermelha");
+                               
+                                 if(arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] != 1){
+                                  Platform.runLater(() -> {FXMLDocumentController.gridEstatico.add(p.getForma(),Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText()),Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()));
+                                  arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] = 1;
+                                  FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 1 a jogar"); });
+                                  casaX = Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText());
+                                  casaY = Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText());
+                                  //System.out.println(casaX + casaY);
+                                  indiceDaPeca = findIndex(FXMLDocumentController.pecasVermelhasEstatico, p);
+                                  System.out.println(indiceDaPeca);
+                                  out.writeInt(indiceDaPeca);
+                                  out.writeInt(casaX);
+                                  out.writeInt(casaY);
+                        }
+                                 else{
+                                         System.out.println("não pode");
+                                         }
+                             } catch (IOException ex) {
+                                 Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
+                             }
+                    }
+                       
+                   });
+                           }      
+            ///////////////////////////////////////////////////////////////////////////
+        }
+        });
          
          Thread lerMensagem;
         lerMensagem = new Thread(() -> {
@@ -140,6 +173,12 @@ private static String serverIP = "127.0.0.1";
                          
              Platform.runLater(() -> {FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasAzuisEstatico[recebeIndicePeca].getForma(),casasY,casasX);
                                   FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 2 a jogar"); });
+                    }
+                    else if(msg.contains("clicavermelha")){
+                              System.out.println("Outro clicou");
+                         
+             Platform.runLater(() -> {FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasVermelhasEstatico[recebeIndicePeca].getForma(),casasY,casasX);
+                                  FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 1 a jogar"); });
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
