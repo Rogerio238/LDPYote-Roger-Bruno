@@ -46,9 +46,8 @@ private static String serverIP = "127.0.0.1";
     private int casaX = 0;
     private int casaY = 0;
     private String valorCasas = " ";
-    private boolean posNome = false;
     private final Text text = new Text(Integer.toString(count));
-
+    
     private void incrementCount() {
         count++;
         text.setText(Integer.toString(count));
@@ -66,9 +65,7 @@ private static String serverIP = "127.0.0.1";
         stage.show();
         connectClient();
         Platform.runLater(() -> {FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 1 a jogar"); });
-        FXMLDocumentController.gridEstatico.setVisible(false);
-        FXMLDocumentController.pecasInicioAzulEstatico.setVisible(false);
-        FXMLDocumentController.pecasInicioVermelhasEstatico.setVisible(false);
+       
     }
 
     /**
@@ -87,30 +84,10 @@ private static String serverIP = "127.0.0.1";
 
         in = new DataInputStream(socket.getInputStream());
         out = new DataOutputStream(socket.getOutputStream());
-        Thread enviarNome = new Thread(() -> {
-              while (true) {
-            
-              }
-        });
+        
   // Thread que serve para o cliente envia mensagens para o servidor
         Thread enviarMensagem = new Thread(() -> {
             while (true) {
-                FXMLDocumentController.confirmaNomeJogadorEstatico.setOnMousePressed(new EventHandler<MouseEvent>(){
-                @Override
-                public void handle(MouseEvent event) {
-                     try {
-                out.writeUTF("Nome" + FXMLDocumentController.meteNomeJogadorestatico.getText());
-                 Platform.runLater(() -> {FXMLDocumentController.textNomeJogador1Estatico.setText(FXMLDocumentController.meteNomeJogadorestatico.getText());
-                 FXMLDocumentController.gridEstatico.setVisible(true);
-        FXMLDocumentController.pecasInicioAzulEstatico.setVisible(true);
-        FXMLDocumentController.pecasInicioVermelhasEstatico.setVisible(true);
-                 });
-            } catch (IOException ex) {
-                Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                }
-                
-            });
                 for(Peca p : FXMLDocumentController.pecasAzuisEstatico){
                    p.getForma().setOnMousePressed(new EventHandler<MouseEvent>(){
                     @Override
@@ -142,21 +119,15 @@ private static String serverIP = "127.0.0.1";
             while (true) {
                     String msg;
                     int casasX, casasY;
-                    String recebeNome;
                 try {
                     msg = in.readUTF();
                     casasX = in.readInt();
                     casasY = in.readInt();
-                    recebeNome = in.readUTF();
                     if(msg.contains("clicou")){
                         System.out.println("Outro clicou");
                          
              Platform.runLater(() -> {FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasAzuisEstatico[0].getForma(),casasX,casasY);
                                   FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 2 a jogar"); });
-                    }
-                    else if(msg.contains("Nome")){
-                        Platform.runLater(() -> {FXMLDocumentController.textNomeJogador2Estatico.setText(recebeNome);});
-                        System.out.println(msg);
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
@@ -164,10 +135,8 @@ private static String serverIP = "127.0.0.1";
             }
        
         });
-          //enviarNome.start();
          lerMensagem.start();
        enviarMensagem.start();
-     
   
        
  }
