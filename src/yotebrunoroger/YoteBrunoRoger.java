@@ -120,6 +120,7 @@ private static String serverIP = "127.0.0.1";
                     }
                        
                    });
+                   
                            }
                 
                 for(Peca p : FXMLDocumentController.pecasVermelhasEstatico){
