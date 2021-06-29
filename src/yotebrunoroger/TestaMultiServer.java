@@ -105,6 +105,13 @@ public class TestaMultiServer {
                             mc.dos.writeInt(recebeCasaY);
                             mc.dos.writeInt(recebeIndicePeca);
                         }
+                        
+                        else if(recebido.startsWith("clicaVermelha")){
+                            mc.dos.writeUTF("clicaVermelha");
+                            mc.dos.writeInt(recebeCasaX);
+                            mc.dos.writeInt(recebeCasaY);
+                            mc.dos.writeInt(recebeIndicePeca);
+                        }
 
                         break;
 
