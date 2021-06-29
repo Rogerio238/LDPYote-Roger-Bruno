@@ -96,8 +96,9 @@ public static Text textNomeJogador1Estatico;
     public static TextField coordenadaEsquerdaEstatico;
     public static TextField coordenadaDireitaEstatico;
     private int[][] arraytabuleiro;
-    private Peca[] pecasAzuis;
-    private Peca[] pecasVermelhas;
+    public Peca[] pecasAzuis;
+    public Peca[] pecasVermelhas;
+    public static Peca[] pecasVermelhasEstatico;
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -158,6 +159,7 @@ public static GridPane gridEstatico;
         confirmaNomeJogadorEstatico = confirmaNome;
         testaLabel = labelConectado;
        pecasAzuisEstatico = pecasAzuis;
+       pecasVermelhasEstatico = pecasVermelhas;
        gridEstatico = gridTabuleiro;
        labelControlaJogadorEstatica = labelControlaJogador;
        coordenadaEsquerdaEstatico = coordenadaNmr;

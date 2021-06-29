@@ -26,7 +26,7 @@ import javafx.scene.shape.Ellipse;
 public class TestaMultiServer {
 
     private static int port = 6666, nClientes = 1;
-    private static Vector<ClientHandler> listaClientes = new Vector<>();
+    private static List<ClientHandler> listaClientes = new ArrayList<>();
     private static Socket client;
     static int i = 0;
 
@@ -35,6 +35,7 @@ public class TestaMultiServer {
         ServerSocket ss = new ServerSocket(port);
 
         Socket s;
+        if(nClientes < 2){
         while (true) {
             s = ss.accept();
             System.out.println("Novo client recebido : " + s);
@@ -51,6 +52,7 @@ public class TestaMultiServer {
             t.start();
 
             i++;
+        }
         }
     }
 
@@ -76,7 +78,7 @@ public class TestaMultiServer {
         @Override
         public void run() {
             String recebido;
-            int recebeCasaX, recebeCasaY;
+            int recebeCasaX, recebeCasaY, recebeIndicePeca;
 
             while (true) {
 
@@ -84,6 +86,7 @@ public class TestaMultiServer {
                     recebido = dis.readUTF();
                     recebeCasaX = dis.readInt();
                     recebeCasaY = dis.readInt();
+                    recebeIndicePeca = dis.readInt();
                     System.out.println(recebido);
                     //System.out.println(recebido);
                     if (recebido.endsWith("logout")) {
@@ -100,6 +103,7 @@ public class TestaMultiServer {
                             mc.dos.writeUTF("clicou");
                             mc.dos.writeInt(recebeCasaX);
                             mc.dos.writeInt(recebeCasaY);
+                            mc.dos.writeInt(recebeIndicePeca);
                         }
 
                         break;
