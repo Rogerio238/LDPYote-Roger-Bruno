@@ -32,6 +32,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -188,6 +189,8 @@ public class FXMLDocumentController implements Initializable, Runnable {
     private Label labelConectado;
     @FXML
     private Button buttonSair;
+    
+    public static Button buttonSairEstatico;
     int porta = 4000;
 
     /**
@@ -218,6 +221,13 @@ public class FXMLDocumentController implements Initializable, Runnable {
      *
      */
     public static Button botaoParacimaEstatico;
+    @FXML
+    private TextArea outputChatText;
+    public static TextArea outputChatTextEstatico;
+    @FXML
+    private TextField inputChatText;
+    
+    public static TextField inputChatTestEstatico;
     
     private void handleButtonAction(ActionEvent event) {
 
@@ -244,6 +254,9 @@ public class FXMLDocumentController implements Initializable, Runnable {
        textNomeJogador1Estatico = textNomeJogador1;
        textNomeJogador2Estatico = textNomeJogador2;
        botaoParacimaEstatico = botaoParaCima;
+       buttonSairEstatico = buttonSair;
+       inputChatTestEstatico = inputChatText;
+       outputChatTextEstatico = outputChatText;
     }     
        
     /**
@@ -389,17 +402,9 @@ public void run() {
   
     @FXML
     private void botaoClicouSair(MouseEvent event) {
-        try {
-            s.close();
-            Platform.exit();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
 
-    @FXML
-    private void confirmaNomeJogador(MouseEvent event) {
-    }
 
     
 }

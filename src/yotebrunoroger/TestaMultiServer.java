@@ -40,7 +40,7 @@ public class TestaMultiServer {
         ServerSocket ss = new ServerSocket(port);
 
         Socket s;
-        if(nClientes < 2){
+        if(i < 2){
         while (true) {
             s = ss.accept();
             System.out.println("Novo client recebido : " + s);
@@ -52,7 +52,7 @@ public class TestaMultiServer {
 
             Thread t = new Thread(mtch);
 
-            System.out.println("Adiciona cliente " + i + " à lista ativa.");
+            System.out.println("Adiciona cliente " + i + " à lista ativa." + s.getInetAddress());
             listaClientes.add(mtch);
             t.start();
 
@@ -94,7 +94,7 @@ public class TestaMultiServer {
                     recebeIndicePeca = dis.readInt();
                     System.out.println(recebido);
                     //System.out.println(recebido);
-                    if (recebido.endsWith("logout")) {
+                    if (recebido.endsWith("#logout")) {
                         this.isloggedin = false;
                         this.s.close();
                         break; // while
@@ -109,6 +109,7 @@ public class TestaMultiServer {
                             mc.dos.writeInt(recebeCasaX);
                             mc.dos.writeInt(recebeCasaY);
                             mc.dos.writeInt(recebeIndicePeca);
+                            mc.dos.writeUTF(mc.name);
                         }
                         
                         else if(recebido.startsWith("clicaVermelha")){
@@ -118,10 +119,15 @@ public class TestaMultiServer {
                             mc.dos.writeInt(recebeIndicePeca);
                         }
                         else if(recebido.startsWith("clicouParaCima")){
-                             mc.dos.writeUTF("clicouParaCima");
+                            mc.dos.writeUTF("clicouParaCima");
                             mc.dos.writeInt(recebeCasaX);
                             mc.dos.writeInt(recebeCasaY);
                             mc.dos.writeInt(recebeIndicePeca);
+                        }
+                       if(recebido.startsWith("#chat")){
+                           
+                            System.out.println(recebido);
+                            mc.dos.writeUTF("#chat" + mc.name + recebido);
                         }
 
                         break;

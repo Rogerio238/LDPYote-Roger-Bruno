@@ -86,10 +86,20 @@
             <Button fx:id="botaoParaCima" layoutX="242.0" layoutY="129.0" mnemonicParsing="false" text="cima" />
          </children>
       </AnchorPane>
-      <Button fx:id="confirmaNome" layoutX="683.0" layoutY="84.0" mnemonicParsing="false" onMouseClicked="#confirmaNomeJogador" text="Confirmar" />
       <TextField fx:id="meteNomeJogador" layoutX="459.0" layoutY="84.0" />
       <Label fx:id="labelConectado" layoutX="460.0" layoutY="124.0" prefHeight="21.0" prefWidth="187.0" text="Label" />
-      <Button fx:id="confirmaNome" layoutX="940.0" layoutY="84.0" mnemonicParsing="false" text="Button" />
+      <Button fx:id="confirmaNome" layoutX="666.0" layoutY="84.0" mnemonicParsing="false" text="Button" />
       <Label fx:id="labelControlaJogador" layoutX="427.0" layoutY="25.0" prefHeight="21.0" prefWidth="231.0" text="Label" />
+      <HBox layoutX="942.0" layoutY="14.0" prefHeight="164.0" prefWidth="463.0">
+         <children>
+            <VBox prefHeight="164.0" prefWidth="474.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Chat" wrappingWidth="467.6708984375" />
+                  <TextArea fx:id="outputChatText" prefHeight="116.0" prefWidth="463.0" />
+                  <TextField fx:id="inputChatText" prefHeight="51.0" prefWidth="463.0" promptText="Inserir texto aqui" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
