@@ -19,10 +19,20 @@ import javafx.scene.shape.Rectangle;
  */
 public class ControllerJogoGrid implements Initializable {
 
-    
-      public Label nomeid;
-      public Label estadoJogo;
-       public GridPane gridJogo;
+    /**
+     *
+     */
+    public Label nomeid;
+
+    /**
+     *
+     */
+    public Label estadoJogo;
+
+    /**
+     *
+     */
+    public GridPane gridJogo;
        private boolean tabela[][];
         private final int tamQuadrado = 50;
          private final int altura = 10;
@@ -33,16 +43,19 @@ public class ControllerJogoGrid implements Initializable {
         
     }
     
-    
-    
-    
-    
-     public void mudaTextoLabel(String texto){
+    /**
+     *
+     * @param texto
+     */
+    public void mudaTextoLabel(String texto){
             System.out.println("TEXTO DA LABEL: " + estadoJogo.getText());
             estadoJogo.setText(texto);
     }
      
-        
+    /**
+     *
+     * @param tabela
+     */
     public void setGridAdversario(boolean[][] tabela){
         gridJogo.setHgap(this.tamQuadrado / 10);
         gridJogo.setVgap(this.tamQuadrado / 10);
@@ -72,7 +85,12 @@ public class ControllerJogoGrid implements Initializable {
                     this.rectsJogar[x][y].setFill(Color.BLACK);
 
     }
-       public GridPane getGridJogo(){
+
+    /**
+     *
+     * @return
+     */
+    public GridPane getGridJogo(){
         return this.gridJogo;
     }
 }

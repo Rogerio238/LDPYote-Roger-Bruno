@@ -18,6 +18,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -25,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import static yotebrunoroger.FXMLDocumentController.pecasAzuisEstatico;
@@ -40,7 +42,15 @@ private static String serverIP = "127.0.0.1";
     static DataOutputStream out;
     String boas = "boas";
     private static TextField inputChat;
+
+    /**
+     *
+     */
     public static Button teste;
+
+    /**
+     *
+     */
     public static int yo = 0;
     private int count = 0;
     private int casaX = 0;
@@ -96,14 +106,19 @@ private static String serverIP = "127.0.0.1";
                     @Override
                     public void handle(MouseEvent event) {
                          if(arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] == 1){
+                             arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] = 0;
+                           
                              arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1] = 1;
-                            Platform.runLater(() -> {FXMLDocumentController.gridEstatico.add(p.getForma(),Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText() ),Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1);});
+                            Platform.runLater(() -> {  FXMLDocumentController.gridEstatico.getChildren().remove(p.getForma());
+                                FXMLDocumentController.gridEstatico.add(p.getForma(),GridPane.getRowIndex(p.getForma()),GridPane.getColumnIndex(p.getForma()) - 1);
+                                             });
                                   casaX = Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText());
                                   casaY = Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())- 1;
                                   //System.out.println(casaX + casaY);
                                   indiceDaPeca = findIndex(FXMLDocumentController.pecasAzuisEstatico, p);
                                   System.out.println(indiceDaPeca);
                              try {
+                                  out.writeUTF("clicou");
                                  out.writeInt(indiceDaPeca);
                                  out.writeInt(casaX);
                                   out.writeInt(casaY);
@@ -125,7 +140,7 @@ private static String serverIP = "127.0.0.1";
                      
                         System.out.println("vem do cliente");
                         try {
-                                 out.writeUTF("clicou");
+                                 out.writeUTF("clicouParaCima");
                                
                                  if(arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] != 1){
                                   Platform.runLater(() -> {FXMLDocumentController.gridEstatico.add(p.getForma(),Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText()),Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()));
@@ -202,11 +217,22 @@ private static String serverIP = "127.0.0.1";
                     if(msg.contains("clicou")){
                         System.out.println("Outro clicou");
                          
-             Platform.runLater(() -> {FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasAzuisEstatico[recebeIndicePeca].getForma(),casasY,casasX);
+             Platform.runLater(() -> {
+                 try{
+                     FXMLDocumentController.gridEstatico.getChildren().remove(FXMLDocumentController.pecasAzuisEstatico[recebeIndicePeca].getForma());
+                     FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasAzuisEstatico[recebeIndicePeca].getForma(),casasY,casasX);
+                 
+                 }catch(ArrayIndexOutOfBoundsException e){
+                 e.getMessage();
+             }
                                   FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 2 a jogar"); });
                     }
                     else if(msg.contains("clicaVermelha")){
                          Platform.runLater(() -> {FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasVermelhasEstatico[recebeIndicePeca].getForma(),casasY,casasX);
+                                  FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 2 a jogar"); });
+                    }
+                    else if(msg.contains("clicouParaCima")){
+                          Platform.runLater(() -> {FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasVermelhasEstatico[recebeIndicePeca].getForma(),casasY,casasX);
                                   FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 2 a jogar"); });
                     }
                 } catch (IOException ex) {
@@ -221,8 +247,12 @@ private static String serverIP = "127.0.0.1";
        
  }
     
-    
-    
+    /**
+     *
+     * @param arr
+     * @param t
+     * @return
+     */
     public static int findIndex(Peca arr[], Peca t)
     {
  
@@ -249,5 +279,9 @@ private static String serverIP = "127.0.0.1";
         }
         return -1;
     }
+    
+    
+
+
 
 }

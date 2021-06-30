@@ -53,12 +53,20 @@ public class FXMLDocumentController implements Initializable, Runnable {
     private Label label;
     @FXML
     private Text textNomeJogador1;
-public static Text textNomeJogador1Estatico;
+
+    /**
+     *
+     */
+    public static Text textNomeJogador1Estatico;
     /**
      *
      */
     @FXML
     public Text textNomeJogador2;
+
+    /**
+     *
+     */
     public static Text textNomeJogador2Estatico;
     private Ellipse bolaAzul1;
     private int testajogador = 1;
@@ -69,6 +77,10 @@ public static Text textNomeJogador1Estatico;
     final static int ServerPort = 1234;
     @FXML
     private TextField meteNomeJogador;
+
+    /**
+     *
+     */
     public static TextField meteNomeJogadorestatico;
     @FXML
     private Button confirmaNome;
@@ -85,6 +97,10 @@ public static Text textNomeJogador1Estatico;
     Peca peca1V, peca2V, peca3V, peca4V, peca5V, peca6V, peca7V, peca8V, peca9V, peca10V, peca11V, peca12V;
     @FXML
     private GridPane pecasInicioAzul;
+
+    /**
+     *
+     */
     public static GridPane pecasInicioAzulEstatico;
 
     private boolean clicou = false;
@@ -93,16 +109,39 @@ public static Text textNomeJogador1Estatico;
     @FXML
     private TextField coordenadaLetra;
     
+    /**
+     *
+     */
     public static TextField coordenadaEsquerdaEstatico;
+
+    /**
+     *
+     */
     public static TextField coordenadaDireitaEstatico;
     private int[][] arraytabuleiro;
+
+    /**
+     *
+     */
     public Peca[] pecasAzuis;
+
+    /**
+     *
+     */
     public Peca[] pecasVermelhas;
+
+    /**
+     *
+     */
     public static Peca[] pecasVermelhasEstatico;
     @FXML
     private AnchorPane anchorPane;
     @FXML
     private GridPane pecasInicioVermelhas;
+
+    /**
+     *
+     */
     public static GridPane pecasInicioVermelhasEstatico;
     ObservableList<Node> childrens;
 
@@ -119,10 +158,22 @@ public static Text textNomeJogador1Estatico;
     DataOutputStream dos;
     boolean posNome = false;
      ObjectInputStream oos ;
+
+    /**
+     *
+     */
     public static Button confirma;
     static FXMLDocumentController instancia;
-public static Label testaLabel;
-public static GridPane gridEstatico;
+
+    /**
+     *
+     */
+    public static Label testaLabel;
+
+    /**
+     *
+     */
+    public static GridPane gridEstatico;
     /**
      *
      * @return
@@ -138,14 +189,34 @@ public static GridPane gridEstatico;
     @FXML
     private Button buttonSair;
     int porta = 4000;
+
+    /**
+     *
+     */
     public static Button confirmaNomeJogadorEstatico;
+
+    /**
+     *
+     */
     public Button confirmaNomeParaMandar;
+
+    /**
+     *
+     */
     public static Peca[] pecasAzuisEstatico;
     @FXML
     private Label labelControlaJogador;
+
+    /**
+     *
+     */
     public static Label labelControlaJogadorEstatica;
     @FXML
     private Button botaoParaCima;
+
+    /**
+     *
+     */
     public static Button botaoParacimaEstatico;
     
     private void handleButtonAction(ActionEvent event) {
@@ -290,7 +361,11 @@ public void run() {
 
     }
 
-    
+    /**
+     *
+     * @param x
+     * @param y
+     */
     public void posicionaUmaPeca(int x, int y){
         arraytabuleiro[x][y] = 1;
         gridTabuleiro.add(pecasAzuis[0].getForma(), x, y);

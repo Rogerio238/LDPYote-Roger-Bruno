@@ -30,6 +30,11 @@ public class TestaMultiServer {
     private static Socket client;
     static int i = 0;
 
+    /**
+     *
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         System.out.println("Servidor aceita conexões.");
         ServerSocket ss = new ServerSocket(port);
@@ -108,6 +113,12 @@ public class TestaMultiServer {
                         
                         else if(recebido.startsWith("clicaVermelha")){
                             mc.dos.writeUTF("clicaVermelha");
+                            mc.dos.writeInt(recebeCasaX);
+                            mc.dos.writeInt(recebeCasaY);
+                            mc.dos.writeInt(recebeIndicePeca);
+                        }
+                        else if(recebido.startsWith("clicouParaCima")){
+                             mc.dos.writeUTF("clicouParaCima");
                             mc.dos.writeInt(recebeCasaX);
                             mc.dos.writeInt(recebeCasaY);
                             mc.dos.writeInt(recebeIndicePeca);

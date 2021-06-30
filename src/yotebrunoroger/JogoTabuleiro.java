@@ -21,18 +21,36 @@ import javafx.stage.Stage;
  */
 public class JogoTabuleiro  extends UnicastRemoteObject {
     private Stage stagePrincipal;
+
+    /**
+     *
+     */
     public GridPane gridYote;
     private ControllerJogoGrid gridController;
-      public int id;
+
+    /**
+     *
+     */
+    public int id;
     private boolean solicitante;
      private boolean vez;
+
+    /**
+     *
+     * @param stagePrincipal
+     * @param id
+     * @param solicitante
+     * @throws RemoteException
+     */
     public JogoTabuleiro(Stage stagePrincipal, int id, boolean solicitante) throws RemoteException{
         this.stagePrincipal = stagePrincipal;
         this.id = id;
         this.vez = solicitante;
     }
     
-    
+    /**
+     *
+     */
     public void carregaJogo(){
         System.out.println("JogoYote iniciado!");
         
@@ -88,7 +106,9 @@ public class JogoTabuleiro  extends UnicastRemoteObject {
         
         }
     
-    
+    /**
+     *
+     */
     public void iniciarJogo(){
     Scene cenaJogo = this.stagePrincipal.getScene();
         GridPane gridJogo = this.gridController.getGridJogo();

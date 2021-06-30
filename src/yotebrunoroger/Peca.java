@@ -20,6 +20,11 @@ enum pecaCor {
   Azul ,
   Vermelha
 }
+
+/**
+ *
+ * @author senho
+ */
 public class Peca {
     private pecaCor corPeca;
     private boolean estadentro=false;
@@ -29,6 +34,11 @@ public class Peca {
     private int id;
     private int idAtual = 0;
     private String stringId;
+
+    /**
+     *
+     * @param cor
+     */
     public Peca(Color cor){
        
         id++;
@@ -40,41 +50,84 @@ public class Peca {
         forma.setVisible(true);
     }
     
+    /**
+     *
+     * @return
+     */
     public Ellipse getForma(){
         return forma;
     }
     
+    /**
+     *
+     * @return
+     */
     public pecaCor corPeca(){
         return corPeca;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getId(){
         return stringId;
     }
-  public void movePeca(int x, int y, GridPane tabuleiro){
+
+    /**
+     *
+     * @param x
+     * @param y
+     * @param tabuleiro
+     */
+    public void movePeca(int x, int y, GridPane tabuleiro){
      tabuleiro.add(forma, x, y);
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean getEstadentro() {
         return estadentro;
     }
 
+    /**
+     *
+     * @param estadentro
+     */
     public void setEstadentro(boolean estadentro) {
         this.estadentro = estadentro;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     *
+     * @param x
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     *
+     * @param y
+     */
     public void setY(int y) {
         this.y = y;
     }
