@@ -250,7 +250,7 @@ public class YoteBrunoRoger extends Application {
 
         Thread lerMensagem;
         lerMensagem = new Thread(() -> {
-
+            System.out.println("asd");
             while (true) {
                 String msg, nomeJogador;
                 int casasX, casasY, recebeIndicePeca;
