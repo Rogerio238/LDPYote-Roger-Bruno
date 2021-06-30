@@ -32,6 +32,7 @@ import javafx.stage.Stage;
 import static yotebrunoroger.FXMLDocumentController.inputChatTestEstatico;
 import static yotebrunoroger.FXMLDocumentController.outputChatTextEstatico;
 import static yotebrunoroger.FXMLDocumentController.pecasAzuisEstatico;
+import static yotebrunoroger.FXMLDocumentController.pecascomidasEstatico;
 
 /**
  *
@@ -46,7 +47,7 @@ private static String serverIP = "127.0.0.1";
     String boas = "boas";
     private static TextField inputChat;
     private String jogouNaCasa = "Jogou na casa ";
-
+  private int pecasvcomidas=0;
     /**
      *
      */
@@ -215,7 +216,8 @@ private static String serverIP = "127.0.0.1";
                                             if(GridPane.getColumnIndex(p1.getForma())==Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())&& GridPane.getColumnIndex(p1.getForma()) == Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1){
                                                          FXMLDocumentController.gridEstatico.getChildren().remove(p1.getForma());
                                                          removepeca(FXMLDocumentController.pecasVermelhasEstatico,p1);
-                                                         
+                                                         pecasvcomidas++;
+                                                          FXMLDocumentController.pecascomidasEstatico.setText(Integer.toString(pecasvcomidas));
                                                          System.out.println("comeu");
                                         }
                                         }
