@@ -104,7 +104,7 @@ public class TestaMultiServer {
 
                         System.out.println("iei");
                         // mc.dos.writeUTF(recebido);
-                        if (recebido.contains("clicou")) {
+                        if (recebido.startsWith("clicou")) {
                             mc.dos.writeUTF("clicou");
                             mc.dos.writeInt(recebeCasaX);
                             mc.dos.writeInt(recebeCasaY);
@@ -113,21 +113,21 @@ public class TestaMultiServer {
                             recebido = " ";
                         }
                         
-                        else if(recebido.startsWith("clicaVermelha")){
+                        else if(recebido.contains("clicaVermelha")){
                             mc.dos.writeUTF("clicaVermelha");
                             mc.dos.writeInt(recebeCasaX);
                             mc.dos.writeInt(recebeCasaY);
                             mc.dos.writeInt(recebeIndicePeca);
                             recebido = " ";
                         }
-                        else if(recebido.startsWith("clicouParaCima")){
+                        else if(recebido.contains("clicouParaCima")){
                             mc.dos.writeUTF("clicouParaCima");
                             mc.dos.writeInt(recebeCasaX);
                             mc.dos.writeInt(recebeCasaY);
                             mc.dos.writeInt(recebeIndicePeca);
                             recebido = " ";
                         }
-                       if(recebido.startsWith("#chat")){
+                       if(recebido.contains("#chat")){
                            
                             System.out.println(recebido);
                             mc.dos.writeUTF("#chat" + mc.name + recebido);
