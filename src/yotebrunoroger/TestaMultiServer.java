@@ -117,16 +117,16 @@ private static Socket s;
 
         @Override
         public void run() {
-            String recebido;String value;
-            int recebeCasaX, recebeCasaY, recebeIndicePeca;
+            String recebido;
+            int recebeCasaY, recebeIndicePeca;
+            float recebeCasaX;
 
             while (true) {
 
                 try {
                     recebido = dis.readUTF();
-                         recebeCasaY = dis.readInt();
-                    recebeCasaX = dis.readInt();
-               
+                    recebeCasaX = dis.readFloat();
+                    recebeCasaY = dis.readInt();
                     recebeIndicePeca = dis.readInt();
                     System.out.println(recebido);
                     //System.out.println(recebido);
@@ -140,39 +140,35 @@ private static Socket s;
 
                         System.out.println("iei");
                         // mc.dos.writeUTF(recebido);
-                      
-                        if (recebido.contains("azul")) {
-                            
-                        System.out.println("muta gayyyyyyyyyyyyyyyyyyyyy"+recebido);
-                        
-                           mc.dos.writeUTF(recebido);
-           
-                            recebido = " "; break;
-                        }if (recebido.contains("vermelha")) {
-                                mc.dos.writeUTF("vermelha");
-                           mc.dos.writeInt(recebeCasaY);
-                            mc.dos.writeInt(recebeCasaX);
-            
+                        if(!recebido.contains(mc.name)){
+                        if (recebido.startsWith("azul")) {
+                            mc.dos.writeUTF("azul");
+                            mc.dos.writeFloat(recebeCasaX);
+                            mc.dos.writeInt(recebeCasaY);
                             mc.dos.writeInt(recebeIndicePeca);
                             mc.dos.writeUTF(mc.name);
                             System.out.println("casa x" + recebeCasaX);
                             System.out.println("casa y" + recebeCasaY);
+                            recebido = " "; break;
+                        }
+                        } else if (recebido.contains("vermelha")) {
+                            System.out.println("vermelha " +recebido);
+                            mc.dos.writeUTF("vermelha");
+                            mc.dos.writeFloat(recebeCasaX);
+                            mc.dos.writeInt(recebeCasaY);
+                            mc.dos.writeInt(recebeIndicePeca);
+                            
                             recebido = " "; break;
                         } else if (recebido.contains("clicouParaCima")) {
-                       mc.dos.writeUTF("clicouParaCima");
-                           mc.dos.writeInt(recebeCasaY);
-                            mc.dos.writeInt(recebeCasaX);
-                        
+                                  System.out.println(recebido);
+                            mc.dos.writeUTF("clicouParaCima");
+                            mc.dos.writeFloat(recebeCasaX);
+                            mc.dos.writeInt(recebeCasaY);
                             mc.dos.writeInt(recebeIndicePeca);
-                            mc.dos.writeUTF(mc.name);
-                            System.out.println("casa x" + recebeCasaX);
-                            System.out.println("casa y" + recebeCasaY);
                             recebido = " "; break;
-                        } 
-                       
-                        
+                        }
                         if (recebido.contains("#chat")) {
-                             System.out.println(recebido);
+      System.out.println(recebido);
                             System.out.println(recebido);
                             mc.dos.writeUTF("#chat" + recebido);
                             recebido = " "; break;
@@ -192,3 +188,6 @@ private static Socket s;
     }
 
 }
+
+
+
