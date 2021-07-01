@@ -207,6 +207,7 @@ public class FXMLDocumentController implements Initializable, Runnable {
      *
      */
     public static Peca[] pecasAzuisEstatico;
+   
     @FXML
     private Label labelControlaJogador;
 
@@ -228,6 +229,9 @@ public class FXMLDocumentController implements Initializable, Runnable {
     private TextField inputChatText;
     
     public static TextField inputChatTestEstatico;
+    @FXML
+    private Text pecascomidas;
+    public static Text pecascomidasEstatico;
     
     private void handleButtonAction(ActionEvent event) {
 
@@ -240,6 +244,7 @@ public class FXMLDocumentController implements Initializable, Runnable {
     public void initialize(URL url, ResourceBundle rb) {
       
           atualizaJogo();
+          pecascomidasEstatico = pecascomidas;
         confirmaNomeJogadorEstatico = confirmaNome;
         testaLabel = labelConectado;
        pecasAzuisEstatico = pecasAzuis;

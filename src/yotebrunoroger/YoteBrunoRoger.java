@@ -10,6 +10,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -63,6 +64,7 @@ public class YoteBrunoRoger extends Application {
     private final Text text = new Text(Integer.toString(count));
     private int indiceDaPeca = 0;
     private int[][] arraySuporte = new int[5][4];
+    private int pecasvcomidas = 0;
 
     private void incrementCount() {
         count++;
@@ -103,14 +105,15 @@ public class YoteBrunoRoger extends Application {
         in = new DataInputStream(socket.getInputStream());
         out = new DataOutputStream(socket.getOutputStream());
         String nomeJogadorserver = in.readUTF();
-        if(nomeJogadorserver.contains("nomeJogador")){
+        if (nomeJogadorserver.contains("nomeJogador")) {
             FXMLDocumentController.textNomeJogador1Estatico.setText(nomeJogadorserver);
+        } else if (nomeJogadorserver.contains("nome")) {
+            FXMLDocumentController.textNomeJogador2Estatico.setText(nomeJogadorserver);
         }
         // Thread que serve para o cliente envia mensagens para o servidor
         Thread enviarMensagem = new Thread(() -> {
             while (true) {
 
-                
                 FXMLDocumentController.confirmaNomeJogadorEstatico.setOnMousePressed(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
@@ -118,37 +121,33 @@ public class YoteBrunoRoger extends Application {
                             String nomeJogador = FXMLDocumentController.meteNomeJogadorestatico.getText();
                             out.writeUTF("clicou nome" + nomeJogador);
                             Platform.runLater(() -> {
-                            FXMLDocumentController.textNomeJogador1Estatico.setText(FXMLDocumentController.meteNomeJogadorestatico.getText());
+                                FXMLDocumentController.textNomeJogador1Estatico.setText(FXMLDocumentController.meteNomeJogadorestatico.getText());
                             });
-                            
+
                         } catch (IOException ex) {
                             Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        
-                         }
-                    
+
+                    }
+
                 });
-                
-                
-                
-                
-                
-                
+
                 FXMLDocumentController.inputChatTestEstatico.setOnKeyPressed(new EventHandler<KeyEvent>() {
                     @Override
                     public void handle(KeyEvent k) {
                         if (k.getCode().equals(KeyCode.ENTER)) {
                             try {
 
-                                out.writeUTF("clicou #Chat" + FXMLDocumentController.inputChatTestEstatico.getText());
+                                out.writeUTF("#Chat");
                                 System.out.println(FXMLDocumentController.inputChatTestEstatico.getText());
                                 Platform.runLater(() -> {
-                                FXMLDocumentController.outputChatTextEstatico.appendText(FXMLDocumentController.inputChatTestEstatico.getText() + "\n");
-                                FXMLDocumentController.inputChatTestEstatico.setVisible(false);
+                                    FXMLDocumentController.outputChatTextEstatico.appendText(FXMLDocumentController.inputChatTestEstatico.getText() + "\n");
+
+                                    FXMLDocumentController.inputChatTestEstatico.setText("");
                                 });
                                 inputChat.setText("");
                             } catch (IOException ex) {
-                                Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
+                                //Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
                             } catch (NullPointerException e) {
 
                             }
@@ -176,46 +175,54 @@ public class YoteBrunoRoger extends Application {
                             @Override
                             public void handle(MouseEvent event) {
                                 if (arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] == 1) {
-                                    arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] = 0;
-                                     if(arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1] == 0) {          
-                                    arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1] = 1;
-                                    Platform.runLater(() -> {
-                                       
-                                        FXMLDocumentController.gridEstatico.getChildren().remove(p.getForma());
-                                        FXMLDocumentController.gridEstatico.add(p.getForma(), GridPane.getRowIndex(p.getForma()), GridPane.getColumnIndex(p.getForma()) - 1);
 
-                                    });
-                                    casaX = Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText());
-                                    casaY = Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1;
-                                    //System.out.println(casaX + casaY);
-                                    indiceDaPeca = findIndex(FXMLDocumentController.pecasAzuisEstatico, p);
-                                    System.out.println(indiceDaPeca);
-                                    
+                                    if (arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 2] == 1 || arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 2] == 2) {
+                                        System.out.println("não pode mover");
+                                    } else {
+                                        if (arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1] == 0) {
+                                            arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1] = 1;
+                                            arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] = 0;
+                                            Platform.runLater(() -> {
 
-                                }else if(arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())-1 ]== 2){
-                                  
-                                      arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] = 0;
+                                                FXMLDocumentController.gridEstatico.getChildren().remove(p.getForma());
+                                                FXMLDocumentController.gridEstatico.add(p.getForma(), GridPane.getRowIndex(p.getForma()), GridPane.getColumnIndex(p.getForma()) - 1);
 
-                                    arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1] = 0;
-                                        arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 2] = 1;
-                                           arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1] = 1;
-                                    Platform.runLater(() -> {
-                                        FXMLDocumentController.gridEstatico.getChildren().remove(p.getForma());
-                                        FXMLDocumentController.gridEstatico.add(p.getForma(), GridPane.getRowIndex(p.getForma()), GridPane.getColumnIndex(p.getForma()) - 1);
-                                        for(Peca p1 : FXMLDocumentController.pecasVermelhasEstatico){
-                                            if(GridPane.getColumnIndex(p1.getForma())==Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())&& GridPane.getColumnIndex(p1.getForma()) == Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1){
-                                                         FXMLDocumentController.gridEstatico.getChildren().remove(p1.getForma());
-                                                         System.out.println("comeu");
+                                            });
+                                            casaX = Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText());
+                                            casaY = Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1;
+                                            //System.out.println(casaX + casaY);
+                                            indiceDaPeca = findIndex(FXMLDocumentController.pecasAzuisEstatico, p);
+                                            System.out.println(indiceDaPeca);
+
+                                        } else if (arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1] == 2) {
+
+                                            arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] = 0;
+
+                                            arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1] = 0;
+                                            arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 2] = 1;
+                                            arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1] = 1;
+
+                                            Platform.runLater(() -> {
+                                                FXMLDocumentController.gridEstatico.getChildren().remove(p.getForma());
+                                                FXMLDocumentController.gridEstatico.add(p.getForma(), GridPane.getRowIndex(p.getForma()), GridPane.getColumnIndex(p.getForma()) - 1);
+                                                for (Peca p1 : FXMLDocumentController.pecasVermelhasEstatico) {
+                                                    if (GridPane.getColumnIndex(p1.getForma()) == Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText()) && GridPane.getColumnIndex(p1.getForma()) == Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1) {
+                                                        FXMLDocumentController.gridEstatico.getChildren().remove(p1.getForma());
+                                                        removepeca(FXMLDocumentController.pecasVermelhasEstatico, p1);
+
+                                                        FXMLDocumentController.pecascomidasEstatico.setText(Integer.toString(pecasvcomidas));
+                                                        System.out.println("comeu");
+                                                    }
+                                                }
+
+                                            });
+                                            casaX = Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText());
+                                            casaY = Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1;
+                                            //System.out.println(casaX + casaY);
+                                            indiceDaPeca = findIndex(FXMLDocumentController.pecasAzuisEstatico, p);
                                         }
-                                        }
-                                       
-                                    });
-                                    casaX = Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText());
-                                    casaY = Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) - 1;
-                                    //System.out.println(casaX + casaY);
-                                    indiceDaPeca = findIndex(FXMLDocumentController.pecasAzuisEstatico, p);
-                            }
-                                     try {
+                                    }
+                                    try {
                                         out.writeUTF("clicou clicouParaCima");
                                         out.writeInt(indiceDaPeca);
                                         out.writeInt(casaX);
@@ -224,8 +231,7 @@ public class YoteBrunoRoger extends Application {
                                         Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
                                     }
                                 }
-                                
-                                
+
                             }
 
                         });
@@ -236,7 +242,7 @@ public class YoteBrunoRoger extends Application {
 
                                 System.out.println("vem do cliente");
                                 try {
-                                    out.writeUTF("azul");
+                                    out.writeUTF("azul" + nomeJogadorserver);
 
                                     if (arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] != 1) {
                                         Platform.runLater(() -> {
@@ -268,38 +274,42 @@ public class YoteBrunoRoger extends Application {
 
                 }
                 //codigo para a peça vermelha
-                for (Peca p : FXMLDocumentController.pecasVermelhasEstatico) {
-                    p.getForma().setOnMousePressed(new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent event) {
-                            try {
-                                out.writeUTF("clicou clicaVermelha");
+                try {
+                    for (Peca p : FXMLDocumentController.pecasVermelhasEstatico) {
+                        p.getForma().setOnMousePressed(new EventHandler<MouseEvent>() {
+                            @Override
+                            public void handle(MouseEvent event) {
+                                try {
+                                    out.writeUTF("vermelha");
 
-                                if (arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] != 1) {
-                                    Platform.runLater(() -> {
-                                        FXMLDocumentController.gridEstatico.add(p.getForma(), Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText()), Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()));
-                                        arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] = 2;
-                                        FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 2 a jogar");
-                                    });
-                                    casaX = Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText());
-                                    casaY = Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText());
-                                    //System.out.println(casaX + casaY);
-                                    indiceDaPeca = findIndex(FXMLDocumentController.pecasVermelhasEstatico, p);
-                                    System.out.println(indiceDaPeca);
-                                    out.writeInt(indiceDaPeca);
-                                    out.writeInt(casaX);
-                                    out.writeInt(casaY);
-                                } else {
-                                    System.out.println("não pode");
+                                    if (arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] != 1) {
+                                        Platform.runLater(() -> {
+                                            FXMLDocumentController.gridEstatico.add(p.getForma(), Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText()), Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()));
+                                            arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] = 2;
+                                            FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 2 a jogar");
+                                        });
+                                        casaX = Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText());
+                                        casaY = Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText());
+                                        //System.out.println(casaX + casaY);
+                                        indiceDaPeca = findIndex(FXMLDocumentController.pecasVermelhasEstatico, p);
+                                        System.out.println(indiceDaPeca);
+                                        out.writeInt(indiceDaPeca);
+                                        out.writeInt(casaX);
+                                        out.writeInt(casaY);
+                                    } else {
+                                        System.out.println("não pode");
+                                    }
+                                } catch (IOException ex) {
+                                    Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
+                                } catch (ArrayIndexOutOfBoundsException e) {
+
                                 }
-                            } catch (IOException ex) {
-                                Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (ArrayIndexOutOfBoundsException e) {
-
                             }
-                        }
 
-                    });
+                        });
+                    }
+                } catch (NullPointerException e) {
+
                 }
 
             }
@@ -311,43 +321,44 @@ public class YoteBrunoRoger extends Application {
             while (true) {
                 String msg, nomeJogador;
                 int casasX, casasY, recebeIndicePeca;
+                int casaNoClienteX, casaNoClienteY, recebeIndicePecaCliente;
                 try {
                     msg = in.readUTF();
                     casasX = in.readInt();
                     casasY = in.readInt();
                     recebeIndicePeca = in.readInt();
                     nomeJogador = in.readUTF();
+
                     if (msg.contains("azul")) {
                         System.out.println("Outro clicou");
 
-                        Platform.runLater(() -> {
-                            try {
-                                FXMLDocumentController.gridEstatico.getChildren().remove(FXMLDocumentController.pecasAzuisEstatico[recebeIndicePeca].getForma());
-                                FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasAzuisEstatico[recebeIndicePeca].getForma(), casasY, casasX);
-                                FXMLDocumentController.outputChatTextEstatico.appendText("#SERVER " + nomeJogador + " " + jogouNaCasa + " " + casasX + " " + casasY + "\n");
-                            } catch (ArrayIndexOutOfBoundsException e) {
-                                e.getMessage();
-                            }
-                            FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 2 a jogar");
-                        });
-                    } else if (msg.contains("clicaVermelha")) {
-                        Platform.runLater(() -> {
-                            FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasVermelhasEstatico[recebeIndicePeca].getForma(), casasY, casasX);
-                            FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 2 a jogar");
-                        });
+                    } else if (msg.contains("vermelha")) {
+                        System.out.println(msg);
+                        casaNoClienteX = casasX;
+                        casaNoClienteY = casasY;
+                        recebeIndicePecaCliente = recebeIndicePeca;
                     } else if (msg.contains("clicouParaCima")) {
-                        Platform.runLater(() -> {
-                            FXMLDocumentController.gridEstatico.getChildren().remove(FXMLDocumentController.pecasAzuisEstatico[recebeIndicePeca].getForma());
-                            FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasVermelhasEstatico[recebeIndicePeca].getForma(), casasY, casasX);
-                            FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 2 a jogar");
-                        });
+                        casaNoClienteX = casasX;
+                        casaNoClienteY = casasY;
+                        recebeIndicePecaCliente = recebeIndicePeca;
                     } else if (msg.contains("#chat")) {
                         System.out.println(msg);
                         Platform.runLater(() -> {
                             FXMLDocumentController.outputChatTextEstatico.appendText(msg + "\n");
                         });
                     }
-                } catch (IOException ex) {
+                    Platform.runLater(() -> {
+                        try {
+                            FXMLDocumentController.gridEstatico.getChildren().remove(FXMLDocumentController.pecasAzuisEstatico[recebeIndicePeca].getForma());
+                            FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasAzuisEstatico[recebeIndicePeca].getForma(), casasY, casasX);
+                            FXMLDocumentController.outputChatTextEstatico.appendText("#SERVER " + nomeJogador + " " + jogouNaCasa + " " + casasX + " " + casasY + "\n");
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            e.getMessage();
+                        }
+                        FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 2 a jogar");
+                    });
+
+                } catch (Exception ex) {
                     Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -389,4 +400,32 @@ public class YoteBrunoRoger extends Application {
         return -1;
     }
 
+    public static void apagaPeca(Peca arr[], Peca p) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == p) {
+                // shifting elements
+                for (int j = i; j < arr.length - 1; j++) {
+                    arr[j] = arr[j + 1];
+
+                }
+                break;
+            }
+        }
+        System.out.println(arr.length);
+
+    }
+
+    public void removepeca(Peca[] array, Peca p) {
+        for (int i = 0; i < array.length; i++) {
+
+            if (array[i] == p) {
+                array[i] = null;
+                System.out.println(array[i]);
+                pecasvcomidas++;
+                break;
+
+            }
+        }
+
+    }
 }
