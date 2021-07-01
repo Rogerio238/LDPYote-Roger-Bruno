@@ -32,7 +32,6 @@ public class TestaMultiServer {
     private static Socket client;
     static int i = 0;
 private static Socket s;
-static Thread t;
     /**
      *
      * @param args
@@ -57,7 +56,7 @@ static Thread t;
                 
                 ClientHandler mtch = new ClientHandler(s, "client " + i, dis, dos, i);
 
-                t = new Thread(mtch);
+                Thread t = new Thread(mtch);
 
       
                 listaClientes.add(mtch);
@@ -137,7 +136,7 @@ static Thread t;
                     }
 
                     for (ClientHandler mc : TestaMultiServer.listaClientes) {
-                        if(mc.name != t.getName()){
+
                         System.out.println("iei");
                         // mc.dos.writeUTF(recebido);
                       
@@ -151,17 +150,28 @@ static Thread t;
                             System.out.println("casa y" + recebeCasaY);
                             recebido = " "; break;
                         }if (recebido.contains("vermelha")) {
-                                value = "vermelha";
+                                mc.dos.writeUTF("vermelha");
+                            mc.dos.writeInt(recebeCasaX);
+                            mc.dos.writeInt(recebeCasaY);
+                            mc.dos.writeInt(recebeIndicePeca);
+                            mc.dos.writeUTF(mc.name);
+                            System.out.println("casa x" + recebeCasaX);
+                            System.out.println("casa y" + recebeCasaY);
+                            recebido = " "; break;
                         } else if (recebido.contains("clicouParaCima")) {
-                        value = "clicouParaCima";
-                        } else return;
-                        mc.dos.writeUTF(value);
-                        mc.dos.writeInt(recebeCasaX);
-                        mc.dos.writeInt(recebeCasaY);
-                        mc.dos.writeInt(recebeIndicePeca);
+                       mc.dos.writeUTF("clicouParaCima");
+                            mc.dos.writeInt(recebeCasaX);
+                            mc.dos.writeInt(recebeCasaY);
+                            mc.dos.writeInt(recebeIndicePeca);
+                            mc.dos.writeUTF(mc.name);
+                            System.out.println("casa x" + recebeCasaX);
+                            System.out.println("casa y" + recebeCasaY);
+                            recebido = " "; break;
+                        } 
+                       
                         
-                        if (recebido.contains("#Chat")) {
-      System.out.println(recebido);
+                        if (recebido.contains("#chat")) {
+                             System.out.println(recebido);
                             System.out.println(recebido);
                             mc.dos.writeUTF("#chat" + recebido);
                             recebido = " "; break;
@@ -170,7 +180,7 @@ static Thread t;
                         break;
 
                     }
-                    }
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

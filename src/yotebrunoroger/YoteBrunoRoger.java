@@ -331,23 +331,7 @@ public class YoteBrunoRoger extends Application {
 
                     if (msg.contains("azul")) {
                         System.out.println("Outro clicou");
-
-                    } else if (msg.contains("vermelha")) {
-                        System.out.println(msg);
-                        casaNoClienteX = casasX;
-                        casaNoClienteY = casasY;
-                        recebeIndicePecaCliente = recebeIndicePeca;
-                    } else if (msg.contains("clicouParaCima")) {
-                        casaNoClienteX = casasX;
-                        casaNoClienteY = casasY;
-                        recebeIndicePecaCliente = recebeIndicePeca;
-                    } else if (msg.contains("#chat")) {
-                        System.out.println(msg);
-                        Platform.runLater(() -> {
-                            FXMLDocumentController.outputChatTextEstatico.appendText(msg + "\n");
-                        });
-                    }
-                    Platform.runLater(() -> {
+                Platform.runLater(() -> {
                         try {
                             FXMLDocumentController.gridEstatico.getChildren().remove(FXMLDocumentController.pecasAzuisEstatico[recebeIndicePeca].getForma());
                             FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasAzuisEstatico[recebeIndicePeca].getForma(), casasY, casasX);
@@ -357,8 +341,44 @@ public class YoteBrunoRoger extends Application {
                         }
                         FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 2 a jogar");
                     });
+                    } else if (msg.contains("vermelha")) {
+                        System.out.println(msg);
+                        casaNoClienteX = casasX;
+                        casaNoClienteY = casasY;
+                        recebeIndicePecaCliente = recebeIndicePeca;
+                         Platform.runLater(() -> {
+                        try {
+                            FXMLDocumentController.gridEstatico.getChildren().remove(FXMLDocumentController.pecasVermelhasEstatico[recebeIndicePeca].getForma());
+                            FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasVermelhasEstatico[recebeIndicePeca].getForma(), casasY, casasX);
+                            FXMLDocumentController.outputChatTextEstatico.appendText("#SERVER " + nomeJogador + " " + jogouNaCasa + " " + casasX + " " + casasY + "\n");
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            e.getMessage();
+                        }
+                        FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 2 a jogar");
+                    });
+                    } else if (msg.contains("clicouParaCima")) {
+                        casaNoClienteX = casasX;
+                        casaNoClienteY = casasY;
+                        recebeIndicePecaCliente = recebeIndicePeca;
+                         Platform.runLater(() -> {
+                        try {
+                            FXMLDocumentController.gridEstatico.getChildren().remove(FXMLDocumentController.pecasAzuisEstatico[recebeIndicePeca].getForma());
+                            FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasAzuisEstatico[recebeIndicePeca].getForma(), casasY, casasX);
+                            FXMLDocumentController.outputChatTextEstatico.appendText("#SERVER " + nomeJogador + " " + jogouNaCasa + " " + casasX + " " + casasY + "\n");
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            e.getMessage();
+                        }
+                        FXMLDocumentController.labelControlaJogadorEstatica.setText("É o jogador 2 a jogar");
+                    });
+                    } else if (msg.contains("#chat")) {
+                        System.out.println(msg);
+                        Platform.runLater(() -> {
+                            FXMLDocumentController.outputChatTextEstatico.appendText(msg + "\n");
+                        });
+                    }
+                   
 
-                } catch (Exception ex) {
+                } catch (IOException ex) {
                     Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
