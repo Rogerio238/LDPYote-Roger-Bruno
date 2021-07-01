@@ -117,7 +117,7 @@ private static Socket s;
 
         @Override
         public void run() {
-            String recebido;String value;
+            String recebido;
             int recebeCasaX, recebeCasaY, recebeIndicePeca;
 
             while (true) {
@@ -139,7 +139,7 @@ private static Socket s;
 
                         System.out.println("iei");
                         // mc.dos.writeUTF(recebido);
-                      
+                        if(!recebido.contains(mc.name)){
                         if (recebido.startsWith("azul")) {
                             mc.dos.writeUTF("azul");
                             mc.dos.writeInt(recebeCasaX);
@@ -149,29 +149,25 @@ private static Socket s;
                             System.out.println("casa x" + recebeCasaX);
                             System.out.println("casa y" + recebeCasaY);
                             recebido = " "; break;
-                        }if (recebido.contains("vermelha")) {
-                                mc.dos.writeUTF("vermelha");
+                        }
+                        } else if (recebido.contains("vermelha")) {
+                            System.out.println("vermelha " +recebido);
+                            mc.dos.writeUTF("vermelha");
                             mc.dos.writeInt(recebeCasaX);
                             mc.dos.writeInt(recebeCasaY);
                             mc.dos.writeInt(recebeIndicePeca);
-                            mc.dos.writeUTF(mc.name);
-                            System.out.println("casa x" + recebeCasaX);
-                            System.out.println("casa y" + recebeCasaY);
+                            
                             recebido = " "; break;
                         } else if (recebido.contains("clicouParaCima")) {
-                       mc.dos.writeUTF("clicouParaCima");
+                                  System.out.println(recebido);
+                            mc.dos.writeUTF("clicouParaCima");
                             mc.dos.writeInt(recebeCasaX);
                             mc.dos.writeInt(recebeCasaY);
                             mc.dos.writeInt(recebeIndicePeca);
-                            mc.dos.writeUTF(mc.name);
-                            System.out.println("casa x" + recebeCasaX);
-                            System.out.println("casa y" + recebeCasaY);
                             recebido = " "; break;
-                        } 
-                       
-                        
+                        }
                         if (recebido.contains("#chat")) {
-                             System.out.println(recebido);
+      System.out.println(recebido);
                             System.out.println(recebido);
                             mc.dos.writeUTF("#chat" + recebido);
                             recebido = " "; break;

@@ -331,7 +331,7 @@ public class YoteBrunoRoger extends Application {
 
                     if (msg.contains("azul")) {
                         System.out.println("Outro clicou");
-                Platform.runLater(() -> {
+ Platform.runLater(() -> {
                         try {
                             FXMLDocumentController.gridEstatico.getChildren().remove(FXMLDocumentController.pecasAzuisEstatico[recebeIndicePeca].getForma());
                             FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasAzuisEstatico[recebeIndicePeca].getForma(), casasY, casasX);
@@ -378,7 +378,7 @@ public class YoteBrunoRoger extends Application {
                     }
                    
 
-                } catch (IOException ex) {
+                } catch (Exception ex) {
                     Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
