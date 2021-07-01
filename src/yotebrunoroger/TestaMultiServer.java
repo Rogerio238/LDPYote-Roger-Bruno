@@ -17,6 +17,8 @@ import java.util.StringTokenizer;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.shape.Ellipse;
 
 /**
@@ -25,11 +27,11 @@ import javafx.scene.shape.Ellipse;
  */
 public class TestaMultiServer {
 
-    private static int port = 6666, nClientes = 1;
+private static int port = 6666, nClientes = 1;
     private static List<ClientHandler> listaClientes = new ArrayList<>();
     private static Socket client;
     static int i = 0;
-
+private static Socket s;
     /**
      *
      * @param args
@@ -39,27 +41,60 @@ public class TestaMultiServer {
         System.out.println("Servidor aceita conexões.");
         ServerSocket ss = new ServerSocket(port);
 
-        Socket s;
-        if(i < 2){
-        while (true) {
-            s = ss.accept();
-            System.out.println("Novo client recebido : " + s);
+        
+            Thread servidor = new Thread(() -> {
+        if (i < 2) {
+            while (true) {
+                try {
+                    s = ss.accept();
+               
+                System.out.println("Novo client recebido : " + s);
 
-            DataInputStream dis = new DataInputStream(s.getInputStream());
-            DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+                DataInputStream dis = new DataInputStream(s.getInputStream());
+                DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+                
+                
+                ClientHandler mtch = new ClientHandler(s, "client " + i, dis, dos, i);
 
-            ClientHandler mtch = new ClientHandler(s, "client " + i, dis, dos, i);
+                Thread t = new Thread(mtch);
 
-            Thread t = new Thread(mtch);
+      
+                listaClientes.add(mtch);
+                dos.writeUTF("nomeJogador" + mtch.name);
+                String idNome = Integer.toString(i);
+                t.setName(idNome);
+                    System.out.println("Nome " + t.getName());
+                    
+                    
+                     if(mtch.name == t.getName()){
+                       
+                             dos.writeUTF("nome"+mtch.name);
+                         
+                     }
+                     
+                t.start();
+                   
 
-            System.out.println("Adiciona cliente " + i + " à lista ativa." + s.getInetAddress());
-            listaClientes.add(mtch);
-            t.start();
-
-            i++;
+                i++;
+                          System.out.println("Adiciona cliente " + i + " à lista ativa." + s.getInetAddress());
+                /*String leNome = dis.readUTF();
+                if(leNome.contains("nomeJogador")){
+                    mtch.name = leNome;
+                    
+                }*/
+                
+                     } catch (IOException ex) {
+                    Logger.getLogger(TestaMultiServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               
+                         
+           
+            }
         }
-        }
+        }); 
+            servidor.start();
     }
+                   
 
     private static class ClientHandler implements Runnable {
 
@@ -82,15 +117,16 @@ public class TestaMultiServer {
 
         @Override
         public void run() {
-            String recebido;
+            String recebido;String value;
             int recebeCasaX, recebeCasaY, recebeIndicePeca;
 
             while (true) {
 
                 try {
                     recebido = dis.readUTF();
+                         recebeCasaY = dis.readInt();
                     recebeCasaX = dis.readInt();
-                    recebeCasaY = dis.readInt();
+               
                     recebeIndicePeca = dis.readInt();
                     System.out.println(recebido);
                     //System.out.println(recebido);
@@ -104,34 +140,42 @@ public class TestaMultiServer {
 
                         System.out.println("iei");
                         // mc.dos.writeUTF(recebido);
-                        if (recebido.startsWith("clicou")) {
-                            mc.dos.writeUTF("clicou");
+                      
+                        if (recebido.contains("azul")) {
+                            
+                        System.out.println("muta gayyyyyyyyyyyyyyyyyyyyy"+recebido);
+                        
+                           mc.dos.writeUTF(recebido);
+           
+                            recebido = " "; break;
+                        }if (recebido.contains("vermelha")) {
+                                mc.dos.writeUTF("vermelha");
+                           mc.dos.writeInt(recebeCasaY);
                             mc.dos.writeInt(recebeCasaX);
-                            mc.dos.writeInt(recebeCasaY);
+            
                             mc.dos.writeInt(recebeIndicePeca);
                             mc.dos.writeUTF(mc.name);
-                            recebido = " ";
-                        }
+                            System.out.println("casa x" + recebeCasaX);
+                            System.out.println("casa y" + recebeCasaY);
+                            recebido = " "; break;
+                        } else if (recebido.contains("clicouParaCima")) {
+                       mc.dos.writeUTF("clicouParaCima");
+                           mc.dos.writeInt(recebeCasaY);
+                            mc.dos.writeInt(recebeCasaX);
                         
-                        else if(recebido.contains("clicaVermelha")){
-                            mc.dos.writeUTF("clicaVermelha");
-                            mc.dos.writeInt(recebeCasaX);
-                            mc.dos.writeInt(recebeCasaY);
                             mc.dos.writeInt(recebeIndicePeca);
-                            recebido = " ";
-                        }
-                        else if(recebido.contains("clicouParaCima")){
-                            mc.dos.writeUTF("clicouParaCima");
-                            mc.dos.writeInt(recebeCasaX);
-                            mc.dos.writeInt(recebeCasaY);
-                            mc.dos.writeInt(recebeIndicePeca);
-                            recebido = " ";
-                        }
-                       if(recebido.contains("#chat")){
-                           
+                            mc.dos.writeUTF(mc.name);
+                            System.out.println("casa x" + recebeCasaX);
+                            System.out.println("casa y" + recebeCasaY);
+                            recebido = " "; break;
+                        } 
+                       
+                        
+                        if (recebido.contains("#chat")) {
+                             System.out.println(recebido);
                             System.out.println(recebido);
-                            mc.dos.writeUTF("#chat" + mc.name + recebido);
-                            recebido = " ";
+                            mc.dos.writeUTF("#chat" + recebido);
+                            recebido = " "; break;
                         }
 
                         break;
