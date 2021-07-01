@@ -242,7 +242,7 @@ public class YoteBrunoRoger extends Application {
 
                                 System.out.println("vem do cliente");
                                 try {
-                                    out.writeUTF("azul" + nomeJogadorserver);
+                                    out.writeUTF("azul");
 
                                     if (arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] != 1) {
                                         Platform.runLater(() -> {

@@ -139,7 +139,7 @@ private static Socket s;
 
                         System.out.println("iei");
                         // mc.dos.writeUTF(recebido);
-                        if(!recebido.contains(mc.name)){
+                       
                         if (recebido.startsWith("azul")) {
                             mc.dos.writeUTF("azul");
                             mc.dos.writeInt(recebeCasaX);
@@ -150,7 +150,7 @@ private static Socket s;
                             System.out.println("casa y" + recebeCasaY);
                             recebido = " "; break;
                         }
-                        } else if (recebido.contains("vermelha")) {
+                         else if (recebido.contains("vermelha")) {
                             System.out.println("vermelha " +recebido);
                             mc.dos.writeUTF("vermelha");
                             mc.dos.writeInt(recebeCasaX);
