@@ -257,7 +257,7 @@ public class YoteBrunoRoger extends Application {
                                              out.writeUTF("azul" + nomeJogadorserver);
                                         out.writeUTF("clicou clicouParaCima");
                                         out.writeInt(indiceDaPeca);
-                                        out.writeFloat(casaX);
+                                        out.writeInt(casaX);
                                         out.writeInt(casaY);
                                     } catch (IOException ex) {
                                         Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
@@ -292,7 +292,7 @@ public class YoteBrunoRoger extends Application {
                                         indiceDaPeca = findIndex(FXMLDocumentController.pecasAzuisEstatico, p);
                                         System.out.println(indiceDaPeca);
                                         out.writeInt(indiceDaPeca);
-                                        out.writeFloat(casaX);
+                                        out.writeInt(casaX);
                                         out.writeInt(casaY);
                                         
                                         p.setEstadentro(true);
@@ -331,7 +331,7 @@ public class YoteBrunoRoger extends Application {
                                         indiceDaPeca = findIndex(FXMLDocumentController.pecasVermelhasEstatico, p);
                                         System.out.println(indiceDaPeca);
                                         out.writeInt(indiceDaPeca);
-                                        out.writeFloat(casaX);
+                                        out.writeInt(casaX);
                                         out.writeInt(casaY);
                                     } else {
                                         System.out.println("não pode");
@@ -358,7 +358,7 @@ public class YoteBrunoRoger extends Application {
             while (true) {
                 String msg, nomeJogador;
                 int casasY, recebeIndicePeca,casasX;
-                float casaNoClienteX;
+                int casaNoClienteX;
                 int casaNoClienteY, recebeIndicePecaCliente;
                 try {
                     msg = in.readUTF();
