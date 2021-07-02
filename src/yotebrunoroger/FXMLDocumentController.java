@@ -231,6 +231,13 @@ public class FXMLDocumentController implements Initializable, Runnable {
     @FXML
     private Text pecascomidas;
     public static Text pecascomidasEstatico;
+    @FXML
+    private Button botaoParaBaixo;
+    
+    public static Button botaoParaBaixoEstatico;
+    @FXML
+    private Button botaoParaDireita;
+    public static Button botaoParaDireitaEstatico;
     private void handleButtonAction(ActionEvent event) {
 
     }
@@ -242,6 +249,8 @@ public class FXMLDocumentController implements Initializable, Runnable {
     public void initialize(URL url, ResourceBundle rb) {
    
           atualizaJogo();   
+          botaoParaDireitaEstatico = botaoParaDireita;
+          botaoParaBaixoEstatico = botaoParaBaixo;
           pecascomidasEstatico=pecascomidas;
         confirmaNomeJogadorEstatico = confirmaNome;
         testaLabel = labelConectado;
