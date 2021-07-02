@@ -39,8 +39,7 @@ import static yotebrunoroger.FXMLDocumentController.pecascomidasEstatico;
  * @author roger
  */
 public class YoteBrunoRoger extends Application {
-
-   private static String serverIP = "127.0.0.1";
+  private static String serverIP = "127.0.0.1";
     private static final int serverPort = 6666;
     static DataInputStream in;
     static DataOutputStream out;
