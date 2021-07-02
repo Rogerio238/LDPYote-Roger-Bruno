@@ -17,6 +17,8 @@ import java.util.StringTokenizer;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.shape.Ellipse;
 
 /**
@@ -29,32 +31,70 @@ public class TestaMultiServer {
     private static List<ClientHandler> listaClientes = new ArrayList<>();
     private static Socket client;
     static int i = 0;
-
+private static Socket s;
+    /**
+     *
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         System.out.println("Servidor aceita conexões.");
         ServerSocket ss = new ServerSocket(port);
 
-        Socket s;
-        if(nClientes < 2){
-        while (true) {
-            s = ss.accept();
-            System.out.println("Novo client recebido : " + s);
+        
+            Thread servidor = new Thread(() -> {
+        if (i < 2) {
+            while (true) {
+                try {
+                    s = ss.accept();
+               
+                System.out.println("Novo client recebido : " + s);
 
-            DataInputStream dis = new DataInputStream(s.getInputStream());
-            DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+                DataInputStream dis = new DataInputStream(s.getInputStream());
+                DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+                
+                
+                ClientHandler mtch = new ClientHandler(s, "client " + i, dis, dos, i);
 
-            ClientHandler mtch = new ClientHandler(s, "client " + i, dis, dos, i);
+                Thread t = new Thread(mtch);
 
-            Thread t = new Thread(mtch);
+      
+                listaClientes.add(mtch);
+                dos.writeUTF("nomeJogador" + mtch.name);
+                String idNome = Integer.toString(i);
+                t.setName(idNome);
+                    System.out.println("Nome " + t.getName());
+                    
+                    
+                     if(mtch.name == t.getName()){
+                       
+                             dos.writeUTF("nome"+mtch.name);
+                         
+                     }
+                     
+                t.start();
+                   
 
-            System.out.println("Adiciona cliente " + i + " à lista ativa.");
-            listaClientes.add(mtch);
-            t.start();
-
-            i++;
+                i++;
+                          System.out.println("Adiciona cliente " + i + " à lista ativa." + s.getInetAddress());
+                /*String leNome = dis.readUTF();
+                if(leNome.contains("nomeJogador")){
+                    mtch.name = leNome;
+                    
+                }*/
+                
+                     } catch (IOException ex) {
+                    Logger.getLogger(TestaMultiServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               
+                         
+           
+            }
         }
-        }
+        }); 
+            servidor.start();
     }
+                   
 
     private static class ClientHandler implements Runnable {
 
@@ -89,21 +129,56 @@ public class TestaMultiServer {
                     recebeIndicePeca = dis.readInt();
                     System.out.println(recebido);
                     //System.out.println(recebido);
-                    if (recebido.endsWith("logout")) {
+                    if (recebido.endsWith("#logout")) {
                         this.isloggedin = false;
                         this.s.close();
                         break; // while
                     }
-
+StringTokenizer st = new StringTokenizer(recebido, "array");
+ String receivingClient = null;
+                        try {
+                            receivingClient = st.nextToken();
+                        } catch (Exception e) {
+                        };
                     for (ClientHandler mc : TestaMultiServer.listaClientes) {
 
                         System.out.println("iei");
                         // mc.dos.writeUTF(recebido);
-                        if (recebido.contains("clicou")) {
-                            mc.dos.writeUTF("clicou");
+                       
+                        if (recebido.startsWith("azul")) {
+                            mc.dos.writeUTF("azul");
                             mc.dos.writeInt(recebeCasaX);
                             mc.dos.writeInt(recebeCasaY);
                             mc.dos.writeInt(recebeIndicePeca);
+                            mc.dos.writeUTF(mc.name);
+                            if(recebido.contains("array")){
+                                 mc.dos.writeUTF(recebido);
+                            }
+                            System.out.println("casa x" + recebeCasaX);
+                            System.out.println("casa y" + recebeCasaY);
+                            recebido = " "; break;
+                        }
+                         else if (recebido.contains("vermelha")) {
+                            System.out.println("vermelha " +recebido);
+                            mc.dos.writeUTF("vermelha");
+                            mc.dos.writeInt(recebeCasaX);
+                            mc.dos.writeInt(recebeCasaY);
+                            mc.dos.writeInt(recebeIndicePeca);
+                            
+                            recebido = " "; break;
+                        } else if (recebido.contains("clicouParaCima")) {
+                                  System.out.println(recebido);
+                            mc.dos.writeUTF("clicouParaCima");
+                            mc.dos.writeInt(recebeCasaX);
+                            mc.dos.writeInt(recebeCasaY);
+                            mc.dos.writeInt(recebeIndicePeca);
+                            recebido = " "; break;
+                        }
+                        if (recebido.contains("#chat")) {
+      System.out.println(recebido);
+                            System.out.println(recebido);
+                            mc.dos.writeUTF("#chat" + recebido);
+                            recebido = " "; break;
                         }
 
                         if (recebido.startsWith("clicavermelha")) {
