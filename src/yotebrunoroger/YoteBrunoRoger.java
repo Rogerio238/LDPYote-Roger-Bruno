@@ -350,7 +350,8 @@ public class YoteBrunoRoger extends Application {
                                             Platform.runLater(() -> {
 
                                                 FXMLDocumentController.gridEstatico.getChildren().remove(p.getForma());
-                                                FXMLDocumentController.gridEstatico.add(p.getForma(), GridPane.getRowIndex(p.getForma()), GridPane.getColumnIndex(p.getForma()) + 1);
+                                                FXMLDocumentController.gridEstatico.add(p.getForma(), GridPane.getRowIndex(p.getForma())+1, GridPane.getColumnIndex(p.getForma()) );
+                                                
 
                                             });
                                             casaX = Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText()  + 1);
@@ -582,6 +583,72 @@ public class YoteBrunoRoger extends Application {
                                     }
                             
                         });
+                        FXMLDocumentController.botaoParaDireitaEstatico.setOnMousePressed(new EventHandler<MouseEvent>(){
+                            @Override
+                            public void handle(MouseEvent event) {
+                                if (arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] == 2) {
+
+                                    if (arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) + 1 ] == 2) {
+                                        System.out.println("não pode mover");
+                                    } else {
+                                        if (arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) + 1] == 0) {
+                                            arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) + 1] = 2;
+                                            arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] = 0;
+                                            Platform.runLater(() -> {
+
+                                                FXMLDocumentController.gridEstatico.getChildren().remove(p.getForma());
+                                                FXMLDocumentController.gridEstatico.add(p.getForma(), GridPane.getRowIndex(p.getForma())+1, GridPane.getColumnIndex(p.getForma()) );
+                                                
+
+                                            });
+                                            casaX = Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText()  + 1);
+                                            casaY = Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText());
+                                            //System.out.println(casaX + casaY);
+                                            indiceDaPeca = findIndex(FXMLDocumentController.pecasVermelhasEstatico, p);
+                                            System.out.println(indiceDaPeca);
+
+                                            
+                                        } else if (arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())+ 1 ] == 1 && arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())+ 2 ] == 0) {
+                                           //P campo onde se encontrava a peça azul antes de capturar fica a 0
+                                            arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())] = 0;
+                                           //O Campo onde se encontrava a vermelha a ser capturada fica a 0
+                                            arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) + 1] = 0;
+                                             //O campo a cima da peça vermelha a ser capturada fica a a 1
+                                            arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) + 2] = 2;
+
+                                            Platform.runLater(() -> {
+                                                FXMLDocumentController.gridEstatico.getChildren().remove(p.getForma());
+                                                FXMLDocumentController.gridEstatico.add(p.getForma(), GridPane.getRowIndex(p.getForma() ), GridPane.getColumnIndex(p.getForma())  + 2);
+                                                for (Peca p1 : FXMLDocumentController.pecasAzuisEstatico) {
+                                                    if (GridPane.getRowIndex(p1.getForma()) == Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText()) && GridPane.getColumnIndex(p1.getForma()) == Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) + 1) {
+                                                        FXMLDocumentController.gridEstatico.getChildren().remove(p1.getForma());
+                                                        removepeca(FXMLDocumentController.pecasAzuisEstatico, p1);
+
+                                                        FXMLDocumentController.pecascomidasEstatico.setText(Integer.toString(pecasvcomidas));
+                                                        System.out.println("comeu");
+                                                    }
+                                                }
+
+                                            });
+                                            casaX = Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText()) + 2;
+                                            casaY = Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText()) ;
+                                            //System.out.println(casaX + casaY);
+                                            indiceDaPeca = findIndex(FXMLDocumentController.pecasVermelhasEstatico, p);
+                                        }
+                                    }
+                                    try {
+                                             out.writeUTF("vermelha" + nomeJogadorserver);
+                                        out.writeUTF("clicou clicouParaCima");
+                                        out.writeInt(indiceDaPeca);
+                                        out.writeInt(casaX);
+                                        out.writeInt(casaY);
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                }
+                              }
+                            
+                        });
                     } else {
                         p.getForma().setOnMousePressed(new EventHandler<MouseEvent>() {
                             @Override
@@ -605,7 +672,7 @@ public class YoteBrunoRoger extends Application {
                                         casaX = Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText());
                                         casaY = Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText());
                                         //System.out.println(casaX + casaY);
-                                        indiceDaPeca = findIndex(FXMLDocumentController.pecasAzuisEstatico, p);
+                                        indiceDaPeca = findIndex(FXMLDocumentController.pecasVermelhasEstatico, p);
                                         System.out.println(indiceDaPeca);
                                         out.writeInt(indiceDaPeca);
                                         out.writeInt(casaX);
@@ -740,6 +807,11 @@ public class YoteBrunoRoger extends Application {
         return -1;
     }
 
+    /**
+     *
+     * @param arr
+     * @param p
+     */
     public static void apagaPeca(Peca arr[], Peca p) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == p) {
@@ -755,6 +827,11 @@ public class YoteBrunoRoger extends Application {
 
     }
 
+    /**
+     *
+     * @param array
+     * @param p
+     */
     public void removepeca(Peca[] array, Peca p) {
         for (int i = 0; i < array.length; i++) {
 
@@ -769,6 +846,10 @@ public class YoteBrunoRoger extends Application {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String printTabuleiro() {
         int linhas = -1;
         int colunas = -1;
