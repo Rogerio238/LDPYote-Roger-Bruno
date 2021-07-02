@@ -134,7 +134,12 @@ private static Socket s;
                         this.s.close();
                         break; // while
                     }
-
+StringTokenizer st = new StringTokenizer(recebido, "array");
+ String receivingClient = null;
+                        try {
+                            receivingClient = st.nextToken();
+                        } catch (Exception e) {
+                        };
                     for (ClientHandler mc : TestaMultiServer.listaClientes) {
 
                         System.out.println("iei");
@@ -146,6 +151,9 @@ private static Socket s;
                             mc.dos.writeInt(recebeCasaY);
                             mc.dos.writeInt(recebeIndicePeca);
                             mc.dos.writeUTF(mc.name);
+                            if(recebido.contains("array")){
+                                 mc.dos.writeUTF(recebido);
+                            }
                             System.out.println("casa x" + recebeCasaX);
                             System.out.println("casa y" + recebeCasaY);
                             recebido = " "; break;

@@ -59,8 +59,8 @@ public class YoteBrunoRoger extends Application {
      */
     public static int yo = 0;
     private int count = 0;
-    private float casaX = 0;
-    private int casaY = 0;
+ 
+    private int casaX, casaY = 0;
     private String valorCasas = " ";
     private final Text text = new Text(Integer.toString(count));
     private int indiceDaPeca = 0;
@@ -254,6 +254,7 @@ public class YoteBrunoRoger extends Application {
                                         }
                                     }
                                     try {
+                                             out.writeUTF("azul" + nomeJogadorserver);
                                         out.writeUTF("clicou clicouParaCima");
                                         out.writeInt(indiceDaPeca);
                                         out.writeFloat(casaX);
@@ -273,7 +274,7 @@ public class YoteBrunoRoger extends Application {
 
                                 System.out.println("vem do cliente");
                                 try {
-                                    out.writeUTF("azul" + nomeJogadorserver);
+                                    out.writeUTF("azul" + nomeJogadorserver + "array " + printTabuleiro());
 
                                     if (arraySuporte[Integer.parseInt(FXMLDocumentController.coordenadaDireitaEstatico.getText())][Integer.parseInt(FXMLDocumentController.coordenadaEsquerdaEstatico.getText())] == 0) {
                                         Platform.runLater(() -> {
@@ -293,6 +294,7 @@ public class YoteBrunoRoger extends Application {
                                         out.writeInt(indiceDaPeca);
                                         out.writeFloat(casaX);
                                         out.writeInt(casaY);
+                                        
                                         p.setEstadentro(true);
                                     } else {
 
@@ -355,23 +357,26 @@ public class YoteBrunoRoger extends Application {
             System.out.println("asd");
             while (true) {
                 String msg, nomeJogador;
-                int casasY, recebeIndicePeca;
-                float casasX, casaNoClienteX;
+                int casasY, recebeIndicePeca,casasX;
+                float casaNoClienteX;
                 int casaNoClienteY, recebeIndicePecaCliente;
                 try {
                     msg = in.readUTF();
-                    casasX = in.readFloat();
+                    casasX = in.readInt();
                     casasY = in.readInt();
                     recebeIndicePeca = in.readInt();
                     nomeJogador = in.readUTF();
 
                     if (msg.contains("azul")) {
                         System.out.println("Outro clicou");
+                        
                         Platform.runLater(() -> {
                             try {
                                 FXMLDocumentController.gridEstatico.getChildren().remove(FXMLDocumentController.pecasAzuisEstatico[recebeIndicePeca].getForma());
-                                FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasAzuisEstatico[recebeIndicePeca].getForma(), casasY, (int) casasX);
+                                FXMLDocumentController.gridEstatico.add(FXMLDocumentController.pecasAzuisEstatico[recebeIndicePeca].getForma(), casasY, casasX);
                                 FXMLDocumentController.outputChatTextEstatico.appendText("#SERVER " + nomeJogador + " " + jogouNaCasa + " " + casasX + " " + casasY + "\n");
+                                arraySuporte[casasX][casasY] = 1;
+                                printTabuleiro();
                             } catch (ArrayIndexOutOfBoundsException e) {
                                 e.getMessage();
                             }
@@ -484,7 +489,7 @@ public class YoteBrunoRoger extends Application {
 
     }
 
-    public void printTabuleiro() {
+    public String printTabuleiro() {
         int linhas = -1;
         int colunas = -1;
         System.out.println("  0     1       2       3       4");
@@ -503,6 +508,7 @@ public class YoteBrunoRoger extends Application {
         System.out.println("----------------------------------");
         System.out.println("");
         System.out.println("---------------------------------");
-
+ return "array " + arraySuporte;
     }
+   
 }
