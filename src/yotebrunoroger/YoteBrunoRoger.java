@@ -59,8 +59,10 @@ public class YoteBrunoRoger extends Application {
      */
     public static int yo = 0;
     private int count = 0;
+
  
     private int casaX, casaY = 0;
+
     private String valorCasas = " ";
     private final Text text = new Text(Integer.toString(count));
     private int indiceDaPeca = 0;
@@ -145,6 +147,7 @@ public class YoteBrunoRoger extends Application {
                     @Override
                     public void handle(MouseEvent event) {
                         try {
+
                             String nomeJogador = FXMLDocumentController.meteNomeJogadorestatico.getText();
                             out.writeUTF("clicou nome" + nomeJogador);
                             Platform.runLater(() -> {
@@ -153,6 +156,7 @@ public class YoteBrunoRoger extends Application {
                             
                         } catch (IOException ex) {
                             Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
+
                         }
                         
                          }
@@ -308,6 +312,7 @@ public class YoteBrunoRoger extends Application {
                         });
                     }
 
+
                 }
                 //codigo para a peça vermelha
                 try {
@@ -353,6 +358,7 @@ public class YoteBrunoRoger extends Application {
         });
 
         Thread lerMensagem;
+
         lerMensagem = new Thread(() -> {
             System.out.println("asd");
             while (true) {
@@ -418,7 +424,9 @@ public class YoteBrunoRoger extends Application {
                         });
                     }
 
+
                 } catch (Exception ex) {
+
                     Logger.getLogger(YoteBrunoRoger.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

@@ -181,6 +181,13 @@ StringTokenizer st = new StringTokenizer(recebido, "array");
                             recebido = " "; break;
                         }
 
+                        if (recebido.startsWith("clicavermelha")) {
+                            mc.dos.writeUTF("clicavermelha");
+                            mc.dos.writeInt(recebeCasaX);
+                            mc.dos.writeInt(recebeCasaY);
+                            mc.dos.writeInt(recebeIndicePeca);
+                        }
+
                         break;
 
                     }
