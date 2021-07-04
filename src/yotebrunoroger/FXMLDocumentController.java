@@ -190,6 +190,9 @@ public class FXMLDocumentController implements Initializable, Runnable {
     @FXML
     private Button buttonSair;
     
+    /**
+     *
+     */
     public static Button buttonSairEstatico;
     int porta = 4000;
 
@@ -223,21 +226,42 @@ public class FXMLDocumentController implements Initializable, Runnable {
     public static Button botaoParacimaEstatico;
     @FXML
     private TextArea outputChatText;
+
+    /**
+     *
+     */
     public static TextArea outputChatTextEstatico;
     @FXML
     private TextField inputChatText;
     
+    /**
+     *
+     */
     public static TextField inputChatTestEstatico;
     @FXML
     private Text pecascomidas;
+
+    /**
+     *
+     */
     public static Text pecascomidasEstatico;
     @FXML
     private Button botaoParaBaixo;
     
+    /**
+     *
+     */
     public static Button botaoParaBaixoEstatico;
     @FXML
     private Button botaoParaDireita;
+
+    /**
+     *
+     */
     public static Button botaoParaDireitaEstatico;
+    @FXML
+    private Button botaoParaEsquerda;
+    public static Button botaoParaEsquerdaEstatico;
     private void handleButtonAction(ActionEvent event) {
 
     }
@@ -250,6 +274,7 @@ public class FXMLDocumentController implements Initializable, Runnable {
    
           atualizaJogo();   
           botaoParaDireitaEstatico = botaoParaDireita;
+          botaoParaEsquerdaEstatico = botaoParaEsquerda;
           botaoParaBaixoEstatico = botaoParaBaixo;
           pecascomidasEstatico=pecascomidas;
         confirmaNomeJogadorEstatico = confirmaNome;

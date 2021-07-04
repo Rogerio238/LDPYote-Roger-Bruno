@@ -27,11 +27,12 @@ import javafx.scene.shape.Ellipse;
  */
 public class TestaMultiServer {
 
-private static int port = 6666, nClientes = 1;
+    private static int port = 6666, nClientes = 1;
     private static List<ClientHandler> listaClientes = new ArrayList<>();
     private static Socket client;
     static int i = 0;
-private static Socket s;
+    private static Socket s;
+
     /**
      *
      * @param args
@@ -41,60 +42,52 @@ private static Socket s;
         System.out.println("Servidor aceita conexões.");
         ServerSocket ss = new ServerSocket(port);
 
-        
-            Thread servidor = new Thread(() -> {
-        if (i < 2) {
-            while (true) {
-                try {
-                    s = ss.accept();
-               
-                System.out.println("Novo client recebido : " + s);
+        Thread servidor = new Thread(() -> {
+            if (i < 2) {
+                while (true) {
+                    try {
+                        s = ss.accept();
 
-                DataInputStream dis = new DataInputStream(s.getInputStream());
-                DataOutputStream dos = new DataOutputStream(s.getOutputStream());
-                
-                
-                ClientHandler mtch = new ClientHandler(s, "client " + i, dis, dos, i);
+                        System.out.println("Novo client recebido : " + s);
 
-                Thread t = new Thread(mtch);
+                        DataInputStream dis = new DataInputStream(s.getInputStream());
+                        DataOutputStream dos = new DataOutputStream(s.getOutputStream());
 
-      
-                listaClientes.add(mtch);
-                dos.writeUTF("nomeJogador" + mtch.name);
-                String idNome = Integer.toString(i);
-                t.setName(idNome);
-                    System.out.println("Nome " + t.getName());
-                    
-                    
-                     if(mtch.name == t.getName()){
-                       
-                             dos.writeUTF("nome"+mtch.name);
-                         
-                     }
-                     
-                t.start();
-                   
+                        ClientHandler mtch = new ClientHandler(s, "client " + i, dis, dos, i);
 
-                i++;
-                          System.out.println("Adiciona cliente " + i + " à lista ativa." + s.getInetAddress());
-                /*String leNome = dis.readUTF();
+                        Thread t = new Thread(mtch);
+
+                        listaClientes.add(mtch);
+                        dos.writeUTF("nomeJogador" + mtch.name);
+                        String idNome = Integer.toString(i);
+                        t.setName(idNome);
+                        System.out.println("Nome " + t.getName());
+
+                        if (mtch.name == t.getName()) {
+
+                            dos.writeUTF("nome" + mtch.name);
+
+                        }
+
+                        t.start();
+
+                        i++;
+                        System.out.println("Adiciona cliente " + i + " à lista ativa." + s.getInetAddress());
+                        /*String leNome = dis.readUTF();
                 if(leNome.contains("nomeJogador")){
                     mtch.name = leNome;
                     
                 }*/
-                
-                     } catch (IOException ex) {
-                    Logger.getLogger(TestaMultiServer.class.getName()).log(Level.SEVERE, null, ex);
+
+                    } catch (IOException ex) {
+                        Logger.getLogger(TestaMultiServer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
                 }
-               
-                         
-           
             }
-        }
-        }); 
-            servidor.start();
+        });
+        servidor.start();
     }
-                   
 
     private static class ClientHandler implements Runnable {
 
@@ -114,80 +107,67 @@ private static Socket s;
             this.id = id;
             this.isloggedin = true;
         }
+        static String recebido;
 
         @Override
         public void run() {
-            String recebido;
+
             int recebeCasaY, recebeIndicePeca;
             float recebeCasaX;
+            Thread cliente = new Thread(() -> {
+                while (true) {
 
-            while (true) {
+                    try {
+                        recebido = dis.readUTF();
 
-                try {
-                    recebido = dis.readUTF();
-                    recebeCasaX = dis.readFloat();
-                    recebeCasaY = dis.readInt();
-                    recebeIndicePeca = dis.readInt();
-                    System.out.println(recebido);
-                    //System.out.println(recebido);
-                    if (recebido.endsWith("#logout")) {
-                        this.isloggedin = false;
-                        this.s.close();
-                        break; // while
+                        System.out.println(recebido);
+                        //System.out.println(recebido);
+                        if (recebido.endsWith("#logout")) {
+                            this.isloggedin = false;
+                            this.s.close();
+                            break; // while
+                        }
+
+                        StringTokenizer st = new StringTokenizer(recebido, "#chat");
+                        String receivingClient = null;
+                        try {
+                            receivingClient = st.nextToken();
+                        } catch (Exception e) {
+                        };
+                        String msg = null;
+                        try {
+                            msg = st.nextToken();
+                        } catch (Exception e) {
+                        };
+
+                        if (recebido.startsWith("#chat")) {
+                            for (ClientHandler client : TestaMultiServer.listaClientes) {
+                                if (!client.name.equals(name) && client.isloggedin) {
+                                    client.dos.writeUTF("#chat" + name + ": " + recebido);
+                                }
+
+                            }
+
+                        }
+
+                        if (recebido.startsWith("teste2")) {
+                            for (ClientHandler client : TestaMultiServer.listaClientes) {
+                                if (!client.name.equals(this.name)) {
+                                    client.dos.writeUTF("teste2" + name + ": " + msg);
+                                }
+                            }
+                        }
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
 
-                    for (ClientHandler mc : TestaMultiServer.listaClientes) {
-
-                        System.out.println("iei");
-                        // mc.dos.writeUTF(recebido);
-                        if(!recebido.contains(mc.name)){
-                        if (recebido.startsWith("azul")) {
-                            mc.dos.writeUTF("azul");
-                            mc.dos.writeFloat(recebeCasaX);
-                            mc.dos.writeInt(recebeCasaY);
-                            mc.dos.writeInt(recebeIndicePeca);
-                            mc.dos.writeUTF(mc.name);
-                            System.out.println("casa x" + recebeCasaX);
-                            System.out.println("casa y" + recebeCasaY);
-                            recebido = " "; break;
-                        }
-                        } else if (recebido.contains("vermelha")) {
-                            System.out.println("vermelha " +recebido);
-                            mc.dos.writeUTF("vermelha");
-                            mc.dos.writeFloat(recebeCasaX);
-                            mc.dos.writeInt(recebeCasaY);
-                            mc.dos.writeInt(recebeIndicePeca);
-                            
-                            recebido = " "; break;
-                        } else if (recebido.contains("clicouParaCima")) {
-                                  System.out.println(recebido);
-                            mc.dos.writeUTF("clicouParaCima");
-                            mc.dos.writeFloat(recebeCasaX);
-                            mc.dos.writeInt(recebeCasaY);
-                            mc.dos.writeInt(recebeIndicePeca);
-                            recebido = " "; break;
-                        }
-                        if (recebido.contains("#chat")) {
-      System.out.println(recebido);
-                            System.out.println(recebido);
-                            mc.dos.writeUTF("#chat" + recebido);
-                            recebido = " "; break;
-                        }
-
-                        break;
-
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
-
-            }
+            });
+            cliente.start();
 
         }
     }
 
 }
-
-
 
