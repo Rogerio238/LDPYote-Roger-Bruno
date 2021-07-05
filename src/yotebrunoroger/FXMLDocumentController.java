@@ -76,14 +76,12 @@ public class FXMLDocumentController implements Initializable, Runnable {
     private Ellipse bolaAzul9;
     private Color corVerde;
     final static int ServerPort = 1234;
-    @FXML
     private TextField meteNomeJogador;
 
     /**
      *
      */
     public static TextField meteNomeJogadorestatico;
-    @FXML
     private Button confirmaNome;
 
     /**
@@ -185,7 +183,6 @@ public class FXMLDocumentController implements Initializable, Runnable {
     private int rondas = 0;
     @FXML
     private Text textJogadorAtual;
-    @FXML
     private Label labelConectado;
     @FXML
     private Button buttonSair;
@@ -210,7 +207,6 @@ public class FXMLDocumentController implements Initializable, Runnable {
      *
      */
     public static Peca[] pecasAzuisEstatico;
-    @FXML
     private Label labelControlaJogador;
 
     /**
@@ -259,9 +255,11 @@ public class FXMLDocumentController implements Initializable, Runnable {
      *
      */
     public static Button botaoParaDireitaEstatico;
-    @FXML
     private Button botaoParaEsquerda;
     public static Button botaoParaEsquerdaEstatico;
+    @FXML
+    private Text pecascomidas1;
+    public static Text pecascomidas1Estatico;
     private void handleButtonAction(ActionEvent event) {
 
     }
@@ -273,6 +271,7 @@ public class FXMLDocumentController implements Initializable, Runnable {
     public void initialize(URL url, ResourceBundle rb) {
    
           atualizaJogo();   
+          pecascomidas1Estatico = pecascomidas1;
           botaoParaDireitaEstatico = botaoParaDireita;
           botaoParaEsquerdaEstatico = botaoParaEsquerda;
           botaoParaBaixoEstatico = botaoParaBaixo;

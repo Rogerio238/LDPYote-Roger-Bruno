@@ -32,9 +32,9 @@
             </GridPane>
             <HBox prefHeight="100.0" prefWidth="345.0" />
             <TextField fx:id="coordenadaNmr" layoutX="281.0" layoutY="799.0" />
-            <Text layoutX="374.0" layoutY="779.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número" />
-            <TextField fx:id="coordenadaLetra" layoutX="507.0" layoutY="792.0" />
-            <Text layoutX="535.0" layoutY="780.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Letra" />
+            <Text layoutX="374.0" layoutY="779.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X" />
+            <TextField fx:id="coordenadaLetra" layoutX="506.0" layoutY="799.0" />
+            <Text layoutX="591.0" layoutY="779.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Y" />
             <GridPane fx:id="pecasInicioVermelhas" gridLinesVisible="true" layoutX="801.0" layoutY="535.0" onMouseClicked="#clicouTabuleiro" prefHeight="107.0" prefWidth="453.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -87,13 +87,10 @@
             <Text fx:id="pecascomidas" layoutX="790.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
             <Button fx:id="botaoParaBaixo" layoutX="309.0" layoutY="129.0" mnemonicParsing="false" text="Baixo" />
             <Button fx:id="botaoParaDireita" layoutX="376.0" layoutY="129.0" mnemonicParsing="false" text="Direita" />
+            <Text fx:id="pecascomidas1" layoutX="797.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
          </children>
       </AnchorPane>
-      <TextField fx:id="meteNomeJogador" layoutX="459.0" layoutY="84.0" />
-      <Label fx:id="labelConectado" layoutX="460.0" layoutY="124.0" prefHeight="21.0" prefWidth="187.0" text="Label" />
-      <Button fx:id="confirmaNome" layoutX="666.0" layoutY="84.0" mnemonicParsing="false" text="Button" />
-      <Label fx:id="labelControlaJogador" layoutX="427.0" layoutY="25.0" prefHeight="21.0" prefWidth="231.0" text="Label" />
-      <HBox layoutX="942.0" layoutY="14.0" prefHeight="164.0" prefWidth="463.0">
+      <HBox layoutX="448.0" layoutY="30.0" prefHeight="164.0" prefWidth="463.0">
          <children>
             <VBox prefHeight="164.0" prefWidth="474.0">
                <children>

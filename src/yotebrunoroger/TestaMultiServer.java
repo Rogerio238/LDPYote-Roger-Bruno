@@ -157,6 +157,18 @@ public class TestaMultiServer {
                                 }
                             }
                         }
+                        try{
+                        if (receivingClient.contains("azul")) {
+                            for (ClientHandler client : TestaMultiServer.listaClientes) {
+                                if (!client.name.equals(this.name)) {
+                                    client.dos.writeUTF("ola");
+                                }
+                            }
+                        }
+                        }
+                        catch(NullPointerException e){
+                                
+                                }
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -170,4 +182,3 @@ public class TestaMultiServer {
     }
 
 }
-
