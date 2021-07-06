@@ -107,7 +107,7 @@ public class FXMLDocumentController implements Initializable, Runnable {
     private TextField coordenadaNmr;
     @FXML
     private TextField coordenadaLetra;
-    
+
     /**
      *
      */
@@ -127,12 +127,9 @@ public class FXMLDocumentController implements Initializable, Runnable {
     /**
      *
      */
-    
-
     /**
      *
      */
-    
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -156,7 +153,7 @@ public class FXMLDocumentController implements Initializable, Runnable {
     DataInputStream dis;
     DataOutputStream dos;
     boolean posNome = false;
-     ObjectInputStream oos ;
+    ObjectInputStream oos;
 
     /**
      *
@@ -177,16 +174,16 @@ public class FXMLDocumentController implements Initializable, Runnable {
      *
      * @return
      */
-  
+
     private InetAddress inet;
- String nomeJogador = " saddas";
+    String nomeJogador = " saddas";
     private int rondas = 0;
     @FXML
     private Text textJogadorAtual;
     private Label labelConectado;
     @FXML
     private Button buttonSair;
-    
+
     /**
      *
      */
@@ -213,7 +210,6 @@ public class FXMLDocumentController implements Initializable, Runnable {
      *
      */
     public static Label labelControlaJogadorEstatica;
-    @FXML
     private Button botaoParaCima;
 
     /**
@@ -229,7 +225,7 @@ public class FXMLDocumentController implements Initializable, Runnable {
     public static TextArea outputChatTextEstatico;
     @FXML
     private TextField inputChatText;
-    
+
     /**
      *
      */
@@ -241,14 +237,12 @@ public class FXMLDocumentController implements Initializable, Runnable {
      *
      */
     public static Text pecascomidasEstatico;
-    @FXML
     private Button botaoParaBaixo;
-    
+
     /**
      *
      */
     public static Button botaoParaBaixoEstatico;
-    @FXML
     private Button botaoParaDireita;
 
     /**
@@ -260,86 +254,84 @@ public class FXMLDocumentController implements Initializable, Runnable {
     @FXML
     private Text pecascomidas1;
     public static Text pecascomidas1Estatico;
+    @FXML
+    private Button botaoesquerdaEscolhe;
+    public static Button botaoEsquerdaEscolhe;
+
     private void handleButtonAction(ActionEvent event) {
 
     }
     private int pecasVermelhasColetadas = 0;
 
-   
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-   
-          atualizaJogo();   
-          pecascomidas1Estatico = pecascomidas1;
-          botaoParaDireitaEstatico = botaoParaDireita;
-          botaoParaEsquerdaEstatico = botaoParaEsquerda;
-          botaoParaBaixoEstatico = botaoParaBaixo;
-          pecascomidasEstatico=pecascomidas;
+
+        atualizaJogo();
+        pecascomidas1Estatico = pecascomidas1;
+        botaoParaDireitaEstatico = botaoParaDireita;
+        botaoParaEsquerdaEstatico = botaoParaEsquerda;
+        botaoParaBaixoEstatico = botaoParaBaixo;
+        pecascomidasEstatico = pecascomidas;
         confirmaNomeJogadorEstatico = confirmaNome;
         testaLabel = labelConectado;
-       pecasEstatico = pecas;
-      
-       gridEstatico = gridTabuleiro;
-       labelControlaJogadorEstatica = labelControlaJogador;
-       coordenadaEsquerdaEstatico = coordenadaNmr;
-       coordenadaDireitaEstatico = coordenadaLetra;
-       meteNomeJogadorestatico = meteNomeJogador;
-       pecasInicioAzulEstatico = pecasInicioAzul;
-       pecasInicioVermelhasEstatico = pecasInicioVermelhas;
-       textNomeJogador1Estatico = textNomeJogador1;
-       textNomeJogador2Estatico = textNomeJogador2;
-       botaoParacimaEstatico = botaoParaCima;
-       buttonSairEstatico = buttonSair;
-       inputChatTestEstatico = inputChatText;
-       outputChatTextEstatico = outputChatText;
-    }     
-       
-    /**
-     *
-     */
-    @Override
-public void run() {
-   
-  
-}
+        pecasEstatico = pecas;
+        botaoEsquerdaEscolhe = botaoesquerdaEscolhe;
+        gridEstatico = gridTabuleiro;
+        labelControlaJogadorEstatica = labelControlaJogador;
+        coordenadaEsquerdaEstatico = coordenadaNmr;
+        coordenadaDireitaEstatico = coordenadaLetra;
+        meteNomeJogadorestatico = meteNomeJogador;
+        pecasInicioAzulEstatico = pecasInicioAzul;
+        pecasInicioVermelhasEstatico = pecasInicioVermelhas;
+        textNomeJogador1Estatico = textNomeJogador1;
+        textNomeJogador2Estatico = textNomeJogador2;
+        botaoParacimaEstatico = botaoParaCima;
+        buttonSairEstatico = buttonSair;
+        inputChatTestEstatico = inputChatText;
+        outputChatTextEstatico = outputChatText;
+    }
 
     /**
      *
      */
-    public  void atualizaJogo(){
-        
-         
-     
-      
+    @Override
+    public void run() {
+
+    }
+
+    /**
+     *
+     */
+    public void atualizaJogo() {
+
         childrens = gridTabuleiro.getChildren();
         pecas = new Peca[24];
-      
-        peca1 = new Peca(Color.BLUE,"azul",0);
-        peca2 = new Peca(Color.BLUE,"azul",1);
-        peca3 = new Peca(Color.BLUE,"azul",2);
-        peca4 = new Peca(Color.BLUE,"azul",3);
-        peca5 = new Peca(Color.BLUE,"azul",4);
-        peca6 = new Peca(Color.BLUE,"azul",5);
-        peca7 = new Peca(Color.BLUE,"azul",6);
-        peca8 = new Peca(Color.BLUE,"azul",7);
-        peca9 = new Peca(Color.BLUE,"azul",8);
-        peca10 = new Peca(Color.BLUE,"azul",9);
-        peca11 = new Peca(Color.BLUE,"azul",10);
-        peca12 = new Peca(Color.BLUE,"azul",11);
-        peca1V = new Peca(Color.RED,"vermelha",12);
-        peca2V = new Peca(Color.RED,"vermelha",13);
-        peca3V = new Peca(Color.RED,"vermelha",14);
-        peca4V = new Peca(Color.RED,"vermelha",15);
-        peca5V = new Peca(Color.RED,"vermelha",16);
-        peca6V = new Peca(Color.RED,"vermelha",16);
-        peca7V = new Peca(Color.RED,"vermelha",17);
-        peca8V = new Peca(Color.RED,"vermelha",18);
-        peca9V = new Peca(Color.RED,"vermelha",19);
-        peca10V = new Peca(Color.RED,"vermelha",20);
-        peca11V = new Peca(Color.RED,"vermelha",21);
-        peca12V = new Peca(Color.RED,"vermelha",22);
-       
+
+        peca1 = new Peca(Color.BLUE, "azul", 0);
+        peca2 = new Peca(Color.BLUE, "azul", 1);
+        peca3 = new Peca(Color.BLUE, "azul", 2);
+        peca4 = new Peca(Color.BLUE, "azul", 3);
+        peca5 = new Peca(Color.BLUE, "azul", 4);
+        peca6 = new Peca(Color.BLUE, "azul", 5);
+        peca7 = new Peca(Color.BLUE, "azul", 6);
+        peca8 = new Peca(Color.BLUE, "azul", 7);
+        peca9 = new Peca(Color.BLUE, "azul", 8);
+        peca10 = new Peca(Color.BLUE, "azul", 9);
+        peca11 = new Peca(Color.BLUE, "azul", 10);
+        peca12 = new Peca(Color.BLUE, "azul", 11);
+        peca1V = new Peca(Color.RED, "vermelha", 12);
+        peca2V = new Peca(Color.RED, "vermelha", 13);
+        peca3V = new Peca(Color.RED, "vermelha", 14);
+        peca4V = new Peca(Color.RED, "vermelha", 15);
+        peca5V = new Peca(Color.RED, "vermelha", 16);
+        peca6V = new Peca(Color.RED, "vermelha", 16);
+        peca7V = new Peca(Color.RED, "vermelha", 17);
+        peca8V = new Peca(Color.RED, "vermelha", 18);
+        peca9V = new Peca(Color.RED, "vermelha", 19);
+        peca10V = new Peca(Color.RED, "vermelha", 20);
+        peca11V = new Peca(Color.RED, "vermelha", 21);
+        peca12V = new Peca(Color.RED, "vermelha", 22);
+
         pecas[0] = peca1;
         pecas[1] = peca2;
         pecas[2] = peca3;
@@ -353,18 +345,18 @@ public void run() {
         pecas[10] = peca11;
         pecas[11] = peca11;
         pecas[12] = peca1V;
-         pecas[13] = peca2V;
+        pecas[13] = peca2V;
         pecas[14] = peca3V;
         pecas[15] = peca4V;
-         pecas[16] = peca5V;
+        pecas[16] = peca5V;
         pecas[17] = peca6V;
         pecas[18] = peca7V;
-         pecas[19] = peca8V;
+        pecas[19] = peca8V;
         pecas[20] = peca9V;
         pecas[21] = peca10V;
-         pecas[22] = peca11V;
+        pecas[22] = peca11V;
         pecas[23] = peca12V;
-        
+
         pecasInicioAzul.add(peca1.getForma(), 0, 0);
         pecasInicioAzul.add(peca2.getForma(), 0, 1);
         pecasInicioAzul.add(peca3.getForma(), 1, 1);
@@ -377,8 +369,7 @@ public void run() {
         pecasInicioAzul.add(peca10.getForma(), 4, 0);
         pecasInicioAzul.add(peca11.getForma(), 5, 1);
         pecasInicioAzul.add(peca12.getForma(), 5, 0);
-       
-      
+
         pecasInicioVermelhas.add(peca1V.getForma(), 0, 0);
         pecasInicioVermelhas.add(peca2V.getForma(), 0, 1);
         pecasInicioVermelhas.add(peca3V.getForma(), 1, 1);
@@ -395,28 +386,22 @@ public void run() {
         textNomeJogador1.setText(peca1.getId());
         gridTabuleiro.setGridLinesVisible(true);
 
-        
-       
     }
-   
 
     private void pecasClicaveis() {
-
 
     }
 
     private void pecasClicaveisVermelhas() {
 
-
     }
 
-   
     private void clicouPecaAzul1(MouseEvent event) {
         try {
             bolaAzul1.setStroke(Color.GREEN);
             clicou = true;
             gridTabuleiro.add(bolaAzul1, Integer.parseInt(coordenadaNmr.getText()), Integer.parseInt(coordenadaLetra.getText()));
-         
+
         } catch (Exception e) {
 
         }
@@ -427,12 +412,14 @@ public void run() {
     private void clicouTabuleiro(MouseEvent event) {
 
     }
-  
+
     @FXML
     private void botaoClicouSair(MouseEvent event) {
-        
+
     }
 
+    @FXML
+    private void esquerdaBotao(ActionEvent event) {
+    }
 
-    
 }

@@ -83,11 +83,9 @@
             </GridPane>
             <Text fx:id="textJogadorAtual" layoutX="437.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="139.6708984375" />
             <Button fx:id="buttonSair" layoutX="1028.0" layoutY="799.0" mnemonicParsing="false" onMouseClicked="#botaoClicouSair" text="Sair" />
-            <Button id="#ipad-grey" fx:id="botaoParaCima" layoutX="242.0" layoutY="129.0" mnemonicParsing="false" text="Cima" />
             <Text fx:id="pecascomidas" layoutX="790.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-            <Button fx:id="botaoParaBaixo" layoutX="309.0" layoutY="129.0" mnemonicParsing="false" text="Baixo" />
-            <Button fx:id="botaoParaDireita" layoutX="376.0" layoutY="129.0" mnemonicParsing="false" text="Direita" />
             <Text fx:id="pecascomidas1" layoutX="797.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+            <Button fx:id="botaoesquerdaEscolhe" layoutX="288.0" layoutY="134.0" mnemonicParsing="false" onAction="#esquerdaBotao" text="Esquerda" />
          </children>
       </AnchorPane>
       <HBox layoutX="448.0" layoutY="30.0" prefHeight="164.0" prefWidth="463.0">
