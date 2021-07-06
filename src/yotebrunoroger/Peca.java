@@ -5,6 +5,7 @@
  */
 package yotebrunoroger;
 
+import java.io.Serializable;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
@@ -25,13 +26,13 @@ enum pecaCor {
  *
  * @author senho
  */
-public class Peca {
+public class Peca implements Serializable{
     private pecaCor corPeca;
     private boolean estadentro=false;
-    private Ellipse forma;
+    private transient Ellipse forma;
     private Color corEscolhida; 
     private int x,y=-1;
-    private int id;
+    private String id;
     private int idAtual = 0;
     private String stringId;
 
@@ -39,14 +40,13 @@ public class Peca {
      *
      * @param cor
      */
-    public Peca(Color cor){
+    public Peca(Color cor,String id){
        
-        id++;
-        idAtual = id;
+       
         forma = new Ellipse((double)30,(double)30);
         forma.setFill(cor);
        
-        stringId = Integer.toString(id);
+        this.id = id;
         forma.setVisible(true);
     }
     

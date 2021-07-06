@@ -122,17 +122,17 @@ public class FXMLDocumentController implements Initializable, Runnable {
     /**
      *
      */
-    public Peca[] pecasAzuis;
+    public Peca[] pecas;
 
     /**
      *
      */
-    public Peca[] pecasVermelhas;
+    
 
     /**
      *
      */
-    public static Peca[] pecasVermelhasEstatico;
+    
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -206,7 +206,7 @@ public class FXMLDocumentController implements Initializable, Runnable {
     /**
      *
      */
-    public static Peca[] pecasAzuisEstatico;
+    public static Peca[] pecasEstatico;
     private Label labelControlaJogador;
 
     /**
@@ -278,8 +278,8 @@ public class FXMLDocumentController implements Initializable, Runnable {
           pecascomidasEstatico=pecascomidas;
         confirmaNomeJogadorEstatico = confirmaNome;
         testaLabel = labelConectado;
-       pecasAzuisEstatico = pecasAzuis;
-       pecasVermelhasEstatico = pecasVermelhas;
+       pecasEstatico = pecas;
+      
        gridEstatico = gridTabuleiro;
        labelControlaJogadorEstatica = labelControlaJogador;
        coordenadaEsquerdaEstatico = coordenadaNmr;
@@ -313,36 +313,58 @@ public void run() {
      
       
         childrens = gridTabuleiro.getChildren();
-        pecasAzuis = new Peca[12];
-        pecasVermelhas = new Peca[12];
-        arraytabuleiro = new int[4][5];
-        peca1 = new Peca(Color.BLUE);
-        peca2 = new Peca(Color.BLUE);
-        peca3 = new Peca(Color.BLUE);
-        peca4 = new Peca(Color.BLUE);
-        peca5 = new Peca(Color.BLUE);
-        peca6 = new Peca(Color.BLUE);
-        peca7 = new Peca(Color.BLUE);
-        peca8 = new Peca(Color.BLUE);
-        peca9 = new Peca(Color.BLUE);
-        peca10 = new Peca(Color.BLUE);
-        peca11 = new Peca(Color.BLUE);
-        peca12 = new Peca(Color.BLUE);
-        p1 = new Player("PLAYER 1", pecasAzuis, 0);
-        p2 = new Player("PLAYER 2", pecasVermelhas, 0);
-        pecasAzuis[0] = peca1;
-        pecasAzuis[1] = peca2;
-        pecasAzuis[2] = peca3;
-        pecasAzuis[3] = peca4;
-        pecasAzuis[4] = peca5;
-        pecasAzuis[5] = peca6;
-        pecasAzuis[6] = peca7;
-        pecasAzuis[7] = peca8;
-        pecasAzuis[8] = peca9;
-        pecasAzuis[9] = peca10;
-        pecasAzuis[10] = peca11;
-        pecasAzuis[11] = peca11;
-
+        pecas = new Peca[24];
+      
+        peca1 = new Peca(Color.BLUE,"azul");
+        peca2 = new Peca(Color.BLUE,"azul");
+        peca3 = new Peca(Color.BLUE,"azul");
+        peca4 = new Peca(Color.BLUE,"azul");
+        peca5 = new Peca(Color.BLUE,"azul");
+        peca6 = new Peca(Color.BLUE,"azul");
+        peca7 = new Peca(Color.BLUE,"azul");
+        peca8 = new Peca(Color.BLUE,"azul");
+        peca9 = new Peca(Color.BLUE,"azul");
+        peca10 = new Peca(Color.BLUE,"azul");
+        peca11 = new Peca(Color.BLUE,"azul");
+        peca12 = new Peca(Color.BLUE,"azul");
+        peca1V = new Peca(Color.RED,"vermelha");
+        peca2V = new Peca(Color.RED,"vermelha");
+        peca3V = new Peca(Color.RED,"vermelha");
+        peca4V = new Peca(Color.RED,"vermelha");
+        peca5V = new Peca(Color.RED,"vermelha");
+        peca6V = new Peca(Color.RED,"vermelha");
+        peca7V = new Peca(Color.RED,"vermelha");
+        peca8V = new Peca(Color.RED,"vermelha");
+        peca9V = new Peca(Color.RED,"vermelha");
+        peca10V = new Peca(Color.RED,"vermelha");
+        peca11V = new Peca(Color.RED,"vermelha");
+        peca12V = new Peca(Color.RED,"vermelha");
+       
+        pecas[0] = peca1;
+        pecas[1] = peca2;
+        pecas[2] = peca3;
+        pecas[3] = peca4;
+        pecas[4] = peca5;
+        pecas[5] = peca6;
+        pecas[6] = peca7;
+        pecas[7] = peca8;
+        pecas[8] = peca9;
+        pecas[9] = peca10;
+        pecas[10] = peca11;
+        pecas[11] = peca11;
+        pecas[12] = peca1V;
+         pecas[13] = peca2V;
+        pecas[14] = peca3V;
+        pecas[15] = peca4V;
+         pecas[16] = peca5V;
+        pecas[17] = peca6V;
+        pecas[18] = peca7V;
+         pecas[19] = peca8V;
+        pecas[20] = peca9V;
+        pecas[21] = peca10V;
+         pecas[22] = peca11V;
+        pecas[23] = peca12V;
+        
         pecasInicioAzul.add(peca1.getForma(), 0, 0);
         pecasInicioAzul.add(peca2.getForma(), 0, 1);
         pecasInicioAzul.add(peca3.getForma(), 1, 1);
@@ -355,30 +377,8 @@ public void run() {
         pecasInicioAzul.add(peca10.getForma(), 4, 0);
         pecasInicioAzul.add(peca11.getForma(), 5, 1);
         pecasInicioAzul.add(peca12.getForma(), 5, 0);
-        peca1V = new Peca(Color.RED);
-        peca2V = new Peca(Color.RED);
-        peca3V = new Peca(Color.RED);
-        peca4V = new Peca(Color.RED);
-        peca5V = new Peca(Color.RED);
-        peca6V = new Peca(Color.RED);
-        peca7V = new Peca(Color.RED);
-        peca8V = new Peca(Color.RED);
-        peca9V = new Peca(Color.RED);
-        peca10V = new Peca(Color.RED);
-        peca11V = new Peca(Color.RED);
-        peca12V = new Peca(Color.RED);
-        pecasVermelhas[0] = peca1V;
-        pecasVermelhas[1] = peca2V;
-        pecasVermelhas[2] = peca3V;
-        pecasVermelhas[3] = peca4V;
-        pecasVermelhas[4] = peca5V;
-        pecasVermelhas[5] = peca6V;
-        pecasVermelhas[6] = peca7V;
-        pecasVermelhas[7] = peca8V;
-        pecasVermelhas[8] = peca9V;
-        pecasVermelhas[9] = peca10V;
-        pecasVermelhas[10] = peca11V;
-        pecasVermelhas[11] = peca11V;
+       
+      
         pecasInicioVermelhas.add(peca1V.getForma(), 0, 0);
         pecasInicioVermelhas.add(peca2V.getForma(), 0, 1);
         pecasInicioVermelhas.add(peca3V.getForma(), 1, 1);
@@ -410,15 +410,7 @@ public void run() {
 
     }
 
-    /**
-     *
-     * @param x
-     * @param y
-     */
-    public void posicionaUmaPeca(int x, int y){
-        arraytabuleiro[x][y] = 1;
-        gridTabuleiro.add(pecasAzuis[0].getForma(), x, y);
-    }
+   
     private void clicouPecaAzul1(MouseEvent event) {
         try {
             bolaAzul1.setStroke(Color.GREEN);
