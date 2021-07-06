@@ -27,8 +27,10 @@ import javafx.stage.Stage;
 public class Sample implements Serializable
 {
 int posArray;
+int posArrayVermelha;
 int posX;
 int posY;
+boolean come;
 }
 
 

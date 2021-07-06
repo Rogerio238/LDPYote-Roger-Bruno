@@ -32,6 +32,7 @@ public class Peca implements Serializable{
     private transient Ellipse forma;
     private Color corEscolhida; 
     private int x,y=-1;
+    private int idArray;
     private String id;
     private int idAtual = 0;
     private String stringId;
@@ -40,12 +41,12 @@ public class Peca implements Serializable{
      *
      * @param cor
      */
-    public Peca(Color cor,String id){
+    public Peca(Color cor,String id, int idArray){
        
        
         forma = new Ellipse((double)30,(double)30);
         forma.setFill(cor);
-       
+       this.idArray = idArray;
         this.id = id;
         forma.setVisible(true);
     }
@@ -72,6 +73,10 @@ public class Peca implements Serializable{
      */
     public String getId(){
         return id;
+    }
+    
+    public int getIdArray(){
+        return idArray;
     }
 
     /**

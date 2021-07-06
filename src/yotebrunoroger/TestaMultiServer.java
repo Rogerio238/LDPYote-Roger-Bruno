@@ -54,8 +54,8 @@ public class TestaMultiServer {
                         DataInputStream dis = new DataInputStream(s.getInputStream());
                         DataOutputStream dos = new DataOutputStream(s.getOutputStream());
                         ObjectInputStream in = new ObjectInputStream(s.getInputStream());
-                          ObjectOutputStream  objOut = new   ObjectOutputStream(s.getOutputStream());
-                        ClientHandler mtch = new ClientHandler(s, "client " + i, dis, dos, i, in,objOut);
+                        ObjectOutputStream objOut = new ObjectOutputStream(s.getOutputStream());
+                        ClientHandler mtch = new ClientHandler(s, "client " + i, dis, dos, i, in, objOut);
 
                         Thread t = new Thread(mtch);
 
@@ -100,9 +100,10 @@ public class TestaMultiServer {
         boolean isloggedin;
         final int id;
         ObjectInputStream in;
-        ObjectOutputStream  objOut;
+        ObjectOutputStream objOut;
+
         private ClientHandler(Socket s, String string,
-                DataInputStream dis, DataOutputStream dos, int id, ObjectInputStream in, ObjectOutputStream  objOut) {
+                DataInputStream dis, DataOutputStream dos, int id, ObjectInputStream in, ObjectOutputStream objOut) {
             this.s = s;
             this.dis = dis;
             this.dos = dos;
@@ -113,19 +114,20 @@ public class TestaMultiServer {
             this.objOut = objOut;
         }
         static String recebido;
-        static Sample obj1;    
+        static Sample obj1;
+
         @Override
         public void run() {
 
             int recebeCasaY, recebeIndicePeca;
             float recebeCasaX;
-            
+
             Thread cliente = new Thread(() -> {
                 while (true) {
 
                     try {
                         recebido = dis.readUTF();
-                        
+
                         System.out.println(recebido);
                         //System.out.println(recebido);
                         if (recebido.endsWith("#logout")) {
@@ -145,17 +147,29 @@ public class TestaMultiServer {
                             msg = st.nextToken();
                         } catch (Exception e) {
                         };
-                          if (recebido.startsWith("#obj")) {
-                              obj1=(Sample)in.readObject();
-                        System.out.println("x" + obj1.posX + "y" + obj1.posY);
-                         for (ClientHandler client : TestaMultiServer.listaClientes) {
+                        if (recebido.startsWith("#obj")) {
+                            obj1 = (Sample) in.readObject();
+                            System.out.println("x" + obj1.posX + "y" + obj1.posY);
+                            for (ClientHandler client : TestaMultiServer.listaClientes) {
                                 if (!client.name.equals(name) && client.isloggedin) {
                                     client.dos.writeUTF("#obj");
                                     client.objOut.writeObject(obj1);
                                 }
 
                             }
-                          }
+                        }
+
+                        if (recebido.startsWith("#objMove")) {
+                            obj1 = (Sample) in.readObject();
+                            System.out.println("x" + obj1.posX + "y" + obj1.posY + "vermelha " + obj1.posArrayVermelha);
+                            for (ClientHandler client : TestaMultiServer.listaClientes) {
+                                if (!client.name.equals(name) && client.isloggedin) {
+                                    client.dos.writeUTF("#objMove");
+                                    client.objOut.writeObject(obj1);
+                                }
+
+                            }
+                        }
                         if (recebido.startsWith("#chat")) {
                             for (ClientHandler client : TestaMultiServer.listaClientes) {
                                 if (!client.name.equals(name) && client.isloggedin) {
@@ -173,24 +187,23 @@ public class TestaMultiServer {
                                 }
                             }
                         }
-                        try{
-                        if (receivingClient.contains("azul")) {
-                            for (ClientHandler client : TestaMultiServer.listaClientes) {
-                                if (!client.name.equals(this.name)) {
-                                    client.dos.writeUTF("ola");
+                        try {
+                            if (receivingClient.contains("azul")) {
+                                for (ClientHandler client : TestaMultiServer.listaClientes) {
+                                    if (!client.name.equals(this.name)) {
+                                        client.dos.writeUTF("ola");
+                                    }
                                 }
                             }
+                        } catch (NullPointerException e) {
+
                         }
-                        }
-                        catch(NullPointerException e){
-                                
-                                }
 
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(TestaMultiServer.class.getName()).log(Level.SEVERE, null, ex);
-                    } 
+                    }
 
                 }
             });
