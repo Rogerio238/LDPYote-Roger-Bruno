@@ -71,7 +71,7 @@ public class Peca implements Serializable{
      * @return
      */
     public String getId(){
-        return stringId;
+        return id;
     }
 
     /**
