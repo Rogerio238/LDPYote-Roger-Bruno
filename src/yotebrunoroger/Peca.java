@@ -40,6 +40,8 @@ public class Peca implements Serializable{
     /**
      *
      * @param cor
+     * @param id
+     * @param idArray
      */
     public Peca(Color cor,String id, int idArray){
        
@@ -75,6 +77,10 @@ public class Peca implements Serializable{
         return id;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getIdArray(){
         return idArray;
     }

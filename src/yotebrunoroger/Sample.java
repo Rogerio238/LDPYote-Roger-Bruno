@@ -20,7 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
- *
+ *Classe simples que representa um objeto genérico que implmenta a interface Serializable
  * @author senho
  */
 
@@ -30,7 +30,11 @@ int posArray;
 int posArrayVermelha;
 int posX;
 int posY;
+int posXAnterior;
+int posYAnterior;
 boolean come;
+String nomePlayer;
+
 }
 
 

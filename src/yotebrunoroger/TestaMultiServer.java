@@ -67,7 +67,7 @@ public class TestaMultiServer {
 
                         if (mtch.name == t.getName()) {
 
-                            dos.writeUTF("nome" + mtch.name);
+                            dos.writeUTF(mtch.name);
 
                         }
 
@@ -157,36 +157,23 @@ public class TestaMultiServer {
                                 }
 
                             }
+                            
+                            
+                            
                         }
-
-                        if (recebido.startsWith("#objMove")) {
+                        
+                        if (recebido.startsWith("#chat")) {
                             obj1 = (Sample) in.readObject();
-                            System.out.println("x" + obj1.posX + "y" + obj1.posY + "vermelha " + obj1.posArrayVermelha);
                             for (ClientHandler client : TestaMultiServer.listaClientes) {
                                 if (!client.name.equals(name) && client.isloggedin) {
-                                    client.dos.writeUTF("#objMove");
+                                    client.dos.writeUTF("#chat" + name + ": " + recebido);
                                     client.objOut.writeObject(obj1);
                                 }
 
                             }
-                        }
-                        if (recebido.startsWith("#chat")) {
-                            for (ClientHandler client : TestaMultiServer.listaClientes) {
-                                if (!client.name.equals(name) && client.isloggedin) {
-                                    client.dos.writeUTF("#chat" + name + ": " + recebido);
-                                }
-
-                            }
 
                         }
 
-                        if (recebido.startsWith("teste2")) {
-                            for (ClientHandler client : TestaMultiServer.listaClientes) {
-                                if (!client.name.equals(this.name)) {
-                                    client.dos.writeUTF("teste2" + name + ": " + msg);
-                                }
-                            }
-                        }
                         try {
                             if (receivingClient.contains("azul")) {
                                 for (ClientHandler client : TestaMultiServer.listaClientes) {

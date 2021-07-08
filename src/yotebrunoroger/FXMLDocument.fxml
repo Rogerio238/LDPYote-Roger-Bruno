@@ -11,9 +11,9 @@
 
 <AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="1081.0" prefWidth="1483.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yotebrunoroger.FXMLDocumentController">
    <children>
-      <AnchorPane id="gridpane" fx:id="escondeAnchor" layoutX="21.0" layoutY="145.0" prefHeight="864.0" prefWidth="1380.0">
+      <AnchorPane id="gridpane" fx:id="escondeAnchor" layoutX="61.0" layoutY="198.0" prefHeight="864.0" prefWidth="1380.0">
          <children>
-            <GridPane id="#gridpane" fx:id="gridTabuleiro" gridLinesVisible="true" layoutX="227.0" layoutY="199.0" prefHeight="443.0" prefWidth="524.0">
+            <GridPane id="#gridpane" fx:id="gridTabuleiro" gridLinesVisible="true" layoutX="227.0" layoutY="199.0" prefHeight="443.0" prefWidth="524.0" AnchorPane.bottomAnchor="222.0" AnchorPane.leftAnchor="227.0" AnchorPane.rightAnchor="629.0" AnchorPane.topAnchor="199.0">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -31,11 +31,11 @@
               </rowConstraints>
             </GridPane>
             <HBox prefHeight="100.0" prefWidth="345.0" />
-            <TextField fx:id="coordenadaNmr" layoutX="281.0" layoutY="799.0" />
+            <TextField fx:id="coordenadaNmr" layoutX="360.0" layoutY="799.0" prefHeight="31.0" prefWidth="45.0" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="975.0" AnchorPane.topAnchor="799.0" />
             <Text layoutX="374.0" layoutY="779.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X" />
-            <TextField fx:id="coordenadaLetra" layoutX="506.0" layoutY="799.0" />
+            <TextField fx:id="coordenadaLetra" layoutX="573.0" layoutY="799.0" prefHeight="31.0" prefWidth="45.0" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="573.0" AnchorPane.rightAnchor="762.0" AnchorPane.topAnchor="799.0" />
             <Text layoutX="591.0" layoutY="779.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Y" />
-            <GridPane fx:id="pecasInicioVermelhas" gridLinesVisible="true" layoutX="801.0" layoutY="535.0" onMouseClicked="#clicouTabuleiro" prefHeight="107.0" prefWidth="453.0">
+            <GridPane fx:id="pecasInicioVermelhas" gridLinesVisible="true" layoutX="801.0" layoutY="535.0" onMouseClicked="#clicouTabuleiro" prefHeight="107.0" prefWidth="453.0" AnchorPane.bottomAnchor="558.0" AnchorPane.rightAnchor="133.0" AnchorPane.topAnchor="199.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -63,11 +63,11 @@
             <Text layoutX="433.0" layoutY="691.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
             <Text layoutX="345.0" layoutY="691.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
             <Text layoutX="259.0" layoutY="690.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-            <Text fx:id="textNomeJogador2" layoutX="1060.0" layoutY="451.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-            <Text layoutX="922.0" layoutY="448.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jogador - " wrappingWidth="98.6708984375" />
+            <Text fx:id="textNomeJogador2" layoutX="1060.0" layoutY="459.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="1060.0" AnchorPane.rightAnchor="292.3291015625" AnchorPane.topAnchor="443.0" />
+            <Text layoutX="935.0" layoutY="459.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jogador - " wrappingWidth="98.6708984375" AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="935.0" AnchorPane.rightAnchor="346.3291015625" AnchorPane.topAnchor="443.0" />
             <Text fx:id="textNomeJogador1" layoutX="1060.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
             <Text layoutX="935.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jogador - " wrappingWidth="98.6708984375" />
-            <GridPane fx:id="pecasInicioAzul" gridLinesVisible="true" layoutX="794.0" layoutY="199.0" onMouseClicked="#clicouTabuleiro" prefHeight="107.0" prefWidth="453.0">
+            <GridPane fx:id="pecasInicioAzul" gridLinesVisible="true" layoutX="794.0" layoutY="536.0" onMouseClicked="#clicouTabuleiro" prefHeight="107.0" prefWidth="453.0" AnchorPane.bottomAnchor="221.0" AnchorPane.rightAnchor="133.0" AnchorPane.topAnchor="536.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -83,13 +83,13 @@
             </GridPane>
             <Text fx:id="textJogadorAtual" layoutX="437.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="139.6708984375" />
             <Button fx:id="buttonSair" layoutX="1028.0" layoutY="799.0" mnemonicParsing="false" onMouseClicked="#botaoClicouSair" text="Sair" />
-            <Text fx:id="pecascomidas" layoutX="790.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12" />
-            <Text fx:id="pecascomidas1" layoutX="797.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12" />
-            <Button fx:id="botaoesquerdaEscolhe" layoutX="288.0" layoutY="134.0" mnemonicParsing="false" onAction="#esquerdaBotao" text="Esquerda" />
-            <Button fx:id="buttonBaixo" layoutX="401.0" layoutY="134.0" mnemonicParsing="false" text="Baixo" />
+            <Text fx:id="pecascomidas" layoutX="794.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12" AnchorPane.bottomAnchor="526.0" AnchorPane.leftAnchor="794.0" AnchorPane.rightAnchor="569.828125" AnchorPane.topAnchor="317.0" />
+            <Text fx:id="pecascomidas1" layoutX="794.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12" AnchorPane.bottomAnchor="343.0" AnchorPane.leftAnchor="794.0" AnchorPane.rightAnchor="569.828125" AnchorPane.topAnchor="500.0" />
+            <Button fx:id="botaoesquerdaEscolhe" layoutX="246.0" layoutY="135.0" mnemonicParsing="false" onAction="#esquerdaBotao" prefHeight="31.0" prefWidth="99.0" text="Esquerda" AnchorPane.bottomAnchor="698.0" AnchorPane.leftAnchor="246.0" AnchorPane.rightAnchor="1035.0" AnchorPane.topAnchor="135.0" />
+            <Button fx:id="buttonBaixo" layoutX="350.0" layoutY="135.0" mnemonicParsing="false" text="Baixo" AnchorPane.bottomAnchor="698.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="974.0" AnchorPane.topAnchor="135.0" />
          </children>
       </AnchorPane>
-      <HBox layoutX="448.0" layoutY="30.0" prefHeight="164.0" prefWidth="463.0">
+      <HBox fx:id="boxChat" layoutX="460.0" layoutY="34.0" prefHeight="164.0" prefWidth="463.0">
          <children>
             <VBox prefHeight="164.0" prefWidth="474.0">
                <children>
@@ -98,6 +98,11 @@
                   <TextField fx:id="inputChatText" prefHeight="51.0" prefWidth="463.0" promptText="Inserir texto aqui" />
                </children>
             </VBox>
+         </children>
+      </HBox>
+      <HBox fx:id="boxNome" layoutX="558.0" layoutY="595.0" prefHeight="134.0" prefWidth="320.0">
+         <children>
+            <TextField fx:id="textNome" />
          </children>
       </HBox>
    </children>

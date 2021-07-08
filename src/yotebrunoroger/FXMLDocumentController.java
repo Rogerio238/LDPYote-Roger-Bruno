@@ -40,6 +40,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
@@ -146,6 +147,7 @@ public class FXMLDocumentController implements Initializable, Runnable {
      */
     @FXML
     public AnchorPane escondeAnchor;
+    public static AnchorPane escondeAnchorEstatico;
     private boolean jogador1Jogou = false;
     private boolean jogador2Jogou = false;
     private ServerSocket ss;
@@ -250,17 +252,45 @@ public class FXMLDocumentController implements Initializable, Runnable {
      */
     public static Button botaoParaDireitaEstatico;
     private Button botaoParaEsquerda;
+
+    /**
+     *
+     */
     public static Button botaoParaEsquerdaEstatico;
     @FXML
     private Text pecascomidas1;
+
+    /**
+     *
+     */
     public static Text pecascomidas1EstaticoVermelho;
     @FXML
     private Button botaoesquerdaEscolhe;
+
+    /**
+     *
+     */
     public static Button botaoEsquerdaEscolhe;
     @FXML
     private Button buttonBaixo;
 
+    /**
+     *
+     */
     public static Button buttonBaixoEstatico;
+    @FXML
+    private HBox boxChat;
+    public static HBox boxChatEstatico;
+    @FXML
+    private HBox boxNome;
+    public static HBox boxNomeEstatico;
+    @FXML
+    private TextField textNome;
+
+    /**
+     *
+     */
+    public static TextField textNomeEstaticoPrimeiro;
     private void handleButtonAction(ActionEvent event) {
 
     }
@@ -270,8 +300,12 @@ public class FXMLDocumentController implements Initializable, Runnable {
     public void initialize(URL url, ResourceBundle rb) {
 
         atualizaJogo();
+        escondeAnchorEstatico = escondeAnchor;
+        boxChatEstatico = boxChat;
+        boxNomeEstatico = boxNome;
         pecascomidas1EstaticoVermelho = pecascomidas1;
         buttonBaixoEstatico = buttonBaixo;
+        textNomeEstaticoPrimeiro = textNome;
         botaoParaDireitaEstatico = botaoParaDireita;
         botaoParaEsquerdaEstatico = botaoParaEsquerda;
         botaoParaBaixoEstatico = botaoParaBaixo;
@@ -307,7 +341,8 @@ public class FXMLDocumentController implements Initializable, Runnable {
      *
      */
     public void atualizaJogo() {
-
+escondeAnchor.setVisible(false);
+boxChat.setVisible(false);
         childrens = gridTabuleiro.getChildren();
         pecas = new Peca[24];
 
