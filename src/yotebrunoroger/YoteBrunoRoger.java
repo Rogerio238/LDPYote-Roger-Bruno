@@ -211,7 +211,13 @@ public class YoteBrunoRoger extends Application {
                 p.getForma().setOnMousePressed(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        p.getForma().setStroke(Color.BLACK);
+                       if(p.getId().equals("azul")){
+                        p.getForma().setStroke(Color.DARKBLUE);
+                         p.getForma().setStrokeWidth(6);
+                       }else{
+                            p.getForma().setStroke(Color.DARKRED);
+                         p.getForma().setStrokeWidth(6);
+                       }
                         System.out.println("olhaa aquiiiii " + p.getId());
                         System.out.println("vem do cliente");
                         if (p.getEstadentro() == false) {
